@@ -1,0 +1,16 @@
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom right, #FFCE00, #FE4880);
+    color: white
+  }
+  
+  .nav-links{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+  }
