@@ -9,7 +9,7 @@ function Nav() {
 
     return (
         <div>
-            <nav>
+            <nav className="nav">
                 <ul className="nav-links">
                     <Link to="/login" style={navStyle} >
                         <li>Login</li>
