@@ -4,6 +4,7 @@ import Login from './components/login/login'
 import Register from './components/register/register'
 import React from 'react'
 import NavBar from './components/NavBar/NavBar'
+import HomePage from './components/HomePage/homePage'
 function App() {
   return (
     <Router>
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" exact component={Nav} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/homePage" component={HomePage} />
       </Switch>
     </Router>
 
