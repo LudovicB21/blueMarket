@@ -5,6 +5,7 @@ import * as BiIcons from "react-icons/bi"
 import * as CgIcons from "react-icons/cg"
 import * as SiIcons from "react-icons/si"
 import * as FiIcons from "react-icons/fi"
+import * as IoIcons from "react-icons/io"
 
 
 export const SidebarData = [
@@ -18,6 +19,12 @@ export const SidebarData = [
         title: 'Fridge',
         path: '/fridge',
         icon: <BiIcons.BiFridge />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Scan',
+        path: '/scan',
+        icon: <IoIcons.IoMdQrScanner />,
         cName: 'nav-text'
     },
     {

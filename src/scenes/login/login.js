@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "../../assets/form/form.css"
 import Checkbox from '@material-ui/core/Checkbox';
-import HomePage from "../HomePage/homePage"
 import { Redirect } from "react-router-dom"
 
 function Login() {

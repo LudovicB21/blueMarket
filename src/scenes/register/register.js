@@ -3,7 +3,7 @@ import HomePage from "../HomePage/homePage"
 
 function Register() {
 
-    const [details, setDetails] = useState({ firstname: "", lastname: "", email: "", password: "" });
+    const [details, setDetails] = useState({ firstname: "", lastname: "", email: "", frigo: "", password: "" });
     const [user, setUser] = useState({ name: "", email: "" });
     const [error, setError] = useState("");
 
@@ -53,6 +53,10 @@ function Register() {
                             <div className="form-group">
                                 <label htmlFor="email"> Email: </label>
                                 <input type="email" email="email" id="email" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="frigo"> Volume de stockage de votre frigo ( en L ) : </label>
+                                <input type="text" frigo="frigo" id="frigo" onChange={e => setDetails({ ...details, frigo: e.target.value })} value={details.frigo} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="password"> Password: </label>
