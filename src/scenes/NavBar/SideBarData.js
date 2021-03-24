@@ -13,48 +13,49 @@ export const SidebarData = [
         title: 'Home',
         path: '/homePage',
         icon: <AiIcons.AiFillHome />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        role: 3
     },
     {
         title: 'Fridge',
         path: '/fridge',
         icon: <BiIcons.BiFridge />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        role: 0
     },
     {
         title: 'Scan',
         path: '/scan',
         icon: <IoIcons.IoMdQrScanner />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        role: 0
     },
     {
         title: 'Profile',
         path: '/profile',
         icon: <CgIcons.CgProfile />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        role: 3
     },
     {
         title: 'Market',
         path: '/market',
         icon: <SiIcons.SiMarketo />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        role: 1
     },
     {
         title: 'Products',
         path: '/products',
         icon: <FaIcons.FaCartPlus />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        role: [1, 2]
     },
     {
-        title: 'Login',
+        title: 'Logout',
         path: '/login',
-        icon: <FiIcons.FiLogIn />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Register',
-        path: '/register',
-        icon: <FaIcons.FaRegistered />,
-        cName: 'nav-text'
-    },
+        icon: <FiIcons.FiLogOut />,
+        cName: 'nav-text',
+        role: 3
+    }
 ]

@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import * as FaIcons from "react-icons/fa"
 import * as AiIcons from "react-icons/ai"
 import { Link } from 'react-router-dom'
 import { SidebarData } from './SideBarData'
 import './Navbar.css'
+import ThemeContext from "../../store/userStore"
 
 function NavBar() {
     const [sidebar, setSidebar] = useState(false)
     const showSidebar = () => setSidebar(!sidebar)
+
+    const contextValue = useContext(ThemeContext);
+    console.log(contextValue)
+
     return (
         <>
             <div className="navbar">

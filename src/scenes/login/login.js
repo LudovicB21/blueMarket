@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../assets/form/form.css"
+//import "../../assets/form/form.css"
 import Checkbox from '@material-ui/core/Checkbox';
 import { Redirect } from "react-router-dom"
 

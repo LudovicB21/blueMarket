@@ -10,16 +10,17 @@ import DetailsProducts from './scenes/Producteur/Details'
 import { Button, Grid, InputAdornment, TextField } from "@material-ui/core"
 import loginImg from "./assets/img/login.png"
 import BlueMarket from "./assets/img/BlueMarket.png"
+import LoginV2 from "./scenes/login/loginV2"
+import RegisterV2 from "./scenes/register/registerV2"
 
 function App() {
   return (
     <div>
       <Router>
-        <NavBar />
         <Switch>
-          <Route path="/" exact component={Nav} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <Route path="/" exact component={LoginV2} />
+          <Route path="/login" component={LoginV2} />
+          <Route path="/register" component={RegisterV2} />
           <Route path="/homePage" component={HomePage} />
           <Route path="/products" component={Product} />
           <Route path="/detailsProduct" component={DetailsProducts} />
