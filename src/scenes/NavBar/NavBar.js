@@ -12,16 +12,10 @@ function NavBar() {
     const showSidebar = () => setSidebar(!sidebar)
     const [auth, setAuth] = useState(null)
 
-    /*const getData = () => {
-        let data = localStorage.getItem('user')
-        setAuth(data)
-    }*/
-
     useEffect(() => {
         setAuth(JSON.parse(localStorage.getItem('user')))
     }, [])
 
-    console.log(auth.role)
     return (
         <>
             <div className="navbar">
@@ -40,7 +34,6 @@ function NavBar() {
                         if (item.role === auth.role || item.role === 3) {
                             return (
                                 <li key={index} className={item.cName}>
-                                    {console.log(item.role)}
                                     <Link to={item.path} onClick={showSidebar} >
                                         {item.icon}
                                         <span>{item.title}</span>
@@ -48,7 +41,6 @@ function NavBar() {
                                 </li>
                             )
                         }
-
                     })}
                 </ul>
             </nav>
