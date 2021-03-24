@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { Button, Grid, TextField } from "@material-ui/core"
 import loginImg from "../../assets/img/login.png"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect, Link } from "react-router-dom"
-import ThemeContext from "../../store/userStore"
+//import { UserContext } from '../../store/userStore'
 
 function LoginV2() {
 
@@ -25,9 +25,6 @@ function LoginV2() {
 
     }
 
-    const contextValue = {
-        user
-    }
 
     const loginForm = details => {
         if (details.email === adminUser.email && details.password === adminUser.password) {
@@ -45,9 +42,8 @@ function LoginV2() {
         <div>
             {(user.email !== "") ? (
                 <div>
-                    <ThemeContext.Provider value={contextValue}>
-                        <Redirect to="/homePage" />
-                    </ThemeContext.Provider>
+                    {localStorage.setItem("user", JSON.stringify(user))}
+                    <Redirect to="/homePage" />
                 </div>
             ) : (
                 <form onSubmit={submitHandler}>
@@ -63,7 +59,7 @@ function LoginV2() {
                                 </Grid>
                                 {(error !== "") ? (<div className="error">{error}</div>) : ""}
 
-                                <TextField label="email" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
+                                <TextField label="Email" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                                 <TextField label="Password" type="password" margin="normal" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                                 <div style={{ height: 20 }} />
                                 <Button color="primary" variant="contained" type="submit">

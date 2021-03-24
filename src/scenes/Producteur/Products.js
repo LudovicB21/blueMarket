@@ -42,7 +42,7 @@ function Products() {
             </div>
             <div className="mx-5 my-5">
                 <h1>Mes produits </h1>
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">Nom</th>
