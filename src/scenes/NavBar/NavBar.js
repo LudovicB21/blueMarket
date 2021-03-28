@@ -4,8 +4,6 @@ import * as AiIcons from "react-icons/ai"
 import { Link } from 'react-router-dom'
 import { SidebarData } from './SideBarData'
 import './Navbar.css'
-import { SiIntel } from 'react-icons/si'
-//import { UserContext } from "../../store/userStore"
 
 function NavBar() {
     const [sidebar, setSidebar] = useState(false)
@@ -31,7 +29,7 @@ function NavBar() {
                         </Link>
                     </li>
                     {SidebarData.map((item, index) => {
-                        if (item.role === auth.role || item.role === 3) {
+                        if (item?.role === auth?.role || item.role === 3) {
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path} onClick={showSidebar} >

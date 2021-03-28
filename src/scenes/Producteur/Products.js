@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar'
+import Modal from 'react-modal'
 
+Modal.setAppElement('#root')
 function Products() {
 
+    const [modalIsOpen, setModalIsOpen] = useState(false)
     const data = [
         {
             id: 1,
@@ -35,6 +38,45 @@ function Products() {
         },
     ]
 
+    const constitution = [
+        {
+            id: 1,
+            produit: "lait",
+            ingredient1: "ingrédient 1",
+            ingredient2: "ingrédient 2",
+            ingredient3: "ingrédient 3",
+            ingredient4: "ingrédient 4",
+            ingredient5: "ingrédient 5"
+        },
+        {
+            id: 2,
+            produit: "lait2",
+            ingredient1: "ingrédient 1",
+            ingredient2: "ingrédient 2",
+            ingredient3: "ingrédient 3",
+            ingredient4: "ingrédient 4",
+            ingredient5: "ingrédient 5"
+        },
+        {
+            id: 3,
+            produit: "lait3",
+            ingredient1: "ingrédient 1",
+            ingredient2: "ingrédient 2",
+            ingredient3: "ingrédient 3",
+            ingredient4: "ingrédient 4",
+            ingredient5: "ingrédient 5"
+        },
+        {
+            id: 4,
+            produit: "lait4",
+            ingredient1: "ingrédient 1",
+            ingredient2: "ingrédient 2",
+            ingredient3: "ingrédient 3",
+            ingredient4: "ingrédient 4",
+            ingredient5: "ingrédient 5"
+        },
+    ]
+
     return (
         <div>
             <div>
@@ -48,7 +90,7 @@ function Products() {
                             <th scope="col">Nom</th>
                             <th scope="col">Date d'expiration</th>
                             <th scope="col">Stock</th>
-                            <th scope="col">Prochaine livraison</th>
+                            <th scope="col">Prochaines livraisons</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -56,20 +98,32 @@ function Products() {
                         {(data || []).map(produits => (
                             <tr>
                                 <td>
-                                    <Link to={{
-                                        pathname: '/detailsProduct',
-                                        aboutProps: {
-                                            data: produits
-                                        }
-                                    }}>
-                                        {produits.produit}
-                                    </Link>
-
+                                    {produits.produit}
                                 </td>
                                 <td> {produits.expiration} </td>
                                 <td> {produits.stock} </td>
                                 <td> {produits.livraison} </td>
-                                <td> Actions</td>
+                                <td>
+                                    <button onClick={() => setModalIsOpen(true)
+                                    }>
+                                        Details
+                                    </button>
+                                    <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}
+                                        style={{
+                                            overlay: {
+                                                backgroundColor: 'grey'
+                                            }
+                                        }}
+                                    >
+                                        <h2>Fiche de composition </h2>
+
+
+
+                                        <button onClick={() => setModalIsOpen(false)}>
+                                            Close
+                                        </button>
+                                    </Modal>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
