@@ -49,7 +49,7 @@ export const SidebarData = [
         path: '/products',
         icon: <FaIcons.FaCartPlus />,
         cName: 'nav-text',
-        role: 1
+        role: 0
     },
     {
         title: 'Logout',

@@ -1,10 +1,7 @@
 import React, { useContext } from 'react'
 import NavBar from '../NavBar/NavBar'
-//import { UserContext } from "../../store/userStore"
 
 function HomePage() {
-    //const auth = useContext(UserContext)
-    //console.log(auth)
 
     const getData = () => {
         let data = localStorage.getItem('user')

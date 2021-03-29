@@ -22,7 +22,7 @@ function LoginV2() {
     const adminUser = {
         email: "admin@admin.com",
         password: "admin123",
-        role: 1
+        role: 0
     }
 
     const submitHandler = e => {
