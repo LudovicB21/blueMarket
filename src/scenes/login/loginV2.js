@@ -1,16 +1,23 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Grid, TextField } from "@material-ui/core"
 import loginImg from "../../assets/img/login.png"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect, Link } from "react-router-dom"
-//import { UserContext } from '../../store/userStore'
 
 function LoginV2() {
 
+    useEffect(() => {
+        getAuth()
+    }, [])
+
+    const getAuth = () => {
+        setAuth(JSON.parse(localStorage.getItem('user')))
+    }
 
     const [details, setDetails] = useState({ email: "", password: "" });
     const [user, setUser] = useState({ email: "", role: "", password: "" });
     const [error, setError] = useState("");
+    const [auth, setAuth] = useState("")
 
     const adminUser = {
         email: "admin@admin.com",
@@ -45,6 +52,8 @@ function LoginV2() {
                     {localStorage.setItem("user", JSON.stringify(user))}
                     <Redirect to="/homePage" />
                 </div>
+            ) : (auth) ? (
+                <Redirect to="/homePage" />
             ) : (
                 <form onSubmit={submitHandler}>
                     <Grid container style={{ minHeight: '100vh' }}>

@@ -53,7 +53,7 @@ export const SidebarData = [
     },
     {
         title: 'Logout',
-        path: '/login',
+        path: '/logout',
         icon: <FiIcons.FiLogOut />,
         cName: 'nav-text',
         role: 3
