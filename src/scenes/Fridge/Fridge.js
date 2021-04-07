@@ -6,24 +6,36 @@ function Fridge() {
 
     const items = [
         {
+            id: 50,
             nom: "item1",
-            size: 2
+            size: 2,
+            stock: 2,
+            expiration: "20/04/2021"
         },
         {
+            id: 24,
             nom: "item2",
-            size: 75
+            size: 30,
+            stock: 1,
+            expiration: "14/04/2021"
         },
         {
+            id: 2,
             nom: "item3",
-            size: 3
+            size: 22,
+            stock: 5,
+            expiration: "15/04/2021"
         }
     ]
 
     useEffect(() => {
         let total = 0
+        let user = JSON.parse(localStorage.getItem('user'))
         items.forEach(item => {
-
-            total += item.size;
+            let calc1 = item.size * 100
+            let calcul2 = calc1 / user.frigo
+            let calcStock = calcul2 * item.stock
+            total += Math.round(calcStock)
         });
         setProgression(total)
     })
@@ -44,6 +56,36 @@ function Fridge() {
                 <CircleProgress percentage={progression} strokeWidth={5} />
                 {/*<button onClick={addItemInFridge()}> Add new item </button>*/}
             </div>
+            <div className="mx-5 my-5">
+                <h1>Dans mon frigo :  </h1>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date d'expiration</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {(items || []).map(produits => (
+                            <tr>
+                                <td>
+                                    {produits.nom}
+                                </td>
+                                <td> {produits.expiration} </td>
+                                <td> {produits.stock} </td>
+                                <td>
+                                    <button>
+                                        Details
+                                    </button>
+
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div >
         </div>
     )
 }

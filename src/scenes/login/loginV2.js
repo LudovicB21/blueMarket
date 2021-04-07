@@ -15,7 +15,7 @@ function LoginV2() {
     }
 
     const [details, setDetails] = useState({ email: "", password: "" });
-    const [user, setUser] = useState({ email: "", role: "", password: "" });
+    const [user, setUser] = useState({ email: "", role: "", password: "", id: 0, frigo: 0 });
     const [error, setError] = useState("");
     const [auth, setAuth] = useState("")
 
@@ -38,7 +38,9 @@ function LoginV2() {
             setUser({
                 password: details.password,
                 email: details.email,
-                role: adminUser.role
+                role: adminUser.role,
+                id: 1,
+                frigo: 150
             });
         } else {
             setError("Details not match ! ")
