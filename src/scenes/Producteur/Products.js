@@ -117,7 +117,7 @@ function Products() {
                                     >
                                         <h2>Fiche de composition </h2>
 
-
+                                        {produits.produit}
 
                                         <button onClick={() => setModalIsOpen(false)}>
                                             Close

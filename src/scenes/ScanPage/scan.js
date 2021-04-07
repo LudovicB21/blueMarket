@@ -16,6 +16,7 @@ function Scan() {
                 width={500}
                 height={500}
                 onUpdate={(err, result) => {
+                    console.log(err)
                     if (result) setData(result.text)
                     else setData('Not Found')
                 }}

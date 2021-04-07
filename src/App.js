@@ -7,6 +7,7 @@ import LoginV2 from "./scenes/login/loginV2"
 import RegisterV2 from "./scenes/register/registerV2"
 import Logout from "./scenes/LogOut/logout"
 import Scan from "./scenes/ScanPage/scan"
+import Fridge from "./scenes/Fridge/Fridge"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" component={LoginV2} />
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={RegisterV2} />
+          <Route path="/fridge" component={Fridge} />
           <Route path="/homePage" component={HomePage} />
           <Route path="/products" component={Product} />
           <Route path="/scan" component={Scan} />
