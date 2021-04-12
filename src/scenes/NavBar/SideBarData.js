@@ -42,11 +42,18 @@ export const SidebarData = [
         path: '/market',
         icon: <SiIcons.SiMarketo />,
         cName: 'nav-text',
-        role: 1
+        role: 2
     },
     {
         title: 'Products',
         path: '/products',
+        icon: <FaIcons.FaCartPlus />,
+        cName: 'nav-text',
+        role: 1
+    },
+    {
+        title: 'Panier',
+        path: '/panier',
         icon: <FaIcons.FaCartPlus />,
         cName: 'nav-text',
         role: 0
@@ -54,6 +61,13 @@ export const SidebarData = [
     {
         title: 'Logout',
         path: '/logout',
+        icon: <FiIcons.FiLogOut />,
+        cName: 'nav-text',
+        role: 3
+    },
+    {
+        title: 'Spokes',
+        path: '/spokes',
         icon: <FiIcons.FiLogOut />,
         cName: 'nav-text',
         role: 3

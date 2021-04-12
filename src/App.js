@@ -8,6 +8,8 @@ import RegisterV2 from "./scenes/register/registerV2"
 import Logout from "./scenes/LogOut/logout"
 import Scan from "./scenes/ScanPage/scan"
 import Fridge from "./scenes/Fridge/Fridge"
+import Profile from "./scenes/Profile/Profile"
+import Spokes from "./scenes/Spokes/spokes"
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={RegisterV2} />
           <Route path="/fridge" component={Fridge} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/spokes" component={Spokes} />
           <Route path="/homePage" component={HomePage} />
           <Route path="/products" component={Product} />
           <Route path="/scan" component={Scan} />
