@@ -26,7 +26,7 @@ export const SidebarData = [
     {
         title: 'Scan',
         path: '/scan',
-        icon: <IoIcons.IoMdQrScanner />,
+        icon: <AiIcons.AiOutlineBarcode />,
         cName: 'nav-text',
         role: 0
     },
@@ -52,6 +52,13 @@ export const SidebarData = [
         role: 1
     },
     {
+        title: 'Spokes',
+        path: '/spokes',
+        icon: <AiIcons.AiOutlineDatabase />,
+        cName: 'nav-text',
+        role: 3
+    },
+    {
         title: 'Panier',
         path: '/panier',
         icon: <FaIcons.FaCartPlus />,
@@ -65,11 +72,4 @@ export const SidebarData = [
         cName: 'nav-text',
         role: 3
     },
-    {
-        title: 'Spokes',
-        path: '/spokes',
-        icon: <FiIcons.FiLogOut />,
-        cName: 'nav-text',
-        role: 3
-    }
 ]

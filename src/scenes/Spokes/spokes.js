@@ -1,45 +1,59 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar'
 
 function Spokes() {
 
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [nbs, setNbs] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setNbs(!nbs)
+        }, 5000)
+
+    })
 
     const stockes = [
         {
+            id: 1,
             nom: "pâtes",
             position: "1",
 
         },
         {
+            id: 2,
             nom: "Riz",
             position: "2",
 
         },
         {
+            id: 3,
             nom: "Sauces",
             position: "3",
 
         },
         {
+            id: 4,
             nom: "Légumes en conserve",
             position: "4",
 
         },
         {
+            id: 5,
             nom: "Fruit",
             position: "5",
 
         },
         {
+            id: 6,
             nom: "Confiserie",
             position: "6",
 
         }
     ]
 
-    console.log(Math.random())
+
 
     return (
         <div>
@@ -64,12 +78,21 @@ function Spokes() {
                                     {produits.nom}
                                 </td>
                                 <td> {produits.position} </td>
-                                <td> 58 </td>
                                 <td>
-                                    <button onClick={() => setModalIsOpen(true)
-                                    }>
-                                        Details
-                                    </button>
+                                    {Math.floor(Math.random() * 30)}
+                                </td>
+                                <td>
+                                    <Link style={{ textDecoration: "none" }} to={{
+                                        pathname: "/detailsSpokes",
+                                        aboutProps: {
+                                            name: produits.nom,
+                                            id: produits.id
+                                        }
+                                    }}>
+                                        <button className="btn btn-primary">
+                                            Details
+                                    </button>&nbsp;&nbsp;&nbsp;
+                                    </Link>
                                     {/*<Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}
                                         style={{
                                             overlay: {
@@ -85,7 +108,7 @@ function Spokes() {
                                             Close
                                         </button>
                                     </Modal> */}
-                                    <button onClick={() => setModalIsOpen(true)
+                                    <button className="btn btn-primary" onClick={() => setModalIsOpen(true)
                                     }>
                                         Ordre
                                     </button>

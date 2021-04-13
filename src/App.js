@@ -10,6 +10,8 @@ import Scan from "./scenes/ScanPage/scan"
 import Fridge from "./scenes/Fridge/Fridge"
 import Profile from "./scenes/Profile/Profile"
 import Spokes from "./scenes/Spokes/spokes"
+import DetailsSpokes from "./scenes/Spokes/detailsSpokes"
+import DetailsProduct from './components/detailsProduct';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/spokes" component={Spokes} />
           <Route path="/homePage" component={HomePage} />
           <Route path="/products" component={Product} />
+          <Route path="/detailsSpokes" component={DetailsSpokes} />
+          <Route path="/detailsProduct" component={DetailsProduct} />
           <Route path="/scan" component={Scan} />
           <Route path="/detailsProduct" component={DetailsProducts} />
         </Switch>
