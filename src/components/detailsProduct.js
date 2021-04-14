@@ -15,6 +15,7 @@ function DetailsProduct(props) {
         {
             id: 1,
             name: "pâtes1",
+            size: "0",
             image: "../assets/img/barilla-rigatoni.jpg",
             ingredient1: "ingrédient 1",
             ingredient2: "ingrédient 2",
@@ -28,13 +29,6 @@ function DetailsProduct(props) {
 
     const [idProduct, setIdProduct] = useState("")
     console.log(idProduct)
-
-    /*const submitHandler = e => {
-        e.preventDefault();
-
-        register(details)
-
-    }*/
 
     return (
         <div>
@@ -50,9 +44,10 @@ function DetailsProduct(props) {
                                     <Grid container justify="center">
                                         <img src={Barilla} width={200} alt="logo" />
                                     </Grid>
-                                    <TextField label={details.name} margin="normal" disabled={true} /*onChange={e => setDetails({ ...details, username: e.target.value })}*/ />
-                                    <TextField label={details.livraison} disabled={true} type="email" margin="normal" /*onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email}*/ />
-                                    <TextField label={details.expiration} disabled={true} margin="normal" /*onChange={e => setDetails({ ...details, firstname: e.target.value })} value={details.firstname}*/ />
+                                    <TextField label={`Name: ${details.name}`} margin="normal" disabled={true} /*onChange={e => setDetails({ ...details, username: e.target.value })}*/ />
+                                    <TextField label={`Size: ${details.size}`} disabled={true} type="email" margin="normal" /*onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email}*/ />
+                                    <TextField label={`Livraison: ${details.livraison}`} disabled={true} type="email" margin="normal" /*onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email}*/ />
+                                    <TextField label={`Expiration: ${details.expiration}`} disabled={true} margin="normal" /*onChange={e => setDetails({ ...details, firstname: e.target.value })} value={details.firstname}*/ />
                                     <div style={{ height: 20 }} />
                                     <table className="table">
                                         <thead>
