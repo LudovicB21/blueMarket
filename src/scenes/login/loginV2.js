@@ -49,15 +49,24 @@ function LoginV2() {
         }
     }
 
+
     return (
         <div>
             {(user.email !== "") ? (
                 <div>
                     {localStorage.setItem("user", JSON.stringify(user))}
-                    <Redirect to="/homePage" />
+                    {user.role === 0 && <Redirect to="/scan" />}
+                    {user.role === 1 && <Redirect to="/products" />}
+                    {user.role === 2 && <Redirect to="/spokes" />}
                 </div>
             ) : (auth) ? (
-                <Redirect to="/homePage" />
+                <div>
+                    {auth.role === 0 && <Redirect to="/scan" />}
+                    {auth.role === 1 && <Redirect to="/products" />}
+                    {auth.role === 2 && <Redirect to="/spokes" />}
+                </div>
+
+
             ) : (
                 <form onSubmit={submitHandler}>
                     <Grid container style={{ minHeight: '100vh' }}>
