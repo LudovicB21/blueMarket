@@ -40,7 +40,9 @@ function LoginV2() {
                 email: details.email,
                 role: adminUser.role,
                 id: 1,
-                frigo: 150
+                frigo: 150,
+                firstname: "ludovic",
+                lastname: "braine"
             });
         } else {
             setError("Details not match ! ")
