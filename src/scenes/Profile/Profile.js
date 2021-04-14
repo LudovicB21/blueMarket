@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../NavBar/NavBar'
+import { Modal, Button } from 'react-bootstrap'
 
 function Profile() {
 
@@ -9,6 +10,10 @@ function Profile() {
 
     const [auth, setAuth] = useState("")
     const [details, setDetails] = useState({});
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const getAuth = () => {
         setAuth(JSON.parse(localStorage.getItem('user')))
@@ -68,7 +73,24 @@ function Profile() {
                     </div>
                     <div className="row">
                         <div className="col-sm form-group">
-                            <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter"> Change password</button>
+                            <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Change password</button>
+                            <Modal size="lg" show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Modification de votre mot de passe </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <label for="password">New password :</label>
+                                    <input type="password" className="form-control" onChange={e => setDetails({ ...details, "password": e.target.value })}></input>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Close
+                                    </Button>
+                                    <Button variant="primary" onClick={handleClose}>
+                                        Save It!
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </div>
                     </div>
                     <div className="row">
