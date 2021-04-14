@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import NavBar from '../scenes/NavBar/NavBar'
 import Barilla from '../assets/img/p.jpg'
-import { Button, Grid, TextField } from "@material-ui/core"
+import { Grid, TextField } from "@material-ui/core"
 import '../components/detailsProduct.css'
 function DetailsProduct(props) {
 

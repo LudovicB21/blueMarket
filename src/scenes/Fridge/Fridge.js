@@ -41,7 +41,7 @@ function Fridge() {
     })
 
     const [progression, setProgression] = useState(0)
-    const [panier, setPanier] = useState(0)
+    //const [panier, setPanier] = useState(0)
 
     return (
         <div>
