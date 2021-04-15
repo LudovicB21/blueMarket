@@ -4,6 +4,8 @@ import NavBar from '../NavBar/NavBar'
 import "../../assets/modal.css"
 import { Modal, Button } from 'react-bootstrap'
 import Barilla from '../../assets/img/p.jpg'
+import moment from 'moment'
+import * as CgIcons from "react-icons/cg"
 
 function DetailsSpokes(props) {
 
@@ -24,16 +26,16 @@ function DetailsSpokes(props) {
             nom: "pâtes1",
             stockR: 15,
             stockI: 100,
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
+            livraison: "2021-04-17",
+            expiration: "2021-04-15"
         },
         {
             id: 2,
             nom: "pâtes2",
             stockR: 10,
             stockI: 50,
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
+            livraison: "2021-04-17",
+            expiration: "2021-07-20"
 
         },
         {
@@ -41,8 +43,8 @@ function DetailsSpokes(props) {
             nom: "pâtes3",
             stockR: 14,
             stockI: 30,
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
+            livraison: "2021-04-17",
+            expiration: "2021-07-20"
 
         },
         {
@@ -50,8 +52,8 @@ function DetailsSpokes(props) {
             nom: "pâtes4",
             stockR: 6,
             stockI: 20,
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
+            livraison: "2021-04-17",
+            expiration: "2021-07-20"
 
         },
         {
@@ -59,8 +61,8 @@ function DetailsSpokes(props) {
             nom: "pâtes5",
             stockR: 8,
             stockI: 15,
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
+            livraison: "2021-04-17",
+            expiration: "2021-07-20"
 
         },
         {
@@ -68,8 +70,8 @@ function DetailsSpokes(props) {
             nom: "pâtes6",
             stockR: 7,
             stockI: 24,
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
+            livraison: "2021-04-17",
+            expiration: "2021-07-20"
 
         },
     ]
@@ -96,6 +98,14 @@ function DetailsSpokes(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const expiration = (expiration) => {
+        if (moment(expiration).isSameOrBefore('2021-04-16')) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {expiration} </div>
+        } else {
+            return expiration
+        }
+    }
 
     return (
         <div>
@@ -129,7 +139,7 @@ function DetailsSpokes(props) {
                                     {produits.livraison}
                                 </td>
                                 <td>
-                                    {produits.expiration}
+                                    {expiration(produits.expiration)}
                                 </td>
                                 <td>
                                     <Link style={{ textDecoration: "none" }} to={{
