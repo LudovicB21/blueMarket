@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import React, { useState } from 'react'
+import { BrowserRouter as Router, Switch, Route, browserHistory, Redirect } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import HomePage from './scenes/HomePage/homePage'
 import Product from './scenes/Producteur/Products'
 import DetailsProducts from './scenes/Producteur/Details'
@@ -14,6 +14,7 @@ import DetailsSpokes from "./scenes/Spokes/detailsSpokes"
 import DetailsProduct from './components/detailsProduct';
 import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
+
 function App() {
 
   const [show, setShow] = useState(false);
@@ -42,8 +43,8 @@ function App() {
       </Router>
       <footer className="bg-light text-center text-lg-start" id="footer">
         <div class="text-center p-3" style={{ backgroundColor: "grey" }}>
-          © 2021 Copyright:
-          <a class="text-dark">BlueMarket.com  <a style={{ cursor: "pointer" }} onClick={handleShow}> <u> Mention légales </u> </a></a>
+          © 2021 Copyright :
+          <a class="text-dark"> BlueMarket.com  <a style={{ cursor: "pointer" }} onClick={handleShow}> <u> Mention légales </u> </a></a>
           <Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Condition générales d'utilisation  </Modal.Title>
