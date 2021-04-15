@@ -13,7 +13,7 @@ import Spokes from "./scenes/Spokes/spokes"
 import DetailsSpokes from "./scenes/Spokes/detailsSpokes"
 import DetailsProduct from './components/detailsProduct';
 import { Modal, Button } from 'react-bootstrap'
-
+import "./App.css"
 function App() {
 
   const [show, setShow] = useState(false);
@@ -40,7 +40,7 @@ function App() {
           <Route path="/detailsProduct" component={DetailsProducts} />
         </Switch>
       </Router>
-      <footer className="bg-light text-center text-lg-start">
+      <footer className="bg-light text-center text-lg-start" id="footer">
         <div class="text-center p-3" style={{ backgroundColor: "grey" }}>
           © 2021 Copyright:
           <a class="text-dark">BlueMarket.com  <a style={{ cursor: "pointer" }} onClick={handleShow}> <u> Mention légales </u> </a></a>
