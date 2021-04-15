@@ -5,6 +5,14 @@ import { Modal, Button } from 'react-bootstrap'
 function Profile() {
 
     useEffect(() => {
+        /*fetch('http://mme-garon-valerie.pro.dns-orange.fr:5000/api/v1/test',
+            {
+                method: "GET",
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }).then(response => response.json())
+            .then(data => console.log(data)); */
         getAuth()
     }, [])
 
@@ -68,7 +76,7 @@ function Profile() {
                         </div>
                         <div className="col-sm form-group">
                             <label for="role">Role :</label>
-                            <input type="text" className="form-control" disabled="true" placeholder={role()}></input>
+                            <input type="text" className="form-control" disabled={true} placeholder={role()}></input>
                         </div>
                     </div>
                     <div className="row">
