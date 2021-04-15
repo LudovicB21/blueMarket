@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar'
 import "../../assets/modal.css"
+import { Modal, Button } from 'react-bootstrap'
+import Barilla from '../../assets/img/p.jpg'
 
 function DetailsSpokes(props) {
 
@@ -14,6 +16,7 @@ function DetailsSpokes(props) {
 
     const [name, setName] = useState("")
     const [modalState, setModalState] = useState(false)
+    const [show, setShow] = useState(false);
 
     const stockes = [
         {
@@ -71,9 +74,28 @@ function DetailsSpokes(props) {
         },
     ]
 
+    const product = [
+        {
+            id: 1,
+            name: "pâtes1",
+            size: "0",
+            image: "../assets/img/barilla-rigatoni.jpg",
+            ingredient1: "ingrédient 1",
+            ingredient2: "ingrédient 2",
+            ingredient3: "ingrédient 3",
+            ingredient4: "ingrédient 4",
+            ingredient5: "ingrédient 5",
+            livraison: "2021/04/17",
+            expiration: "2021/07/20"
+        }
+    ]
+
     const manageState = () => {
         setModalState(!modalState)
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <div>
@@ -85,7 +107,7 @@ function DetailsSpokes(props) {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">Nom du rayon</th>
+                            <th scope="col">Nom du produit</th>
                             <th scope="col">Stock Rayon</th>
                             <th scope="col">Stock Inventaire</th>
                             <th scope="col">Livraison</th>
@@ -116,10 +138,68 @@ function DetailsSpokes(props) {
                                             id: produits.id
                                         }
                                     }}>
-                                        <button onClick={() => manageState()} className="btn btn-primary">
+                                        {/*<button onClick={() => manageState()} className="btn btn-primary">
                                             Détails
-                                    </button>
+                                    </button> */}
                                     </Link>
+                                    <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Détails 2</button>
+                                    <Modal size="lg" show={show} onHide={handleClose}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title> Détails du produit </Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            {(product || []).map(details => (
+                                                <div>
+                                                    <div>
+                                                        <img src={Barilla} width={200} alt="logo" />
+                                                    </div>
+                                                    <div className="mx-5 my-5">
+                                                        <p> Name:  {details.name}</p>
+                                                        <p> Size:  {details.size}</p>
+                                                        <p> Livraison:  {details.livraison}</p>
+                                                        <p> Expiration:  {details.expiration}</p>
+                                                    </div>
+                                                    <div>
+                                                        <table className="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">{details.ingredient1}</th>
+                                                                    <th scope="col">{details.ingredient2}</th>
+                                                                    <th scope="col">{details.ingredient3}</th>
+                                                                    <th scope="col">{details.ingredient4}</th>
+                                                                    <th scope="col">{details.ingredient5}</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        {details.ingredient1}
+                                                                    </td>
+                                                                    <td>
+                                                                        {details.ingredient2}
+                                                                    </td>
+                                                                    <td>
+                                                                        {details.ingredient3}
+                                                                    </td>
+                                                                    <td>
+                                                                        {details.ingredient4}
+                                                                    </td>
+                                                                    <td>
+                                                                        {details.ingredient5}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleClose}>
+                                                Close
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal>
                                 </td>
                             </tr>
                         ))}
