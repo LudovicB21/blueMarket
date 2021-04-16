@@ -58,8 +58,8 @@ class Scanner extends Component {
         console.log(res.codeResult.code)
         alert(res.codeResult.code)
         //this.setState({ test: [...res.codeResult.code] })
-        //Quagga.stop()
-        //Quagga.offProcessed()
+        Quagga.stop()
+        Quagga.offProcessed()
         //this.props.onBarcodeDetect(res.codeResult.code)
     }
 
