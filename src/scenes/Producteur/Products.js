@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import NavBar from '../NavBar/NavBar'
 import Modal from 'react-modal'
+import { Redirect } from 'react-router-dom'
 
 Modal.setAppElement('#root')
+
 function Products() {
 
+    useEffect(() => {
+        authenticated()
+    }, [])
+
+    const [auth, setAuth] = useState("")
+    const [error, setError] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const data = [
         {
@@ -77,60 +84,72 @@ function Products() {
         },
     ]
 
-    return (
-        <div>
+    const authenticated = () => {
+        if (localStorage.getItem('user')) {
+            setAuth(JSON.parse(localStorage.getItem('user')))
+        } else {
+            setError(true)
+        }
+    }
+
+    if (error === true) {
+        return <Redirect to="/login" />
+    } else {
+        return (
             <div>
-                <NavBar />
-            </div>
-            <div className="mx-5 my-5">
-                <h1>Mes produits </h1>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Date d'expiration</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Prochaines livraisons</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {(data || []).map(produits => (
+                <div>
+                    <NavBar />
+                </div>
+                <div className="mx-5 my-5">
+                    <h1>Mes produits </h1>
+                    <table className="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    {produits.produit}
-                                </td>
-                                <td> {produits.expiration} </td>
-                                <td> {produits.stock} </td>
-                                <td> {produits.livraison} </td>
-                                <td>
-                                    <button onClick={() => setModalIsOpen(true)
-                                    }>
-                                        Details
-                                    </button>
-                                    <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}
-                                        style={{
-                                            overlay: {
-                                                backgroundColor: 'grey'
-                                            }
-                                        }}
-                                    >
-                                        <h2>Fiche de composition </h2>
-
-                                        {produits.produit}
-
-                                        <button onClick={() => setModalIsOpen(false)}>
-                                            Close
-                                        </button>
-                                    </Modal>
-                                </td>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Date d'expiration</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Prochaines livraisons</th>
+                                <th scope="col">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div >
-        </div>
-    )
+                        </thead>
+                        <tbody>
+                            {(data || []).map(produits => (
+                                <tr>
+                                    <td>
+                                        {produits.produit}
+                                    </td>
+                                    <td> {produits.expiration} </td>
+                                    <td> {produits.stock} </td>
+                                    <td> {produits.livraison} </td>
+                                    <td>
+                                        <button className="btn btn-primary" onClick={() => setModalIsOpen(true)
+                                        }>
+                                            Details
+                                    </button>
+                                        <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}
+                                            style={{
+                                                overlay: {
+                                                    backgroundColor: 'grey'
+                                                }
+                                            }}
+                                        >
+                                            <h2>Fiche de composition </h2>
+
+                                            {produits.produit}
+
+                                            <button onClick={() => setModalIsOpen(false)}>
+                                                Close
+                                        </button>
+                                        </Modal>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div >
+            </div>
+        )
+    }
 }
 
 export default Products

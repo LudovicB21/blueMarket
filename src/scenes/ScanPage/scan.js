@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react'
 import NavBar from '../NavBar/NavBar'
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 import { Redirect } from 'react-router-dom'
-
 function Scan() {
 
     useEffect(() => {
+        authenticated()
+    }, [])
+
+    const [auth, setAuth] = useState("")
+    const [error, setError] = useState(false)
+    const [data, setData] = useState("");
+
+    const authenticated = () => {
         if (localStorage.getItem('user')) {
             setAuth(JSON.parse(localStorage.getItem('user')))
         } else {
             setError(true)
         }
-    })
-
-    const [auth, setAuth] = useState("")
-    const [error, setError] = useState(false)
-    const [data, setData] = useState("");
+    }
 
     if (error === true) {
         return <Redirect to="/login" />

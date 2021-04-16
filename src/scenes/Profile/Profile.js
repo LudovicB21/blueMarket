@@ -6,11 +6,7 @@ import { Redirect } from 'react-router-dom'
 function Profile() {
 
     useEffect(() => {
-        if (localStorage.getItem('user')) {
-            setAuth(JSON.parse(localStorage.getItem('user')))
-        } else {
-            setError(true)
-        }
+        authenticated()
         /*fetch('http://mme-garon-valerie.pro.dns-orange.fr:5000/api/v1/test',
             {
                 method: "GET",
@@ -19,7 +15,7 @@ function Profile() {
                 }
             }).then(response => response.json())
             .then(data => console.log(data)); */
-    })
+    }, [])
 
     const [auth, setAuth] = useState("")
     const [error, setError] = useState(false)
@@ -36,6 +32,14 @@ function Profile() {
             return "Producteur"
         } else {
             return "Administrateur"
+        }
+    }
+
+    const authenticated = () => {
+        if (localStorage.getItem('user')) {
+            setAuth(JSON.parse(localStorage.getItem('user')))
+        } else {
+            setError(true)
         }
     }
 

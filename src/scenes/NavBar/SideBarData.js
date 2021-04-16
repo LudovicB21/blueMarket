@@ -46,9 +46,9 @@ export const SidebarData = [
     {
         title: 'Products',
         path: '/products',
-        icon: <FaIcons.FaCartPlus />,
+        icon: <FaIcons.FaProductHunt />,
         cName: 'nav-text',
-        role: 1
+        role: 0
     },
     {
         title: 'Spokes',

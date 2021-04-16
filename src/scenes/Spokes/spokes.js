@@ -13,7 +13,7 @@ function Spokes() {
         } else {
             setError(true)
         }
-    })
+    }, [])
 
     const [error, setError] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false)

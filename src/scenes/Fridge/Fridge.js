@@ -30,13 +30,17 @@ function Fridge() {
     ]
 
     useEffect(() => {
+        authenticated()
+        calcul()
+    }, [])
+
+    const authenticated = () => {
         if (localStorage.getItem('user')) {
             setAuth(JSON.parse(localStorage.getItem('user')))
-            calcul()
         } else {
             setError(true)
         }
-    })
+    }
 
     const [progression, setProgression] = useState(0)
     const [auth, setAuth] = useState("")
@@ -91,7 +95,7 @@ function Fridge() {
                                     <td> {produits.expiration} </td>
                                     <td> {produits.stock} </td>
                                     <td>
-                                        <button>
+                                        <button className="btn btn-primary">
                                             Details
                                     </button>
 
