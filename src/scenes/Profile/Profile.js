@@ -7,14 +7,14 @@ function Profile() {
 
     useEffect(() => {
         authenticated()
-        /*fetch('http://mme-garon-valerie.pro.dns-orange.fr:5000/api/v1/test',
+        /*fetch('https://bluemarket.shop/api/TOTO',
             {
                 method: "GET",
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
             }).then(response => response.json())
-            .then(data => console.log(data)); */
+            .then(data => console.log(data));*/
     }, [])
 
     const [auth, setAuth] = useState("")
