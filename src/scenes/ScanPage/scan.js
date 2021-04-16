@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import NavBar from '../NavBar/NavBar'
-import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 import { Redirect } from 'react-router-dom'
 import Quagga from 'quagga'
 import './scan.css'
@@ -12,12 +11,15 @@ class Scanner extends Component {
         super(props);
         this.state = {
             nocamera: false,
-            test: []
+            test: [],
+            auth: "",
+            error: false
         }
         this.onDetect = this.onDetect.bind(this)
     }
 
     componentDidMount() {
+        this.authenticated()
         Quagga.init({
             inputStream: {
                 name: "Live",
@@ -44,6 +46,14 @@ class Scanner extends Component {
         Quagga.onDetected(this.onDetect)
     }
 
+    authenticated = () => {
+        if (localStorage.getItem('user')) {
+            this.setState({ auth: JSON.parse(localStorage.getItem('user')) })
+        } else {
+            this.setState({ error: true })
+        }
+    }
+
     onDetect(res) {
         console.log(res.codeResult.code)
         alert(res.codeResult.code)
@@ -54,18 +64,22 @@ class Scanner extends Component {
     }
 
     render() {
-        return (
-            <div>
+        if (this.state.error === true) {
+            return <Redirect to="/login" />
+        } else {
+            return (
                 <div>
-                    <NavBar />
-                </div>
-                <Fragment>
-                    <div id="barcodeScan">
-                        {this.state.test}
+                    <div>
+                        <NavBar />
                     </div>
-                </Fragment>
-            </div>
-        )
+                    <Fragment>
+                        <div id="barcodeScan">
+                            {this.state.test}
+                        </div>
+                    </Fragment>
+                </div>
+            )
+        }
     }
 }
 
