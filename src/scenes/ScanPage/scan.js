@@ -16,7 +16,37 @@ class Scanner extends Component {
             auth: "",
             error: false,
             show: false,
-            result: ""
+            result: "",
+            products: [
+                {
+                    id: 1,
+                    id_product: 555444332221,
+                    name: "pâtes1",
+                    size: "0",
+                    image: "../assets/img/barilla-rigatoni.jpg",
+                    ingredient1: "ingrédient 1",
+                    ingredient2: "ingrédient 2",
+                    ingredient3: "ingrédient 3",
+                    ingredient4: "ingrédient 4",
+                    ingredient5: "ingrédient 5",
+                    livraison: "2021/04/17",
+                    expiration: "2021/07/20"
+                },
+                {
+                    id: 2,
+                    id_product: 123456789012,
+                    name: "pâtes2",
+                    size: "0",
+                    image: "../assets/img/barilla-rigatoni.jpg",
+                    ingredient1: "ingrédient 1",
+                    ingredient2: "ingrédient 2",
+                    ingredient3: "ingrédient 3",
+                    ingredient4: "ingrédient 4",
+                    livraison: "2021/05/19",
+                    expiration: "2021/07/24"
+                },
+            ]
+
         }
         this.onDetect = this.onDetect.bind(this)
     }
@@ -70,6 +100,18 @@ class Scanner extends Component {
         //this.props.onBarcodeDetect(res.codeResult.code)
     }
 
+    //Renvoyer les informations du produits dans la modal 
+    getInfos() {
+        const code = this.state.result
+        if (code !== "") {
+            this.state.products.map(produits => {
+                if (produits.id_product == code) {
+                    return <p> {produits.name} </p>
+                }
+            })
+        }
+    }
+
     render() {
         if (this.state.error === true) {
             return <Redirect to="/login" />
@@ -92,6 +134,7 @@ class Scanner extends Component {
                             </Modal.Header>
                             <Modal.Body>
                                 {this.state.result || null}
+                                {this.getInfos()}
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="success" onClick={this.handleClose}>
