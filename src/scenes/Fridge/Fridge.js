@@ -29,30 +29,30 @@ function Fridge() {
         }
     ]
 
-    useEffect(() => {
-        authenticated()
-        calcul()
-    })
-
-    const authenticated = () => {
-        if (localStorage.getItem('user')) {
-            setAuth(JSON.parse(localStorage.getItem('user')))
-        } else {
-            setError(true)
-        }
-    }
-
     const [progression, setProgression] = useState(0)
     const [auth, setAuth] = useState("")
     const [error, setError] = useState(false)
+
+    useEffect(() => {
+        if (JSON.parse(localStorage.getItem('user'))) {
+            setAuth(JSON.parse(localStorage.getItem('user')))
+            if (JSON.parse(localStorage.getItem('user')).frigo) {
+                calcul()
+            }
+        } else {
+            setError(true)
+        }
+    }, [])
+
     //const [panier, setPanier] = useState(0)
+    console.log(auth)
 
     const calcul = () => {
         let total = 0
-        //let user = JSON.parse(localStorage.getItem('user'))
+        let frigo = JSON.parse(localStorage.getItem('user')).frigo
         items.forEach(item => {
             let calc1 = item.size * 100
-            let calcul2 = calc1 / auth.frigo
+            let calcul2 = calc1 / frigo
             let calcStock = calcul2 * item.stock
             total += Math.round(calcStock)
         });
@@ -73,7 +73,7 @@ function Fridge() {
                 <div className="mx-5 my-5">
                     <h1>Utilisation de votre frigo </h1>
                     <CircleProgress percentage={progression} strokeWidth={5} />
-                    {/*<button onClick={addItemInFridge()}> Add new item </button>*/}
+
                 </div>
                 <div className="mx-5 my-5">
                     <h1>Dans mon frigo :  </h1>

@@ -17,9 +17,6 @@ function Spokes() {
     }, [])
 
     const [error, setError] = useState(false)
-    // Ludo : "modelIsOpen" n'était jamais utilisé
-    // const [modalIsOpen, setModalIsOpen] = useState(false)
-    const [setModalIsOpen] = useState(false)
     const [nbs, setNbs] = useState(true)
 
     const stockes = [
@@ -103,23 +100,7 @@ function Spokes() {
                                                 Details
                                     </button>&nbsp;&nbsp;&nbsp;
                                     </Link>
-                                        {/*<Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}
-                                        style={{
-                                            overlay: {
-                                                backgroundColor: 'grey'
-                                            }
-                                        }}
-                                    >
-                                        <h2>Fiche de composition </h2>
-
-                                        {produits.produit}
-
-                                        <button onClick={() => setModalIsOpen(false)}>
-                                            Close
-                                        </button>
-                                    </Modal> */}
-                                        <button className="btn btn-primary" onClick={() => setModalIsOpen(true)
-                                        }>
+                                        <button className="btn btn-primary">
                                             Ordre
                                     </button>
                                     </td>

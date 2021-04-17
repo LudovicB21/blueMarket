@@ -86,6 +86,8 @@ function Products() {
         },
     ]*/
 
+    console.log(auth)
+
     const authenticated = () => {
         if (localStorage.getItem('user')) {
             setAuth(JSON.parse(localStorage.getItem('user')))

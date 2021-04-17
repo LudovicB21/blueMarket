@@ -1,17 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function Details(props) {
     const dataProduct = props.location.aboutProps?.data
 
-    // Ludo : juste en dessous se trouve la ligne générant un warning console car "setProduit" n'est pas utilisé
-    // const [produits, setProduit] = useState(dataProduct)
-    const [produits] = useState(dataProduct)
-
     return (
         <div className="mx-5 my-5">
-            <h1> {produits.produit} </h1>
+            <h1> {dataProduct.produit} </h1>
             <div>
-                <img src="https://www.sodiaalfoodexperts.com/media/lait_demi_ecreme_viva.png" alt={produits.produit} style={{ width: "200px", height: "200px" }} />
+                <img src="https://www.sodiaalfoodexperts.com/media/lait_demi_ecreme_viva.png" alt={dataProduct.produit} style={{ width: "200px", height: "200px" }} />
             </div>
 
             <table className="table">
@@ -26,10 +22,10 @@ function Details(props) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td> {produits.produit}</td>
-                        <td> {produits.expiration} </td>
-                        <td> {produits.stock} </td>
-                        <td> {produits.livraison} </td>
+                        <td> {dataProduct.produit}</td>
+                        <td> {dataProduct.expiration} </td>
+                        <td> {dataProduct.stock} </td>
+                        <td> {dataProduct.livraison} </td>
                         <td> Actions</td>
                     </tr>
                 </tbody>

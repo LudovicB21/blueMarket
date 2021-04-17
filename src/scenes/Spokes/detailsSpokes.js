@@ -18,8 +18,6 @@ function DetailsSpokes(props) {
     }, [])
 
     const [name, setName] = useState("")
-    // Cette ligne n'est jamais utilisé ;) 
-    //const [modalState, setModalState] = useState(false)
     const [show, setShow] = useState(false);
 
     const stockes = [

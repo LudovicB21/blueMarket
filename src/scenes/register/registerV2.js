@@ -9,9 +9,7 @@ function RegisterV2() {
 
     const [details, setDetails] = useState({ firstname: "", lastname: "", email: "", frigo: "", password: "", username: "" });
     const [user, setUser] = useState({ name: "", email: "" });
-    // Ludo : "error" n'est jamais utilisé ;)
-    // const [error, setError] = useState("");
-    const [setError] = useState("");
+    const [error, setError] = useState("");
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -58,6 +56,7 @@ function RegisterV2() {
                                 <Grid container justify="center">
                                     <img src={BlueMarket} width={200} alt="logo" />
                                 </Grid>
+                                {error}
                                 <TextField label="Username" margin="normal" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username} />
                                 <TextField label="Email" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                                 <TextField label="firstname" margin="normal" onChange={e => setDetails({ ...details, firstname: e.target.value })} value={details.firstname} />
