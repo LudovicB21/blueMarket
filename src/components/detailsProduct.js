@@ -9,7 +9,8 @@ function DetailsProduct(props) {
         if (props.location.aboutProps) {
             setIdProduct(props.location.aboutProps.id)
         }
-    })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const product = [
         {

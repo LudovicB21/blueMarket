@@ -9,7 +9,9 @@ function RegisterV2() {
 
     const [details, setDetails] = useState({ firstname: "", lastname: "", email: "", frigo: "", password: "", username: "" });
     const [user, setUser] = useState({ name: "", email: "" });
-    const [error, setError] = useState("");
+    // Ludo : "error" n'est jamais utilisé ;)
+    // const [error, setError] = useState("");
+    const [setError] = useState("");
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -63,9 +65,9 @@ function RegisterV2() {
                                 <TextField label="frigo" margin="normal" onChange={e => setDetails({ ...details, frigo: e.target.value })} value={details.frigo} />
                                 <TextField label="Password" margin="normal" type="password" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                                 <div>
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        J'accepte les <a onClick={handleShow} > <u> conditions générale d'utilisation </u>  </a>
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                        J'accepte les <a onClick={handleShow} href="#foo"> <u> conditions générale d'utilisation </u>  </a>
                                     </label>
                                     <Modal size="lg" show={show} onHide={handleClose}>
                                         <Modal.Header closeButton>
@@ -73,11 +75,11 @@ function RegisterV2() {
                                         </Modal.Header>
                                         <Modal.Body>
                                             <h2>ARTICLE 1 : Objet</h2>
-                                            <p> Les présentes « conditions générales d'utilisation » ont pour objet l'encadrement juridique de l’utilisation du site http://mme-garon-valerie.pro.dns-orange.fr et de ses services.
+                                            <p> Les présentes « conditions générales d'utilisation » ont pour objet l'encadrement juridique de l’utilisation du site https://bluemarket.shop et de ses services.
 
                                             Ce contrat est conclu entre :
 
-                                            Le gérant du site internet, ci-après désigné Ludovic Braine,
+                                            Les gérants du site internet, ci-après désigné Ludovic BRAINE, Jéremie MARCON et Thibaut GARON,
 
                                             Toute personne physique ou morale souhaitant accéder au site et à ses services, ci-après appelé « l’Utilisateur ».
 
@@ -86,18 +88,18 @@ function RegisterV2() {
                                             <h2> ARTICLE 2 : Mentions légales </h2>
                                             <p> Pour les personnes morales :
 
-                                            Le site http://mme-garon-valerie.pro.dns-orange.fr est édité par la société BlueMarket , SAS au capital de 50 000 €, dont le siège social est situé au15 rue du test 69100 Villeurbanne .
+                                            Le site https://bluemarket.shop est édité par la société BlueMarket, SAS au capital de 50 000 €, dont le siège social est situé au 15 rue du test 69100 Villeurbanne.
 
-                                            La société est représentée par Ludovic Braine, Thibaut Garon, Jeremie Marcon .
+                                            La société est représentée par Ludovic BRAINE, Thibaut GARON et Jeremie MARCON.
 
 
                                             Pour les personnes physiques :
 
-                                            Le site http://mme-garon-valerie.pro.dns-orange.fr est édité par Ludovic Braine, domicilié au 95 rue de la prod 69001 Lyon. </p> <br></br>
+                                            Le site https://bluemarket.shop est édité par Ludovic BRAINE, Jéremie MARCON et Thibaut GARON, domiciliées au 95 rue de la prod 69001 Lyon. </p> <br></br>
 
                                             <h2> ARTICLE 3 : accès aux services </h2>
                                             <p>
-                                                L’Utilisateur du site  http://mme-garon-valerie.pro.dns-orange.fr a accès aux services suivants : <br></br>
+                                                L’Utilisateur du site  https://bluemarket.shop a accès aux services suivants : <br></br>
                                                 •	Achat de produit alimentaire <br></br>
                                                 •	Scan de produit <br></br>
                                                 •	Consommation du frigo <br></br>
@@ -118,7 +120,7 @@ function RegisterV2() {
 
                                             Le mot de passe de l’Utilisateur doit rester secret. En cas de divulgation de mot de passe, l’Éditeur décline toute responsabilité.
 
-                                            L’Utilisateur assume l’entière responsabilité de l’utilisation qu’il fait des informations et contenus présents sur le site http://mme-garon-valerie.pro.dns-orange.fr .
+                                            L’Utilisateur assume l’entière responsabilité de l’utilisation qu’il fait des informations et contenus présents sur le site https://bluemarket.shop.
 
                                             Tout usage du service par l'Utilisateur ayant directement ou indirectement pour conséquence des dommages doit faire l'objet d'une indemnisation au profit du site.
 
@@ -133,13 +135,13 @@ function RegisterV2() {
 
                                             De même, la responsabilité du site ne peut être engagée en cas de force majeure ou du fait imprévisible et insurmontable d'un tiers.
 
-                                            Le site http://mme-garon-valerie.pro.dns-orange.fr s'engage à mettre en œuvre tous les moyens nécessaires pour garantir la sécurité et la confidentialité des données. Toutefois, il n’apporte pas une garantie de sécurité totale.
+                                            Le site https://bluemarket.shop s'engage à mettre en œuvre tous les moyens nécessaires pour garantir la sécurité et la confidentialité des données. Toutefois, il n’apporte pas une garantie de sécurité totale.
 
                                             L’Éditeur se réserve la faculté d’une non-garantie de la fiabilité des sources, bien que les informations diffusées su le site soient réputées fiables.
 </p> <br></br>
 
                                             <h2> ARTICLE 6 : Propriété intellectuelle </h2>
-                                            <p>Les contenus du site http://mme-garon-valerie.pro.dns-orange.fr (logos, textes, éléments graphiques, vidéos, etc.) sont protégés par le droit d’auteur, en vertu du Code de la propriété intellectuelle.
+                                            <p>Les contenus du site https://bluemarket.shop (logos, textes, éléments graphiques, vidéos, etc.) sont protégés par le droit d’auteur, en vertu du Code de la propriété intellectuelle.
 
                                             L’Utilisateur devra obtenir l’autorisation de l’éditeur du site avant toute reproduction, copie ou publication de ces différents contenus.
 
@@ -153,9 +155,9 @@ function RegisterV2() {
                                             <h2> ARTICLE 7 : Données personnelles </h2>
                                             <p>L’Utilisateur doit obligatoirement fournir des informations personnelles pour procéder à son inscription sur le site.
 
-                                            L’adresse électronique (e-mail) de l’utilisateur pourra notamment être utilisée par le site [nom de votre site] pour la communication d’informations diverses et la gestion du compte.
+                                            L’adresse électronique (e-mail) de l’utilisateur pourra notamment être utilisée par le site https://bluemarket.shop pour la communication d’informations diverses et la gestion du compte.
 
-                                            [Votre site] garantie le respect de la vie privée de l’utilisateur, conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés.
+                                            https://bluemarket.shop garantie le respect de la vie privée de l’utilisateur, conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés.
 
                                             Le site est déclaré auprès de la CNIL sous le numéro suivant : 5962844846.
 
@@ -168,13 +170,13 @@ function RegisterV2() {
 </p> <br></br>
 
                                             <h2> ARTICLE 8 : Liens hypertextes </h2>
-                                            <p>Les domaines vers lesquels mènent les liens hypertextes présents sur le site n’engagent pas la responsabilité de l’Éditeur de http://mme-garon-valerie.pro.dns-orange.fr , qui n’a pas de contrôle sur ces liens.
+                                            <p>Les domaines vers lesquels mènent les liens hypertextes présents sur le site n’engagent pas la responsabilité de l’Éditeur de https://bluemarket.shop, qui n’a pas de contrôle sur ces liens.
 
-                                            Il est possible pour un tiers de créer un lien vers une page du site [votre site] sans autorisation expresse de l’éditeur.
+                                            Il est possible pour un tiers de créer un lien vers une page du site https://bluemarket.shop sans autorisation expresse de l’éditeur.
 </p> <br></br>
 
                                             <h2> ARTICLE 9 : Évolution des conditions générales d’utilisation </h2>
-                                            <p> Le site http://mme-garon-valerie.pro.dns-orange.fr se réserve le droit de modifier les clauses de ces conditions générales d’utilisation à tout moment et sans justification. </p> <br></br>
+                                            <p> Le site https://bluemarket.shop se réserve le droit de modifier les clauses de ces conditions générales d’utilisation à tout moment et sans justification. </p> <br></br>
 
                                             <h2> ARTICLE 10 : Durée du contrat </h2>
                                             <p> La durée du présent contrat est indéterminée. Le contrat produit ses effets à l'égard de l'Utilisateur à compter du début de l’utilisation du service.</p> <br></br>

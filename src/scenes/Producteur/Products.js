@@ -9,6 +9,7 @@ function Products() {
 
     useEffect(() => {
         authenticated()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [auth, setAuth] = useState("")
@@ -45,7 +46,8 @@ function Products() {
         },
     ]
 
-    const constitution = [
+    // Ludo : juste en dessous se trouve la ligne générant un warning console car "constitution" n'est pas utilisé
+    /*const constitution = [
         {
             id: 1,
             produit: "lait",
@@ -82,7 +84,7 @@ function Products() {
             ingredient4: "ingrédient 4",
             ingredient5: "ingrédient 5"
         },
-    ]
+    ]*/
 
     const authenticated = () => {
         if (localStorage.getItem('user')) {

@@ -14,10 +14,12 @@ function DetailsSpokes(props) {
         if (props.location.aboutProps) {
             setName(props.location.aboutProps.name)
         }
-    })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const [name, setName] = useState("")
-    const [modalState, setModalState] = useState(false)
+    // Cette ligne n'est jamais utilisé ;) 
+    //const [modalState, setModalState] = useState(false)
     const [show, setShow] = useState(false);
 
     const stockes = [
@@ -92,9 +94,10 @@ function DetailsSpokes(props) {
         }
     ]
 
-    const manageState = () => {
+    // Modale jamais utilisé ;) 
+    /*const manageState = () => {
         setModalState(!modalState)
-    }
+    }*/
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

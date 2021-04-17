@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 function Details(props) {
     const dataProduct = props.location.aboutProps?.data
 
-    const [produits, setProduit] = useState(dataProduct)
+    // Ludo : juste en dessous se trouve la ligne générant un warning console car "setProduit" n'est pas utilisé
+    // const [produits, setProduit] = useState(dataProduct)
+    const [produits] = useState(dataProduct)
 
     return (
         <div className="mx-5 my-5">

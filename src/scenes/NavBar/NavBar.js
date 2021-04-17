@@ -39,6 +39,8 @@ function NavBar() {
                                 </li>
                             )
                         }
+                        // Avoid warning in consol to return a null value
+                        return null
                     })}
                 </ul>
             </nav>

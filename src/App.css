@@ -1,4 +1,4 @@
-@import url('hhtps://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 #footer {
     position: fixed;
@@ -9,3 +9,7 @@
     color: white;
     text-align: center;
  }
+
+ .removeunderline {
+    text-decoration: none
+}

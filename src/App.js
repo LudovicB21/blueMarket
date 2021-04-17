@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Switch, Route, browserHistory, Redirect } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React, { useState } from 'react'
 import HomePage from './scenes/HomePage/homePage'
 import Product from './scenes/Producteur/Products'
 import DetailsProducts from './scenes/Producteur/Details'
@@ -42,31 +42,31 @@ function App() {
         </Switch>
       </Router>
       <footer className="bg-light text-center text-lg-start" id="footer">
-        <div class="text-center p-3" style={{ backgroundColor: "grey" }}>
+        <div className="text-center p-3" style={{ backgroundColor: "grey" }}>
           © 2021 Copyright :
-          <a class="text-dark"> BlueMarket.com  <a style={{ cursor: "pointer" }} onClick={handleShow}> <u> Mention légales </u> </a></a>
+          <a className="text-dark" style={{ cursor: "pointer" }} onClick={handleShow} href="#foo"> BlueMarket.com <u> Mention légales </u></a>
           <Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Condition générales d'utilisation  </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>Conformément aux dispositions des Articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la Confiance dans l’économie numérique, dite L.C.E.N., il est porté à la connaissance des Utilisateurs du site _______________ les présentes mentions légales.
-              La connexion et la navigation sur le site (indiquer le nom du site) par l’Utilisateur implique acceptation intégrale et sans réserve des présentes mentions légales.
+              <p>Conformément aux dispositions des Articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la Confiance dans l’économie numérique, dite L.C.E.N., il est porté à la connaissance des Utilisateurs du site bluemarket.shop les présentes mentions légales.
+              La connexion et la navigation sur le site bluemarket.shop par l’Utilisateur implique acceptation intégrale et sans réserve des présentes mentions légales.
               Ces dernières sont accessibles sur le site à la rubrique « Mentions légales ».
 </p> <br></br>
               <h2>ARTICLE 1 : L’éditeur</h2>
-              <p> L’édition et la direction de la publication du site _______________ est assurée par Ludovic Braine, domiciliée adresseDeTest, dont le numéro de téléphone est 00000000, et l'adresse e-mail admin@admin.com.</p> <br></br>
+              <p> L’édition et la direction de la publication du site bluemarket.shop est assurée par L.BRAINE, J.MARCON et T.GARON domiciliées au 16 rue Jean Desparmet - 69008 LYON - FRANCE, dont le numéro de téléphone est 01-84-07-17-77, et l'adresse e-mail supinfo@supinfo.com.</p> <br></br>
 
               <h2> ARTICLE 2 : L’hébergeur </h2>
-              <p> L'hébergeur du site _______________ est la Société _______________, dont le siège social est situé au _______________ , avec le numéro de téléphone : _______________. </p> <br></br>
+              <p> L'hébergeur du site bluemarket.shop est la Société OVHCloud, dont le siège social est situé au 2 rue Kellermann - 591000 ROUBAIX - FRANCE, avec le numéro de téléphone : 09-55-00-66-33. </p> <br></br>
 
               <h2> ARTICLE 3 : Accès au site </h2>
               <p>Le site est accessible par tout endroit, 7j/7, 24h/24 sauf cas de force majeure, interruption programmée ou non et pouvant découlant d’une nécessité de maintenance.
-              En cas de modification, interruption ou suspension des services le site _______________ ne saurait être tenu responsable.
+              En cas de modification, interruption ou suspension des services le site bluemarket.shop ne saurait être tenu responsable.
 </p> <br></br>
 
               <h2> ARTICLE 4 : Collecte des données </h2>
-              <p> Le site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés. Le site est déclaré à la CNIL sous le numéro _______________.
+              <p> Le site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés. Le site est déclaré à la CNIL sous le numéro 015455453732222.
               En vertu de la loi Informatique et Libertés, en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur exerce ce droit :
               ·         via un formulaire de contact ;
               
@@ -82,9 +82,9 @@ Un cookie est un élément qui ne permet pas d’identifier l’Utilisateur mais
 </p> <br></br>
 
               <h2> ARTICLE 6 : Propriété intellectuelle </h2>
-              <p>Toute utilisation, reproduction, diffusion, commercialisation, modification de toute ou partie du site _______________,  sans autorisation de l’Editeur est prohibée et pourra entraînée des actions et poursuites judiciaires telles que notamment prévues par le Code de la propriété intellectuelle et le Code civil.
+              <p>Toute utilisation, reproduction, diffusion, commercialisation, modification de toute ou partie du site bluemarket.shop,  sans autorisation de l’Editeur est prohibée et pourra entraînée des actions et poursuites judiciaires telles que notamment prévues par le Code de la propriété intellectuelle et le Code civil.
 
-Pour plus d’informations, se reporter aux CGU du site _______________ accessible à la rubrique« CGU » 
+Pour plus d’informations, se reporter aux CGU du site bluemarket.shop accessible à la rubrique« Register » 
 .
 </p> <br></br>
             </Modal.Body>

@@ -103,11 +103,15 @@ class Scanner extends Component {
     //Renvoyer les informations du produits dans la modal 
     getInfos() {
         const code = this.state.result
+        // Permet de supprimer le warning ce comparaison avec type incorrecte en console ;) Ne pas supprimer
+        /* eslint eqeqeq: 0 */
         if (code !== "") {
             this.state.products.map(produits => {
                 if (produits.id_product == code) {
                     return <p> {produits.name} </p>
                 }
+                // Retourne une valeur nulle pour eviter un warning
+                return null
             })
         }
     }

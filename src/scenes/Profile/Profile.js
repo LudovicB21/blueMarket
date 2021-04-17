@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
+import "./Profile.css"
 
 function Profile() {
 
     useEffect(() => {
         authenticated()
-        /*fetch('https://bluemarket.shop/api/TOTO',
+        fetch('https://bluemarket.shop/api/TOTO',
             {
                 method: "GET",
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                }
             }).then(response => response.json())
-            .then(data => console.log(data));*/
+            .then(data => console.log(data));
     }, [])
 
     const [auth, setAuth] = useState("")
@@ -60,31 +58,31 @@ function Profile() {
                 </div>
                 <div className="container mx-5 my-5">
                     <h1>Mon profile </h1>
-                    <a className="text-danger"> <strong> Pour changer vos données remplissez les champs </strong>  </a>
+                    <a className="text-danger" id="removeunderline" href="foo"> <strong> Pour changer vos données remplissez les champs </strong>  </a>
                     <form onSubmit={submitHandler} >
                         <div className="row">
                             <div className="col-sm form-group">
-                                <label for="firstname">Firstname :</label>
+                                <label htmlFor="firstname">Firstname :</label>
                                 <input type="text" className="form-control" onChange={e => setDetails({ ...details, "firstname": e.target.value })} placeholder={auth.firstname}></input>
                             </div>
                             <div className="col-sm form-group">
-                                <label for="lastname">Lastname :</label>
+                                <label htmlFor="lastname">Lastname :</label>
                                 <input type="text" className="form-control" onChange={e => setDetails({ ...details, "lastname": e.target.value })} placeholder={auth.lastname}></input>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-sm form-group">
-                                <label for="email">Email :</label>
+                                <label htmlFor="email">Email :</label>
                                 <input type="email" className="form-control" onChange={e => setDetails({ ...details, "email": e.target.value })} placeholder={auth.email}></input>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-sm form-group">
-                                <label for="fridge">Fridge ( Litre ) :</label>
+                                <label htmlFor="fridge">Fridge ( Litre ) :</label>
                                 <input type="text" className="form-control" onChange={e => setDetails({ ...details, "fridge": e.target.value })} placeholder={auth.frigo}></input>
                             </div>
                             <div className="col-sm form-group">
-                                <label for="role">Role :</label>
+                                <label htmlFor="role">Role :</label>
                                 <input type="text" className="form-control" disabled={true} placeholder={role()}></input>
                             </div>
                         </div>
@@ -96,7 +94,7 @@ function Profile() {
                                         <Modal.Title>Modification de votre mot de passe </Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <label for="password">New password :</label>
+                                        <label htmlFor="password">New password :</label>
                                         <input type="password" className="form-control" onChange={e => setDetails({ ...details, "password": e.target.value })}></input>
                                     </Modal.Body>
                                     <Modal.Footer>

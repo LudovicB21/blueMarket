@@ -32,7 +32,7 @@ function Fridge() {
     useEffect(() => {
         authenticated()
         calcul()
-    }, [])
+    })
 
     const authenticated = () => {
         if (localStorage.getItem('user')) {
@@ -49,7 +49,7 @@ function Fridge() {
 
     const calcul = () => {
         let total = 0
-        let user = JSON.parse(localStorage.getItem('user'))
+        //let user = JSON.parse(localStorage.getItem('user'))
         items.forEach(item => {
             let calc1 = item.size * 100
             let calcul2 = calc1 / auth.frigo

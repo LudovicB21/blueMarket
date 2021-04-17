@@ -13,10 +13,13 @@ function Spokes() {
         } else {
             setError(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [error, setError] = useState(false)
-    const [modalIsOpen, setModalIsOpen] = useState(false)
+    // Ludo : "modelIsOpen" n'était jamais utilisé
+    // const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [setModalIsOpen] = useState(false)
     const [nbs, setNbs] = useState(true)
 
     const stockes = [
