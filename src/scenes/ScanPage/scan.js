@@ -10,6 +10,7 @@ class Scanner extends Component {
 
     constructor(props) {
         super(props);
+        this.wrapper = React.createRef();
         this.state = {
             nocamera: false,
             test: [],
@@ -52,7 +53,12 @@ class Scanner extends Component {
     }
 
     componentDidMount() {
-        this.authenticated()
+        //this.authenticated()
+        if (localStorage.getItem('user')) {
+            this.setState({ auth: JSON.parse(localStorage.getItem('user')) })
+        } else {
+            this.setState({ error: true })
+        }
         Quagga.init({
             inputStream: {
                 name: "Live",
@@ -91,30 +97,36 @@ class Scanner extends Component {
     handleShow = () => this.setState({ show: true });
 
     onDetect(res) {
-        this.handleShow()
-        this.setState({ result: res.codeResult.code })
-        //alert(res.codeResult.code)
-        //this.setState({ test: [...res.codeResult.code] })
+        if (res.codeResult.code) {
+            /* eslint eqeqeq: 0 */
+            /* eslint array-callback-return: 0 */
+            this.state.products.map(produits => {
+                if (produits.id_product == res.codeResult.code) {
+                    this.setState({ result: res.codeResult.code })
+                    this.handleShow()
+                }
+            })
+        }
         //Quagga.offProcessed()
         //Quagga.stop()
-        //this.props.onBarcodeDetect(res.codeResult.code)
     }
 
     //Renvoyer les informations du produits dans la modal 
-    getInfos() {
+    /*getInfos() {
         const code = this.state.result
         // Permet de supprimer le warning ce comparaison avec type incorrecte en console ;) Ne pas supprimer
-        /* eslint eqeqeq: 0 */
+        /* eslint eqeqeq: 0 
         if (code !== "") {
             this.state.products.map(produits => {
                 if (produits.id_product == code) {
+                    console.log(produits.name)
                     return <p> {produits.name} </p>
                 }
                 // Retourne une valeur nulle pour eviter un warning
                 return null
             })
         }
-    }
+    }*/
 
     render() {
         if (this.state.error === true) {
@@ -132,13 +144,13 @@ class Scanner extends Component {
                     </Fragment>
                     <div>
                         <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.handleShow}> Change password</button>
-                        <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+                        <Modal size="lg" ref={this.wrapper} show={this.state.show} onHide={this.handleClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title> Ajouter votre produit </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 {this.state.result || null}
-                                {this.getInfos()}
+                                {/*this.getInfos()*/}
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="success" onClick={this.handleClose}>
