@@ -44,7 +44,6 @@ function App() {
       <footer className="bg-light text-center text-lg-start" id="footer">
         <div className="text-center p-3" id="FooterTestPython" style={{ backgroundColor: "grey" }}>
           © 2021 Copyright :
-          <a className="text-dark" id="TestHtmlValue" style={{ cursor: "pointer" }} onClick={handleShow} href="#foo"> BlueMarket.com <u> Mention légales </u></a>
           <Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Condition générales d'utilisation  </Modal.Title>
