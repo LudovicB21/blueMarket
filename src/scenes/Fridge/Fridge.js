@@ -42,6 +42,7 @@ function Fridge() {
         } else {
             setError(true)
         }
+        // eslint-disable-next-line
     }, [])
 
     //const [panier, setPanier] = useState(0)

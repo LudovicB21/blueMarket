@@ -81,10 +81,10 @@ function LoginV2() {
                                 </Grid>
                                 {(error !== "") ? (<div className="error">{error}</div>) : ""}
 
-                                <TextField label="Email" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
-                                <TextField label="Password" type="password" margin="normal" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
+                                <TextField label="Email" id="emailField" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
+                                <TextField label="Password" id="passwordField" type="password" margin="normal" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                                 <div style={{ height: 20 }} />
-                                <Button color="primary" variant="contained" type="submit">
+                                <Button color="primary" id="LoginButton" variant="contained" type="submit">
                                     Log in
                         </Button>
                                 <div style={{ height: 20 }} />
