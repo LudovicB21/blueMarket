@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Quagga from 'quagga'
 import './scan.css'
 import { Modal, Button } from 'react-bootstrap'
-
+import Barilla from '../../assets/img/p.jpg'
 
 class Scanner extends Component {
 
@@ -112,21 +112,62 @@ class Scanner extends Component {
     }
 
     //Renvoyer les informations du produits dans la modal 
-    /*getInfos() {
+    getInfos() {
         const code = this.state.result
         // Permet de supprimer le warning ce comparaison avec type incorrecte en console ;) Ne pas supprimer
-        /* eslint eqeqeq: 0 
+        /* eslint eqeqeq: 0 */
         if (code !== "") {
-            this.state.products.map(produits => {
+            return this.state.products.map(produits => {
                 if (produits.id_product == code) {
-                    console.log(produits.name)
-                    return <p> {produits.name} </p>
+                    return <div key={produits.id}>
+                        <div>
+                            <img src={Barilla} width={200} alt="logo" />
+                        </div>
+                        <div className="mx-5 my-5">
+                            <p> Name:  {produits.name}</p>
+                            <p> Size:  {produits.size}</p>
+                            <p> Expiration:  {produits.expiration}</p>
+                        </div>
+                        <div>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{produits.ingredient1}</th>
+                                        <th scope="col">{produits.ingredient2}</th>
+                                        <th scope="col">{produits.ingredient3}</th>
+                                        <th scope="col">{produits.ingredient4}</th>
+                                        <th scope="col">{produits.ingredient5}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {produits.ingredient1}
+                                        </td>
+                                        <td>
+                                            {produits.ingredient2}
+                                        </td>
+                                        <td>
+                                            {produits.ingredient3}
+                                        </td>
+                                        <td>
+                                            {produits.ingredient4}
+                                        </td>
+                                        <td>
+                                            {produits.ingredient5}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    //<p key={produits.id}> {produits.name} </p>
                 }
                 // Retourne une valeur nulle pour eviter un warning
                 return null
             })
         }
-    }*/
+    }
 
     render() {
         if (this.state.error === true) {
@@ -149,8 +190,7 @@ class Scanner extends Component {
                                 <Modal.Title> Ajouter votre produit </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                {this.state.result || null}
-                                {/*this.getInfos()*/}
+                                {this.getInfos()}
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="success" onClick={this.handleClose}>
