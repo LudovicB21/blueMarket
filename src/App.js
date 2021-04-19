@@ -12,8 +12,10 @@ import Profile from "./scenes/Profile/Profile"
 import Spokes from "./scenes/Spokes/spokes"
 import DetailsSpokes from "./scenes/Spokes/detailsSpokes"
 import DetailsProduct from './components/detailsProduct';
+import ShoppingCart from './scenes/ShoppingCard/shoppingCart';
 import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
+import { DataContext, DataProvider } from './stores/Context'
 
 function App() {
 
@@ -24,6 +26,7 @@ function App() {
 
   return (
     <div>
+      <DataProvider>
       <Router>
         <Switch>
           <Route path="/" exact component={LoginV2} />
@@ -34,6 +37,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/spokes" component={Spokes} />
           <Route path="/homePage" component={HomePage} />
+          <Route path="/shoppingCart" component={ShoppingCart} />
           <Route path="/products" component={Product} />
           <Route path="/detailsSpokes" component={DetailsSpokes} />
           <Route path="/detailsProduct" component={DetailsProduct} />
@@ -97,6 +101,7 @@ Pour plus d’informations, se reporter aux CGU du site bluemarket.shop accessib
           </Modal>
         </div>
       </footer>
+      </DataProvider>
     </div >
 
   );

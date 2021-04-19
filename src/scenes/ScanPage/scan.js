@@ -5,8 +5,11 @@ import Quagga from 'quagga'
 import './scan.css'
 import { Modal, Button } from 'react-bootstrap'
 import Barilla from '../../assets/img/p.jpg'
+import { DataContext } from '../../stores/Context'
 
-class Scanner extends Component {
+export class Scanner extends Component {
+    static contextType = DataContext;
+
 
     constructor(props) {
         super(props);
@@ -24,6 +27,7 @@ class Scanner extends Component {
                     id_product: 555444332221,
                     name: "pâtes1",
                     size: "0",
+                    price: "1.00",
                     image: "../assets/img/barilla-rigatoni.jpg",
                     ingredient1: "ingrédient 1",
                     ingredient2: "ingrédient 2",
@@ -37,6 +41,7 @@ class Scanner extends Component {
                     id: 2,
                     id_product: 123456789012,
                     name: "pâtes2",
+                    price: "1.00",
                     size: "0",
                     image: "../assets/img/barilla-rigatoni.jpg",
                     ingredient1: "ingrédient 1",
@@ -111,10 +116,14 @@ class Scanner extends Component {
         //Quagga.stop()
     }
 
-    //Renvoyer les informations du produits dans la modal 
+    validate() {
+
+    }
+
     getInfos() {
         const code = this.state.result
-        // Permet de supprimer le warning ce comparaison avec type incorrecte en console ;) Ne pas supprimer
+        const { addCart } = this.context;
+
         /* eslint eqeqeq: 0 */
         if (code !== "") {
             return this.state.products.map(produits => {
@@ -159,9 +168,20 @@ class Scanner extends Component {
                                     </tr>
                                 </tbody>
                             </table>
+                            <Modal.Footer>
+                                <Button variant="success" onClick={() => addCart(produits)}>
+                                    Valider et continuer
+                                    </Button>
+                                <Button variant="primary" onClick={this.handleClose}>
+                                    Voir le panier
+                                    </Button>
+                            </Modal.Footer>
+                            {/*<div className="input-group mb-3">
+                                <span className="input-group-text">Quantité</span>
+                                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" />
+                            </div>*/}
                         </div>
                     </div>
-                    //<p key={produits.id}> {produits.name} </p>
                 }
                 // Retourne une valeur nulle pour eviter un warning
                 return null
@@ -192,14 +212,6 @@ class Scanner extends Component {
                             <Modal.Body>
                                 {this.getInfos()}
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="success" onClick={this.handleClose}>
-                                    Valider et continuer
-                                    </Button>
-                                <Button variant="primary" onClick={this.handleClose}>
-                                    Voir le panier
-                                    </Button>
-                            </Modal.Footer>
                         </Modal>
                     </div>
                 </div>

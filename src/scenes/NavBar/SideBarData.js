@@ -57,8 +57,8 @@ export const SidebarData = [
         role: 3
     },
     {
-        title: 'Panier',
-        path: '/panier',
+        title: 'Shopping cart',
+        path: '/shoppingCart',
         icon: <FaIcons.FaCartPlus />,
         cName: 'nav-text',
         role: 0
