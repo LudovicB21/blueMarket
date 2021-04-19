@@ -21,7 +21,7 @@ function LoginV2() {
 
     const adminUser = {
         email: "admin@admin.com",
-        password: "admin123",
+        password: "admin123456",
         role: 0
     }
 
