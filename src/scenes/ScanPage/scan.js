@@ -28,6 +28,7 @@ export class Scanner extends Component {
                     name: "pâtes1",
                     size: "0",
                     price: "1.00",
+                    quantity: "1",
                     image: "../assets/img/barilla-rigatoni.jpg",
                     ingredient1: "ingrédient 1",
                     ingredient2: "ingrédient 2",
@@ -42,6 +43,7 @@ export class Scanner extends Component {
                     id_product: 123456789012,
                     name: "pâtes2",
                     price: "1.00",
+                    quantity: "1",
                     size: "0",
                     image: "../assets/img/barilla-rigatoni.jpg",
                     ingredient1: "ingrédient 1",
@@ -204,7 +206,6 @@ export class Scanner extends Component {
                         </div>
                     </Fragment>
                     <div>
-                        <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.handleShow}> Change password</button>
                         <Modal size="lg" ref={this.wrapper} show={this.state.show} onHide={this.handleClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title> Ajouter votre produit </Modal.Title>

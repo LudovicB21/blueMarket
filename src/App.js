@@ -15,7 +15,7 @@ import DetailsProduct from './components/detailsProduct';
 import ShoppingCart from './scenes/ShoppingCard/shoppingCart';
 import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
-import { DataContext, DataProvider } from './stores/Context'
+import { DataProvider } from './stores/Context'
 
 function App() {
 
