@@ -8,11 +8,11 @@ function Profile() {
 
     useEffect(() => {
         authenticated()
-        fetch('https://bluemarket.shop/api/TOTO',
+        /*fetch('https://bluemarket.shop/api/login',
             {
                 method: "GET",
             }).then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => console.log(data));*/
     }, [])
 
     const [auth, setAuth] = useState("")

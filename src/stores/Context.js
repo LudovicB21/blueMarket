@@ -8,14 +8,38 @@ export class DataProvider extends Component {
         total: 0
     }
 
+    componentDidUpdate() {
+        localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
+        localStorage.setItem('dataTotal', JSON.stringify(this.state.total))
+    }
+
+    componentDidMount() {
+        const dataCart = JSON.parse(localStorage.getItem('dataCart'));
+        if (dataCart !== null) {
+            this.setState({ cart: dataCart });
+        }
+        const dataTotal = JSON.parse(localStorage.getItem('dataTotal'));
+        if (dataTotal !== null) {
+            this.setState({ total: dataTotal });
+        }
+    }
+
     addCart = (produits) => {
         const { cart } = this.state;
-        this.setState({ cart: [...cart, produits] });
-        this.getTotal();
+        const check = cart.every(item => {
+            return item.id !== produits.id
+        })
+        if (check) {
+            this.setState({ cart: [...cart, produits] });
+            this.getTotal()
+        } else {
+            alert("The product has been added to cart.")
+        }
     }
 
     getTotal = () => {
         const { cart } = this.state;
+        console.log(cart)
         const res = cart.reduce((prev, item) => {
             return prev + (item.price * item.quantity);
         }, 0)
@@ -40,7 +64,7 @@ export class DataProvider extends Component {
         const { cart } = this.state;
         cart.forEach(item => {
             if (item.id === id) {
-                item.quantity === 1 ? item.quantity = 1 : item.quantity -= 1;
+                item.quantity == 1 ? item.quantity = 1 : item.quantity -= 1;
             }
         })
         this.setState({ cart: cart });
@@ -57,22 +81,6 @@ export class DataProvider extends Component {
         this.setState({ cart: cart });
         this.getTotal();
     };
-
-    componentDidUpdate() {
-        localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
-        localStorage.setItem('dataTotal', JSON.stringify(this.state.total))
-    }
-
-    componentDidMount() {
-        const dataCart = JSON.parse(localStorage.getItem('dataCart'));
-        if (dataCart !== null) {
-            this.setState({ cart: dataCart });
-        }
-        const dataTotal = JSON.parse(localStorage.getItem('dataTotal'));
-        if (dataTotal !== null) {
-            this.setState({ total: dataTotal });
-        }
-    }
 
     render() {
         const { cart, total } = this.state;

@@ -118,10 +118,6 @@ export class Scanner extends Component {
         //Quagga.stop()
     }
 
-    validate() {
-
-    }
-
     getInfos() {
         const code = this.state.result
         const { addCart } = this.context;

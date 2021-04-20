@@ -7,7 +7,6 @@ export class ShoppingCart extends Component {
 
     render() {
         const { cart, increase, removeProduct, total, reduction } = this.context
-        console.log(cart)
         return (
             <div>
                 <div>
