@@ -15,7 +15,6 @@ export class DataProvider extends Component {
     }
 
     getTotal = () => {
-        console.log("ici")
         const { cart } = this.state;
         const res = cart.reduce((prev, item) => {
             return prev + (item.price * item.quantity);
