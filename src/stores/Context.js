@@ -51,7 +51,7 @@ export class DataProvider extends Component {
         const { cart } = this.state;
         cart.forEach(item => {
             if (item.id === id) {
-                item.quantity += 1;
+                item.quantity++;
             }
         })
         this.setState({ cart: cart });
