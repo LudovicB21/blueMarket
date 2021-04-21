@@ -8,22 +8,6 @@ export class DataProvider extends Component {
         total: 0
     }
 
-    componentDidUpdate() {
-        localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
-        localStorage.setItem('dataTotal', JSON.stringify(this.state.total))
-    }
-
-    componentDidMount() {
-        const dataCart = JSON.parse(localStorage.getItem('dataCart'));
-        if (dataCart !== null) {
-            this.setState({ cart: dataCart });
-        }
-        const dataTotal = JSON.parse(localStorage.getItem('dataTotal'));
-        if (dataTotal !== null) {
-            this.setState({ total: dataTotal });
-        }
-    }
-
     addCart = (produits) => {
         const { cart } = this.state;
         const check = cart.every(item => {
@@ -31,15 +15,14 @@ export class DataProvider extends Component {
         })
         if (check) {
             this.setState({ cart: [...cart, produits] });
-            this.getTotal()
         } else {
             alert("The product has been added to cart.")
         }
     }
 
     getTotal = () => {
+        console.log("total")
         const { cart } = this.state;
-        console.log(cart)
         const res = cart.reduce((prev, item) => {
             return prev + (item.price * item.quantity);
         }, 0)
@@ -61,6 +44,7 @@ export class DataProvider extends Component {
     };
 
     reduction = id => {
+        /* eslint eqeqeq: 0 */
         const { cart } = this.state;
         cart.forEach(item => {
             if (item.id === id) {
@@ -81,6 +65,22 @@ export class DataProvider extends Component {
         this.setState({ cart: cart });
         this.getTotal();
     };
+
+    componentDidUpdate() {
+        localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
+        localStorage.setItem('dataTotal', JSON.stringify(this.state.total))
+    }
+
+    componentDidMount() {
+        const dataCart = JSON.parse(localStorage.getItem('dataCart'));
+        if (dataCart !== null) {
+            this.setState({ cart: dataCart });
+        }
+        const dataTotal = JSON.parse(localStorage.getItem('dataTotal'));
+        if (dataTotal !== null) {
+            this.setState({ total: dataTotal });
+        }
+    }
 
     render() {
         const { cart, total } = this.state;

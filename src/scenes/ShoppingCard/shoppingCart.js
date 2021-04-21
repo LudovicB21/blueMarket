@@ -5,6 +5,11 @@ import { DataContext } from '../../stores/Context'
 export class ShoppingCart extends Component {
     static contextType = DataContext;
 
+
+    componentDidMount() {
+        this.context.getTotal()
+    }
+
     render() {
         const { cart, increase, removeProduct, total, reduction } = this.context
         return (

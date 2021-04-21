@@ -134,43 +134,16 @@ export class Scanner extends Component {
                             <p> Name:  {produits.name}</p>
                             <p> Size:  {produits.size}</p>
                             <p> Expiration:  {produits.expiration}</p>
+                            <Button variant="success" onClick={() => addCart(produits)}>
+                                Ajouter le produit
+                            </Button>
                         </div>
                         <div>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">{produits.ingredient1}</th>
-                                        <th scope="col">{produits.ingredient2}</th>
-                                        <th scope="col">{produits.ingredient3}</th>
-                                        <th scope="col">{produits.ingredient4}</th>
-                                        <th scope="col">{produits.ingredient5}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {produits.ingredient1}
-                                        </td>
-                                        <td>
-                                            {produits.ingredient2}
-                                        </td>
-                                        <td>
-                                            {produits.ingredient3}
-                                        </td>
-                                        <td>
-                                            {produits.ingredient4}
-                                        </td>
-                                        <td>
-                                            {produits.ingredient5}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                             <Modal.Footer>
-                                <Button variant="success" onClick={() => addCart(produits)}>
-                                    Valider et continuer
-                                    </Button>
                                 <Button variant="primary" onClick={this.handleClose}>
+                                    Continuer mes achats
+                                    </Button>
+                                <Button variant="danger" onClick={this.handleClose}>
                                     Voir le panier
                                     </Button>
                             </Modal.Footer>
@@ -204,7 +177,7 @@ export class Scanner extends Component {
                     <div>
                         <Modal size="lg" ref={this.wrapper} show={this.state.show} onHide={this.handleClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title> Ajouter votre produit </Modal.Title>
+                                <Modal.Title> Votre produit </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 {this.getInfos()}
