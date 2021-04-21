@@ -77,6 +77,11 @@ function Fridge() {
 
                 </div>
                 <div className="mx-5 my-5">
+                    <button className="btn btn-primary">
+                        Voir l'historique d'achat
+                    </button>
+                </div>
+                <div className="mx-5 my-5">
                     <h1>Dans mon frigo :  </h1>
                     <table className="table">
                         <thead>
