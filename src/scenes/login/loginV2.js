@@ -8,49 +8,44 @@ import md5 from "md5"
 function LoginV2() {
 
     useEffect(() => {
-        getAuth()
+        //getAuth()
     }, [])
 
-    const getAuth = () => {
+    /*const getAuth = () => {
         setAuth(JSON.parse(localStorage.getItem('user')))
-    }
+    }*/
 
     const [details, setDetails] = useState({ email: "", password: "" });
-    const [user, setUser] = useState({ email: "", role: "", password: "", id: 0, frigo: 0 });
+    const [user, setUser] = useState({ email: "", role: "", firstname: "", lastname: "", frigo: 0 });
     const [error, setError] = useState("");
     const [auth, setAuth] = useState("")
-
-    const adminUser = {
-        email: "admin@admin.com",
-        password: "admin123",
-        role: 0
-    }
 
     const submitHandler = e => {
         e.preventDefault();
 
-        loginForm(details)
-        console.log(details)
-        console.log(md5(details.password))
+        getLogin(details)
     }
 
-
-    const loginForm = details => {
-        if (details.email === adminUser.email && details.password === adminUser.password) {
-            setUser({
-                password: details.password,
-                email: details.email,
-                role: adminUser.role,
-                id: 1,
-                frigo: 150,
-                firstname: "ludovic",
-                lastname: "braine"
+    const getLogin = () => {
+        fetch(`https://bluemarket.shop/api/login?email=${details.email}&password=${details.password}`,
+            {
+                method: "GET",
+            }).then(response => response.json())
+            .then(data => {
+                if (!data.Login) {
+                    setUser({
+                        email: data.user_email,
+                        firstname: data.user_first,
+                        lastname: data.user_last,
+                        role: data.user_role,
+                        frigo: data.user_size_Fridge
+                    })
+                    console.log(data)
+                } else {
+                    setError(data.Login)
+                }
             });
-        } else {
-            setError("Details not match ! ")
-        }
     }
-
 
     return (
         <div>
@@ -80,8 +75,8 @@ function LoginV2() {
                             <div style={{ display: "flex", flexDirection: "column", maxWidth: 400, minWidth: 300 }}>
                                 <Grid container justify="center">
                                     <img src={BlueMarket} width={200} alt="logo" />
-                                </Grid>
-                                {(error !== "") ? (<div className="error">{error}</div>) : ""}
+                                </Grid> <br></br>
+                                {(error !== "") ? (<div className="error text-danger">{error}</div>) : ""}
 
                                 <TextField label="Email" id="emailField" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                                 <TextField label="Password" id="passwordField" type="password" margin="normal" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
