@@ -48,7 +48,10 @@ export class ShoppingCart extends Component {
                         <div>
                             <h3>Total: {total} €</h3>
                             <h3>Empreinte carbonne : {Math.round(total * (0.584))} éqCO2 / €</h3>
-                        </div>
+                        </div> <br></br>
+                        <button className="btn btn-primary">
+                            Payment
+                        </button>
                     </div >
                 </div>
             </div>
