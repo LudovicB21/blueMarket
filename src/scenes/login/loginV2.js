@@ -39,7 +39,6 @@ function LoginV2() {
                         role: data.user_role,
                         frigo: data.user_size_Fridge
                     })
-                    console.log(data)
                 } else {
                     setError(data.Login)
                 }
