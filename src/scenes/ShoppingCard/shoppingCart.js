@@ -19,7 +19,7 @@ export class ShoppingCart extends Component {
                 </div>
                 <div>
                     <div className="mx-5 my-5">
-                        <h1> Mon panier </h1>
+                        <h1> My shopping cart </h1>
                         <table className="table">
                             <thead>
                                 <tr>
@@ -47,7 +47,7 @@ export class ShoppingCart extends Component {
                         </table>
                         <div>
                             <h3>Total: {total} €</h3>
-                            <h3>Empreinte carbonne : {Math.round(total * (0.584))} éqCO2 / €</h3>
+                            <h3>Carbon footprint : {Math.round(total * (0.584))} eqCO2 / €</h3>
                         </div> <br></br>
                         <button className="btn btn-primary">
                             Payment

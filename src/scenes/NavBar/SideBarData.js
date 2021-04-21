@@ -5,7 +5,7 @@ import * as BiIcons from "react-icons/bi"
 import * as CgIcons from "react-icons/cg"
 import * as SiIcons from "react-icons/si"
 import * as FiIcons from "react-icons/fi"
-
+import * as BsFill from "react-icons/bs"
 export const SidebarData = [
     {
         title: 'Home',
@@ -60,6 +60,13 @@ export const SidebarData = [
         title: 'Shopping cart',
         path: '/shoppingCart',
         icon: <FaIcons.FaCartPlus />,
+        cName: 'nav-text',
+        role: 0
+    },
+    {
+        title: 'MyProductors',
+        path: '/productors',
+        icon: <BsFill.BsFillPersonFill />,
         cName: 'nav-text',
         role: 0
     },

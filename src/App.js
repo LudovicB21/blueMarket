@@ -16,6 +16,7 @@ import ShoppingCart from './scenes/ShoppingCard/shoppingCart';
 import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
 import { DataProvider } from './stores/Context'
+import MyProductors from './scenes/MyProductors/myProductors';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/shoppingCart" component={ShoppingCart} />
           <Route path="/products" component={Product} />
           <Route path="/detailsSpokes" component={DetailsSpokes} />
+          <Route path="/productors" component={MyProductors} />
           <Route path="/detailsProduct" component={DetailsProduct} />
           <Route path="/scan" component={Scan} />
           <Route path="/detailsProduct" component={DetailsProducts} />

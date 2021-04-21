@@ -130,14 +130,14 @@ function Products() {
                     <NavBar />
                 </div>
                 <div className="mx-5 my-5">
-                    <h1>Mes produits </h1>
+                    <h1> My products </h1>
                     <table className="table">
                         <thead>
                             <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Date d'expiration</th>
+                                <th scope="col">Name</th>
+                                <th scope="col"> Expiration Date</th>
                                 <th scope="col">Stock</th>
-                                <th scope="col">Prochaines livraisons</th>
+                                <th scope="col">Next delivery</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -156,15 +156,15 @@ function Products() {
                                     </button>
                                         <Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
-                                                <Modal.Title> Détails du produit </Modal.Title>
+                                                <Modal.Title> Product's details </Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
                                                 {console.log(detail)}
                                                 <div className="mx-5 my-5">
                                                     <p> Name:  {detail.name}</p>
                                                     <p> Size:  {detail.size}</p>
-                                                    <p> Livraison:  {detail.livraison}</p>
-                                                    <p> Expiration:  {detail.expiration}</p>
+                                                    <p> Next delivery:  {detail.livraison}</p>
+                                                    <p> Expiration date:  {detail.expiration}</p>
                                                 </div>
                                                 <div>
                                                     <table className="table">

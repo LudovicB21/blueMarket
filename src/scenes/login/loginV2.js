@@ -3,6 +3,7 @@ import { Button, Grid, TextField } from "@material-ui/core"
 import loginImg from "../../assets/img/login.png"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect, Link } from "react-router-dom"
+import md5 from "md5"
 
 function LoginV2() {
 
@@ -29,7 +30,8 @@ function LoginV2() {
         e.preventDefault();
 
         loginForm(details)
-
+        console.log(details)
+        console.log(md5(details.password))
     }
 
 

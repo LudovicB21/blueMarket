@@ -133,18 +133,18 @@ export class Scanner extends Component {
                         <div className="mx-5 my-5">
                             <p> Name:  {produits.name}</p>
                             <p> Size:  {produits.size}</p>
-                            <p> Expiration:  {produits.expiration}</p>
+                            <p> Expiration date :  {produits.expiration}</p>
                             <Button variant="success" onClick={() => addCart(produits)}>
-                                Ajouter le produit
+                                Add
                             </Button>
                         </div>
                         <div>
                             <Modal.Footer>
                                 <Button variant="primary" onClick={this.handleClose}>
-                                    Continuer mes achats
+                                    Continue shopping
                                     </Button>
                                 <Button variant="danger" onClick={this.handleClose}>
-                                    Voir le panier
+                                    See cart
                                     </Button>
                             </Modal.Footer>
                             {/*<div className="input-group mb-3">

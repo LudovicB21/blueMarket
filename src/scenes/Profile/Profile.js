@@ -57,8 +57,8 @@ function Profile() {
                     <NavBar />
                 </div>
                 <div className="container mx-5 my-5">
-                    <h1>Mon profile </h1>
-                    <a className="text-danger" id="removeunderline" href="foo"> <strong> Pour changer vos données remplissez les champs </strong>  </a>
+                    <h1>My profile </h1>
+                    <a className="text-danger" id="removeunderline" href="foo"> <strong> To change your data fill in the fields </strong>  </a>
                     <form onSubmit={submitHandler} >
                         <div className="row">
                             <div className="col-sm form-group">
@@ -91,7 +91,7 @@ function Profile() {
                                 <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Change password</button>
                                 <Modal size="lg" show={show} onHide={handleClose}>
                                     <Modal.Header closeButton>
-                                        <Modal.Title>Modification de votre mot de passe </Modal.Title>
+                                        <Modal.Title>Modify your password </Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
                                         <label htmlFor="password">New password :</label>
@@ -110,7 +110,7 @@ function Profile() {
                         </div>
                         <div className="row">
                             <div className="col-sm form-group">
-                                <button className="btn btn-primary"> Enregistrer</button>
+                                <button className="btn btn-primary"> Save</button>
                             </div>
                         </div>
                     </form>

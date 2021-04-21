@@ -118,11 +118,11 @@ function DetailsSpokes(props) {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">Nom du produit</th>
-                            <th scope="col">Stock Rayon</th>
-                            <th scope="col">Stock Inventaire</th>
-                            <th scope="col">Livraison</th>
-                            <th scope="col">Expiration</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Stock Department</th>
+                            <th scope="col">Stock Inventory</th>
+                            <th scope="col">Next delivery</th>
+                            <th scope="col">Expiration date</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -156,7 +156,7 @@ function DetailsSpokes(props) {
                                     <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Détails 2</button>
                                     <Modal size="lg" show={show} onHide={handleClose}>
                                         <Modal.Header closeButton>
-                                            <Modal.Title> Détails du produit </Modal.Title>
+                                            <Modal.Title> Product's details </Modal.Title>
                                         </Modal.Header>
                                         <Modal.Body>
                                             {(product || []).map(details => (
@@ -167,8 +167,8 @@ function DetailsSpokes(props) {
                                                     <div className="mx-5 my-5">
                                                         <p> Name:  {details.name}</p>
                                                         <p> Size:  {details.size}</p>
-                                                        <p> Livraison:  {details.livraison}</p>
-                                                        <p> Expiration:  {details.expiration}</p>
+                                                        <p> Next delivery:  {details.livraison}</p>
+                                                        <p> Expiration date:  {details.expiration}</p>
                                                     </div>
                                                     <div>
                                                         <table className="table">

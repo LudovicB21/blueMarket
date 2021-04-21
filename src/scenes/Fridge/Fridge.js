@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { CircleProgress } from 'react-gradient-progress'
 import { Redirect } from 'react-router-dom'
+import { Modal, Button } from 'react-bootstrap'
 
 function Fridge() {
 
@@ -32,6 +33,9 @@ function Fridge() {
     const [progression, setProgression] = useState(0)
     const [auth, setAuth] = useState("")
     const [error, setError] = useState(false)
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         if (JSON.parse(localStorage.getItem('user'))) {
@@ -72,29 +76,29 @@ function Fridge() {
 
                 </div>
                 <div className="mx-5 my-5">
-                    <h1>Utilisation de votre frigo </h1>
+                    <h1> Use of your fridge </h1>
                     <CircleProgress percentage={progression} strokeWidth={5} />
 
                 </div>
                 <div className="mx-5 my-5">
-                    <button className="btn btn-primary">
-                        Voir l'historique d'achat
+                    <button className="btn btn-primary" onClick={handleShow}>
+                        Purchase history
                     </button>
                 </div>
                 <div className="mx-5 my-5">
-                    <h1>Dans mon frigo :  </h1>
+                    <h1> In my fridge :  </h1>
                     <table className="table">
                         <thead>
                             <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Date d'expiration</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Expiration date</th>
                                 <th scope="col">Stock</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {(items || []).map(produits => (
-                                <tr>
+                                <tr key={produits.id}>
                                     <td>
                                         {produits.nom}
                                     </td>
@@ -111,6 +115,39 @@ function Fridge() {
                         </tbody>
                     </table>
                 </div >
+                <Modal size="lg" show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title> Purchase history  </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Carbon footprint</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         )
     }

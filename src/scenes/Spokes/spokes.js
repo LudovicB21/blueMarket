@@ -68,13 +68,13 @@ function Spokes() {
                     <NavBar />
                 </div>
                 <div className="mx-5 my-5">
-                    <h1>Mes Rayons </h1>
+                    <h1> My departments </h1>
                     <table className="table">
                         <thead>
                             <tr>
-                                <th scope="col">Nom du rayon</th>
-                                <th scope="col">Position du rayon</th>
-                                <th scope="col">Nbp rayon</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Nop rayon</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -101,7 +101,7 @@ function Spokes() {
                                     </button>&nbsp;&nbsp;&nbsp;
                                     </Link>
                                         <button className="btn btn-primary">
-                                            Ordre
+                                            Position
                                     </button>
                                     </td>
                                 </tr>
