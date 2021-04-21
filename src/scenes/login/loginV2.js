@@ -3,17 +3,16 @@ import { Button, Grid, TextField } from "@material-ui/core"
 import loginImg from "../../assets/img/login.png"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect, Link } from "react-router-dom"
-import md5 from "md5"
 
 function LoginV2() {
 
     useEffect(() => {
-        //getAuth()
+        getAuth()
     }, [])
 
-    /*const getAuth = () => {
+    const getAuth = () => {
         setAuth(JSON.parse(localStorage.getItem('user')))
-    }*/
+    }
 
     const [details, setDetails] = useState({ email: "", password: "" });
     const [user, setUser] = useState({ email: "", role: "", firstname: "", lastname: "", frigo: 0 });
