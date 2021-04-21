@@ -57,13 +57,13 @@ function LoginV2() {
             {(user.email !== "") ? (
                 <div>
                     {localStorage.setItem("user", JSON.stringify(user))}
-                    {user.role === 0 && <Redirect to="/scan" />}
+                    {user.role === 0 && <Redirect to="/transition" />}
                     {user.role === 1 && <Redirect to="/products" />}
                     {user.role === 2 && <Redirect to="/spokes" />}
                 </div>
             ) : (auth) ? (
                 <div>
-                    {auth.role === 0 && <Redirect to="/scan" />}
+                    {auth.role === 0 && <Redirect to="/transition" />}
                     {auth.role === 1 && <Redirect to="/products" />}
                     {auth.role === 2 && <Redirect to="/spokes" />}
                 </div>

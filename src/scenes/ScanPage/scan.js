@@ -177,7 +177,7 @@ export class Scanner extends Component {
                     <div>
                         <Modal size="lg" ref={this.wrapper} show={this.state.show} onHide={this.handleClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title> Votre produit </Modal.Title>
+                                <Modal.Title> Product you scanned </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 {this.getInfos()}

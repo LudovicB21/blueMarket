@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React, { useState } from 'react'
-import HomePage from './scenes/HomePage/homePage'
+import PurchasePC from './scenes/PurchasePC/purchasePC'
 import Product from './scenes/Producteur/Products'
 import DetailsProducts from './scenes/Producteur/Details'
 import LoginV2 from "./scenes/login/loginV2"
@@ -17,6 +17,7 @@ import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
 import { DataProvider } from './stores/Context'
 import MyProductors from './scenes/MyProductors/myProductors';
+import Transition from './components/transition';
 
 function App() {
 
@@ -37,7 +38,8 @@ function App() {
           <Route path="/fridge" component={Fridge} />
           <Route path="/profile" component={Profile} />
           <Route path="/spokes" component={Spokes} />
-          <Route path="/homePage" component={HomePage} />
+          <Route path="/purchasePC" component={PurchasePC} />
+          <Route path="/transition" component={Transition} />
           <Route path="/shoppingCart" component={ShoppingCart} />
           <Route path="/products" component={Product} />
           <Route path="/detailsSpokes" component={DetailsSpokes} />

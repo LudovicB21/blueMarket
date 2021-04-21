@@ -6,6 +6,8 @@ import * as CgIcons from "react-icons/cg"
 import * as SiIcons from "react-icons/si"
 import * as FiIcons from "react-icons/fi"
 import * as BsFill from "react-icons/bs"
+import * as RiIcons from "react-icons/ri"
+
 export const SidebarData = [
     {
         title: 'Home',
@@ -67,6 +69,13 @@ export const SidebarData = [
         title: 'MyProductors',
         path: '/productors',
         icon: <BsFill.BsFillPersonFill />,
+        cName: 'nav-text',
+        role: 0
+    },
+    {
+        title: 'PurchasePC',
+        path: '/purchasePC',
+        icon: <RiIcons.RiComputerLine />,
         cName: 'nav-text',
         role: 0
     },
