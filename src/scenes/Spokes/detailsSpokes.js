@@ -153,7 +153,8 @@ function DetailsSpokes(props) {
                                             Détails
                                     </button> */}
                                     </Link>
-                                    <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Détails 2</button>
+                                    <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Details</button> &nbsp;&nbsp;&nbsp;
+                                    <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" onClick={handleShow}> Order</button>
                                     <Modal size="lg" show={show} onHide={handleClose}>
                                         <Modal.Header closeButton>
                                             <Modal.Title> Product's details </Modal.Title>

@@ -159,12 +159,12 @@ function Products() {
                                                 <Modal.Title> Product's details </Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
-                                                {console.log(detail)}
                                                 <div className="mx-5 my-5">
                                                     <p> Name:  {detail.name}</p>
                                                     <p> Size:  {detail.size}</p>
                                                     <p> Next delivery:  {detail.livraison}</p>
                                                     <p> Expiration date:  {detail.expiration}</p>
+                                                    <p> Location:  </p>
                                                 </div>
                                                 <div>
                                                     <table className="table">

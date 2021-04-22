@@ -12,6 +12,7 @@
     "boostrap": "^2.0.0",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
+    "node-sass": "^5.0.0",
     "password-hash": "^1.2.2",
     "quagga": "^0.12.1",
     "react": "^17.0.1",

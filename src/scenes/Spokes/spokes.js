@@ -100,7 +100,7 @@ function Spokes() {
                                                 Details
                                     </button>&nbsp;&nbsp;&nbsp;
                                     </Link>
-                                        <button className="btn btn-primary">
+                                        <button className="btn btn-secondary">
                                             Position
                                     </button>
                                     </td>

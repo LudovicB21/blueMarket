@@ -80,6 +80,13 @@ export const SidebarData = [
         role: 0
     },
     {
+        title: 'Statistics',
+        path: '/stats',
+        icon: <BiIcons.BiStats />,
+        cName: 'nav-text',
+        role: 0
+    },
+    {
         title: 'Logout',
         path: '/logout',
         icon: <FiIcons.FiLogOut />,

@@ -38,8 +38,6 @@ function Profile() {
 
     const submitHandler = e => {
         e.preventDefault();
-
-        console.log(details)
         // Appel api pour changement des données profile
     }
 

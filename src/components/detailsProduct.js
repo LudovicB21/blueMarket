@@ -30,7 +30,6 @@ function DetailsProduct(props) {
 
     const [idProduct, setIdProduct] = useState("")
     console.log(idProduct)
-
     return (
         <div>
             <div>

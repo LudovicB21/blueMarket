@@ -18,6 +18,7 @@ import "./App.css"
 import { DataProvider } from './stores/Context'
 import MyProductors from './scenes/MyProductors/myProductors';
 import Transition from './components/transition';
+import Statistics from './scenes/Statistiques/Stats';
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/detailsProduct" component={DetailsProduct} />
           <Route path="/scan" component={Scan} />
           <Route path="/detailsProduct" component={DetailsProducts} />
+          <Route path="/stats" component={Statistics} />
         </Switch>
       </Router>
       <footer className="bg-light text-center text-lg-start" id="footer">
