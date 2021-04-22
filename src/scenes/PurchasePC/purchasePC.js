@@ -106,8 +106,8 @@ function PurchasePC() {
                                 <h3>
                                     {item.name}
                                 </h3>
-                                <span>${item.price}</span>
-                                <p>{item.expiration_Date}</p>
+                                <span>Price: {item.price}</span>
+                                <p>Expiration date: {item.expiration_Date}</p>
                                 <button onClick={() => addCart(item.id)}>Add to cart</button>
                             </div>
                         </div>
