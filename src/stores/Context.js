@@ -9,6 +9,8 @@ export class DataProvider extends Component {
     }
 
     addCart = (produits) => {
+        console.log(produits)
+        console.log(produits.price)
         const { cart } = this.state;
         const check = cart.every(item => {
             return item.id !== produits.id

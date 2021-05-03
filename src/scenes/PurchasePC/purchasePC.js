@@ -19,7 +19,8 @@ function PurchasePC() {
             id: 1,
             name: "pâte",
             size: "0",
-            price: "1€",
+            price: "1",
+            quantity: "1",
             stockD: "15",
             stockI: "100",
             next_Delivery: "2021-04-17",
@@ -30,7 +31,8 @@ function PurchasePC() {
         {
             id: 2,
             name: "lait",
-            price: "0,50€",
+            price: "0.50",
+            quantity: "1",
             size: "0",
             stockD: "10",
             stockI: "50",
@@ -42,7 +44,8 @@ function PurchasePC() {
         {
             id: 3,
             size: "3",
-            price: "1,30€",
+            price: "1.30",
+            quantity: "1",
             name: "tomate 1kg",
             stockD: "14",
             stockI: "30",
@@ -55,7 +58,8 @@ function PurchasePC() {
             id: 4,
             name: "Pesto",
             size: "0",
-            price: "2€",
+            price: "2",
+            quantity: "1",
             stockD: "6",
             stockI: "20",
             next_Delivery: "2021-04-17",
@@ -67,7 +71,8 @@ function PurchasePC() {
             id: 5,
             name: "Bonbons",
             size: "0",
-            price: "3€",
+            price: "3",
+            quantity: "1",
             stockD: "8",
             stockI: "15",
             next_Delivery: "2021-04-17",
@@ -78,7 +83,8 @@ function PurchasePC() {
         {
             id: 6,
             name: "Riz",
-            price: "1€",
+            price: "1",
+            quantity: "1",
             size: "0",
             stockD: "7",
             stockI: "24",
@@ -106,9 +112,9 @@ function PurchasePC() {
                                 <h3>
                                     {item.name}
                                 </h3>
-                                <span>Price: {item.price}</span>
+                                <span>Price: {item.price}€</span>
                                 <p>Expiration date: {item.expiration_Date}</p>
-                                <button onClick={() => addCart(item.id)}>Add to cart</button>
+                                <button onClick={() => addCart(item)}>Add to cart</button>
                             </div>
                         </div>
                     })
