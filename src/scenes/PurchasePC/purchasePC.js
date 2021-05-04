@@ -8,16 +8,19 @@ import Bonbon from '../../assets/img/bonbon.jpg'
 import Riz from '../../assets/img/riz.jpg'
 import "./purchasePC.css"
 import { DataContext } from '../../stores/Context'
-
+import promotion from '../../stores/promotion'
 
 
 function PurchasePC() {
+
+    console.log(promotion)
     const context = useContext(DataContext)
 
     const products = [
         {
             id: 1,
             name: "pâte",
+            id_product: 123456789012,
             size: "0",
             price: "1",
             quantity: "1",
@@ -31,6 +34,7 @@ function PurchasePC() {
         {
             id: 2,
             name: "lait",
+            id_product: 123456789012,
             price: "0.50",
             quantity: "1",
             size: "0",
@@ -44,6 +48,7 @@ function PurchasePC() {
         {
             id: 3,
             size: "3",
+            id_product: 123456789012,
             price: "1.30",
             quantity: "1",
             name: "tomate 1kg",
@@ -57,6 +62,7 @@ function PurchasePC() {
         {
             id: 4,
             name: "Pesto",
+            id_product: 123456789012,
             size: "0",
             price: "2",
             quantity: "1",
@@ -70,6 +76,7 @@ function PurchasePC() {
         {
             id: 5,
             name: "Bonbons",
+            id_product: 123456789012,
             size: "0",
             price: "3",
             quantity: "1",
@@ -84,6 +91,7 @@ function PurchasePC() {
             id: 6,
             name: "Riz",
             price: "1",
+            id_product: 123456789012,
             quantity: "1",
             size: "0",
             stockD: "7",
