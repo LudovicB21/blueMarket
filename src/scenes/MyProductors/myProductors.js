@@ -36,7 +36,7 @@ function MyProductors() {
                         </thead>
                         <tbody>
                             {(producers || []).map(producer =>
-                                <tr>
+                                <tr key={producer.lastname}>
                                     <td> {producer.lastname || null} </td>
                                     <td> {producer.email || null} </td>
                                     <td>  {producer.location} </td>
