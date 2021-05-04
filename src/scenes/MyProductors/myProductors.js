@@ -11,9 +11,9 @@ function MyProductors() {
     const [producers, setProducers] = useState([])
 
     const sendProducer = () => {
-        console.log(newProducer)
         //handleClose()
-        setProducers(newProducer)
+        //console.log(newProducer)
+        setProducers([...producers, newProducer])
     }
 
     return (
@@ -36,13 +36,17 @@ function MyProductors() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                            </tr>
+                            {(producers || []).map(producer =>
+                                <tr>
+                                    <td> {producer.lastname || null} </td>
+                                    <td> {producer.email || null} </td>
+                                    <td>  {producer.location} </td>
+                                    <td>  {producer.type || null} </td>
+                                    <td>  <button className="btn btn-primary">
+                                        Details
+                                    </button></td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                     <Modal size="lg" show={show} onHide={handleClose}>
