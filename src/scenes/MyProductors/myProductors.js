@@ -11,9 +11,8 @@ function MyProductors() {
     const [producers, setProducers] = useState([])
 
     const sendProducer = () => {
-        //handleClose()
-        //console.log(newProducer)
         setProducers([...producers, newProducer])
+        handleClose()
     }
 
     return (
