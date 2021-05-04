@@ -26,6 +26,7 @@ function PurchasePC() {
             quantity: "1",
             stockD: "15",
             stockI: "100",
+            promotion: 1,
             next_Delivery: "2021-04-17",
             expiration_Date: "2021-04-15",
             Ingredients: "{eau: 30%,Protéine: 10%, Gluicide: 50%, Amidon: 10%}",
@@ -51,6 +52,7 @@ function PurchasePC() {
             id_product: 123456789012,
             price: "1.30",
             quantity: "1",
+            promotion: 3,
             name: "tomate 1kg",
             stockD: "14",
             stockI: "30",
@@ -66,6 +68,7 @@ function PurchasePC() {
             size: "0",
             price: "2",
             quantity: "1",
+            promotion: 1,
             stockD: "6",
             stockI: "20",
             next_Delivery: "2021-04-17",
@@ -80,6 +83,7 @@ function PurchasePC() {
             size: "0",
             price: "3",
             quantity: "1",
+            promotion: 1,
             stockD: "8",
             stockI: "15",
             next_Delivery: "2021-04-17",
@@ -93,6 +97,7 @@ function PurchasePC() {
             price: "1",
             id_product: 123456789012,
             quantity: "1",
+            promotion: 1,
             size: "0",
             stockD: "7",
             stockI: "24",
@@ -120,7 +125,12 @@ function PurchasePC() {
                                 <h3>
                                     {item.name}
                                 </h3>
-                                <span>Price: {item.price}€</span>
+                                {promotion.map(items => {
+                                    if (items.id === item.promotion) {
+                                        return <p style={{ color: "red" }}> Promotion : {items.message}</p>
+                                    }
+                                })}
+                                <p>Price: {item.price}€</p>
                                 <p>Expiration date: {item.expiration_Date}</p>
                                 <button onClick={() => addCart(item)}>Add to cart</button>
                             </div>
