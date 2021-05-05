@@ -60,8 +60,6 @@ function LoginV2() {
                     {auth.role === 1 && <Redirect to="/products" />}
                     {auth.role === 2 && <Redirect to="/spokes" />}
                 </div>
-
-
             ) : (
                 <form onSubmit={submitHandler}>
                     <Grid container style={{ minHeight: '100vh' }}>

@@ -32,7 +32,7 @@ export class ShoppingCart extends Component {
                             </thead>
                             <tbody>
                                 {(cart || []).map(produits => (
-                                    <tr key={produits.id}>
+                                    <tr key={produits.name}>
                                         <td>
                                             {produits.name}
                                         </td>

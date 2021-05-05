@@ -107,6 +107,16 @@ function PurchasePC() {
         },
     ]
 
+    const addPromotionToCard = (itemPromotion) => {
+        const { addCart } = context;
+        const newItem = { ...itemPromotion }
+        const newName = " promotion"
+        newItem.name = itemPromotion.name.concat(newName)
+        newItem.price = itemPromotion.price * 2
+        newItem.id = itemPromotion.id + 0.1
+        addCart(newItem)
+    }
+
     return (
         <div>
             <div>
@@ -129,6 +139,12 @@ function PurchasePC() {
                                 })}
                                 <p>Price: {item.price}€</p>
                                 <p>Expiration date: {item.expiration_Date}</p>
+                                {promotion.map(items => {
+                                    if (items.id === item.promotion) {
+                                        return <button onClick={() => addPromotionToCard(item)}> Use promotion </button>
+                                    }
+                                })
+                                }
                                 <button onClick={() => addCart(item)}>Add to cart</button>
                             </div>
                         </div>

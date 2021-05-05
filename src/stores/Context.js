@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+//import promotion from './promotion';
 
 export const DataContext = React.createContext();
 
@@ -11,7 +12,7 @@ export class DataProvider extends Component {
     addCart = (produits) => {
         const { cart } = this.state;
         const check = cart.every(item => {
-            return item.id !== produits.id
+            return item.name !== produits.name
         })
         if (check) {
             this.setState({ cart: [...cart, produits] });
