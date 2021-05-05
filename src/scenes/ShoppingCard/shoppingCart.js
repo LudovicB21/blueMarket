@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { DataContext } from '../../stores/Context'
+import promotion from '../../stores/promotion'
 
 export class ShoppingCart extends Component {
     static contextType = DataContext;
@@ -25,6 +26,7 @@ export class ShoppingCart extends Component {
                                 <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Price</th>
+                                    <th scope="col"> Promotion</th>
                                     <th scope="col">Quantity</th>
                                 </tr>
                             </thead>
@@ -35,6 +37,13 @@ export class ShoppingCart extends Component {
                                             {produits.name}
                                         </td>
                                         <td> {produits.price * produits.quantity} € </td>
+                                        <td>
+                                            {promotion.map(promotionInfo => {
+                                                if (promotionInfo.id === produits.promotion) {
+                                                    return promotionInfo.message
+                                                }
+                                            })}
+                                        </td>
                                         <td>
                                             <button className="btn btn-primary" onClick={() => reduction(produits.id)}> - </button>
                                             <span>{produits.quantity}</span> &nbsp;&nbsp;&nbsp;

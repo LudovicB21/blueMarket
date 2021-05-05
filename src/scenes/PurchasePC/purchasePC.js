@@ -13,7 +13,6 @@ import promotion from '../../stores/promotion'
 
 function PurchasePC() {
 
-    console.log(promotion)
     const context = useContext(DataContext)
 
     const products = [
@@ -29,7 +28,7 @@ function PurchasePC() {
             promotion: 1,
             next_Delivery: "2021-04-17",
             expiration_Date: "2021-04-15",
-            Ingredients: "{eau: 30%,Protéine: 10%, Gluicide: 50%, Amidon: 10%}",
+            Ingredients: "eau: 30%,Protéine: 10%, Gluicide: 50%, Amidon: 10%",
             image: Pate
         },
         {
@@ -73,7 +72,7 @@ function PurchasePC() {
             stockI: "20",
             next_Delivery: "2021-04-17",
             expiration_Date: "2021-07-20",
-            Ingredients: "{Basilic Frais: 50%, Pignons de pin: 15%, Parmesan: 25%, Huile d'olive: 7%, Ail: 3%}",
+            Ingredients: "Basilic Frais: 50%, Pignons de pin: 15%, Parmesan: 25%, Huile d'olive: 7%, Ail: 3%",
             image: Pesto
         },
         {
@@ -88,7 +87,7 @@ function PurchasePC() {
             stockI: "15",
             next_Delivery: "2021-04-17",
             expiration_Date: "2021-07-20",
-            Ingredients: "{gélatine de porc: 75%, sirop de fraise: 25%} ",
+            Ingredients: "gélatine de porc: 75%, sirop de fraise: 25% ",
             image: Bonbon
         },
         {
@@ -103,10 +102,9 @@ function PurchasePC() {
             stockI: "24",
             next_Delivery: "2021-04-17",
             expiration_Date: "2021-07-20",
-            Ingredients: "{eau: 70%,Protéine: 3%, Gluicide: 27%}",
+            Ingredients: "eau: 70%, Protéine: 3%, Gluicide: 27% ",
             image: Riz
         },
-
     ]
 
     return (
@@ -118,7 +116,6 @@ function PurchasePC() {
                 {
                     products.map(item => {
                         const { addCart } = context;
-
                         return <div className="card" key={item.id}>
                             <img src={item.image} alt="" />
                             <div className="content">

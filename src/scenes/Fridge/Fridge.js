@@ -49,9 +49,6 @@ function Fridge() {
         // eslint-disable-next-line
     }, [])
 
-    //const [panier, setPanier] = useState(0)
-    console.log(auth)
-
     const calcul = () => {
         let total = 0
         let frigo = JSON.parse(localStorage.getItem('user')).frigo

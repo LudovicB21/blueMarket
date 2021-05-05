@@ -23,6 +23,7 @@ export class DataProvider extends Component {
     getTotal = () => {
         const { cart } = this.state;
         const res = cart.reduce((prev, item) => {
+            // No promotion = undefined
             return prev + (item.price * item.quantity);
         }, 0)
         this.setState({ total: res })

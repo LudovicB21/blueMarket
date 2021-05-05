@@ -18,8 +18,6 @@ function Products() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    console.log(auth)
-
     const data = [
         {
             id: 1,
