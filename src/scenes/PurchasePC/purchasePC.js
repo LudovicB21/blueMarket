@@ -67,7 +67,7 @@ function PurchasePC() {
             size: "0",
             price: "2",
             quantity: "1",
-            promotion: 1,
+            promotion: 2,
             stockD: "6",
             stockI: "20",
             next_Delivery: "2021-04-17",
@@ -82,7 +82,7 @@ function PurchasePC() {
             size: "0",
             price: "3",
             quantity: "1",
-            promotion: 1,
+            promotion: 2,
             stockD: "8",
             stockI: "15",
             next_Delivery: "2021-04-17",
@@ -112,8 +112,16 @@ function PurchasePC() {
         const newItem = { ...itemPromotion }
         const newName = " promotion"
         newItem.name = itemPromotion.name.concat(newName)
-        newItem.price = itemPromotion.price * 2
-        newItem.id = itemPromotion.id + 0.1
+        if (itemPromotion.promotion === 1) {
+            newItem.price = itemPromotion.price * 2
+            newItem.id = itemPromotion.id + 0.1
+        } else if (itemPromotion.promotion === 2) {
+            newItem.price = itemPromotion.price * 3
+            newItem.id = itemPromotion.id + 0.1
+        } else if (itemPromotion.promotion === 3) {
+            newItem.id = itemPromotion.id + 0.1
+        }
+
         addCart(newItem)
     }
 
