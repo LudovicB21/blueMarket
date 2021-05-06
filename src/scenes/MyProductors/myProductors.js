@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
+import Select from 'react-select'
+
 
 function MyProductors() {
 
@@ -9,11 +11,25 @@ function MyProductors() {
     const [show, setShow] = useState(false);
     const [newProducer, setNewProducer] = useState([])
     const [producers, setProducers] = useState([])
+    const [selectedOption, setSelectOption] = useState(null)
 
     const sendProducer = () => {
         setProducers([...producers, newProducer])
         handleClose()
     }
+
+    const options = [
+        { value: '150', label: 'Truck' },
+        { value: '267', label: 'Boat' },
+        { value: '360', label: 'Plane' },
+        { value: '11', label: 'Train' }
+    ]
+
+    const handleChange = selectedOption => {
+        setSelectOption(selectedOption);
+        setNewProducer({ ...newProducer, "transport": selectedOption.value })
+    };
+    console.log(newProducer)
 
     return (
         <div>
@@ -27,7 +43,6 @@ function MyProductors() {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Type of products</th>
@@ -37,9 +52,8 @@ function MyProductors() {
                         <tbody>
                             {(producers || []).map(producer =>
                                 <tr key={producer.lastname}>
-                                    <td> {producer.lastname || null} </td>
                                     <td> {producer.email || null} </td>
-                                    <td>  {producer.location} </td>
+                                    <td>  {producer.address} </td>
                                     <td>  {producer.type || null} </td>
                                     <td>  <button className="btn btn-primary">
                                         Details
@@ -57,28 +71,32 @@ function MyProductors() {
                                 <form>
                                     <div className="row">
                                         <div className="col-sm form-group">
-                                            <label htmlFor="lastname">Lastname :</label>
-                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "lastname": e.target.value })} /*placeholder={auth.lastname}*/></input>
-                                        </div>
-                                        <div className="col-sm form-group">
-                                            <label htmlFor="adresse">Location :</label>
-                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "location": e.target.value })} /*placeholder={auth.lastname}*/></input>
-                                        </div>
-                                        <div className="col-sm form-group">
-                                            <label htmlFor="distance">Distance ( km ) :</label>
-                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "distance": e.target.value })} /*placeholder={auth.lastname}*/></input>
+                                            <label htmlFor="email">Email of your productor :</label>
+                                            <input type="email" className="form-control" onChange={e => setNewProducer({ ...newProducer, "email": e.target.value })} /*placeholder={auth.email}*/></input>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm form-group">
-                                            <label htmlFor="email">Email :</label>
-                                            <input type="email" className="form-control" onChange={e => setNewProducer({ ...newProducer, "email": e.target.value })} /*placeholder={auth.email}*/></input>
+                                            <label htmlFor="address">Address  :</label>
+                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "address": e.target.value })} /*placeholder={auth.lastname}*/></input>
+                                        </div>
+                                        <div className="col-sm form-group">
+                                            <label htmlFor="distance">Distance from market ( km ) :</label>
+                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "distance": e.target.value })} /*placeholder={auth.lastname}*/></input>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-sm form-group">
                                             <label htmlFor="type">Type of products :</label>
                                             <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "type": e.target.value })} /*placeholder={auth.frigo}*/></input>
+                                        </div>
+                                        <div className="col-sm form-group">
+                                            <label htmlFor="transport">Transport :</label>
+                                            <Select
+                                                options={options}
+                                                onChange={handleChange}
+                                                value={selectedOption}
+                                            />
                                         </div>
                                     </div>
                                 </form>

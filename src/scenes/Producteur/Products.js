@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { Redirect } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
+import Select from 'react-select'
+import promotion from '../../stores/promotion'
 
 function Products() {
 
@@ -13,29 +15,37 @@ function Products() {
     const [auth, setAuth] = useState("")
     const [error, setError] = useState(false)
     const [show, setShow] = useState(false);
+    const [showPromotion, setShowPromotion] = useState(false);
     const [detail, setDetail] = useState([])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowPromotion = () => setShowPromotion(true)
+    const handleClosePromotion = () => setShowPromotion(false);
 
     const data = [
         {
             id: 1,
             produit: "lait",
+            department_id: "1",
             expiration: "27/04/2021",
             stock: "200",
-            livraison: "22/03/2021"
+            livraison: "22/03/2021",
+            promotion: 3
         },
         {
             id: 2,
             produit: "lait2",
+            department_id: "1",
             expiration: "27/04/2021",
             stock: "100",
-            livraison: "23/03/2021"
+            livraison: "23/03/2021",
+            promotion: 2
         },
         {
             id: 3,
             produit: "lait3",
+            department_id: "1",
             expiration: "27/04/2021",
             stock: "200",
             livraison: "22/03/2021"
@@ -43,9 +53,11 @@ function Products() {
         {
             id: 4,
             produit: "lait4",
+            department_id: "1",
             expiration: "30/05/2021",
             stock: "60",
-            livraison: "01/04/2021"
+            livraison: "01/04/2021",
+            promotion: 1,
         },
     ]
 
@@ -128,7 +140,7 @@ function Products() {
                     <NavBar />
                 </div>
                 <div className="mx-5 my-5">
-                    <h1> My products </h1>
+                    <h1> Inventory </h1>
                     <table className="table">
                         <thead>
                             <tr>
@@ -136,6 +148,7 @@ function Products() {
                                 <th scope="col"> Expiration Date</th>
                                 <th scope="col">Stock</th>
                                 <th scope="col">Next delivery</th>
+                                <th scope="col">Promotion</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -148,10 +161,15 @@ function Products() {
                                     <td> {produits.expiration} </td>
                                     <td> {produits.stock} </td>
                                     <td> {produits.livraison} </td>
+                                    <td> {(promotion || null).map(item => {
+                                        if (item.id === produits.promotion) {
+                                            return item.label
+                                        }
+                                    })}</td>
                                     <td>
                                         <button className="btn btn-primary" onClick={() => details(produits.id)}>
                                             Details
-                                    </button>
+                                    </button> &nbsp;&nbsp;&nbsp;
                                         <Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
                                                 <Modal.Title> Product's details </Modal.Title>
@@ -199,6 +217,31 @@ function Products() {
                                             </Modal.Body>
                                             <Modal.Footer>
                                                 <Button variant="secondary" onClick={handleClose}>
+                                                    Close
+                                            </Button>
+                                            </Modal.Footer>
+                                        </Modal>
+                                        <button className="btn btn-primary" onClick={handleShowPromotion}>
+                                            Promotion
+                                    </button>
+                                        <Modal size="lg" show={showPromotion} onHide={handleClosePromotion}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title> Add new promotion </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <div className="mx-5 my-5">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="transport">Type of promotion :</label>
+                                                        <Select
+                                                            options={(promotion || null).map(item => item)}
+                                                        //onChange={handleChange}
+                                                        //value={selectedOption}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="secondary" onClick={handleClosePromotion}>
                                                     Close
                                             </Button>
                                             </Modal.Footer>

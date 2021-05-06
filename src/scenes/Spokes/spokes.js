@@ -23,36 +23,42 @@ function Spokes() {
         {
             id: 1,
             nom: "pâtes",
+            department_id: "1",
             position: "1",
 
         },
         {
             id: 2,
             nom: "Riz",
+            department_id: "2",
             position: "2",
 
         },
         {
             id: 3,
             nom: "Sauces",
+            department_id: "3",
             position: "3",
 
         },
         {
             id: 4,
             nom: "Légumes en conserve",
+            department_id: "4",
             position: "4",
 
         },
         {
             id: 5,
             nom: "Fruit",
+            department_id: "5",
             position: "5",
 
         },
         {
             id: 6,
             nom: "Confiserie",
+            department_id: "6",
             position: "6",
 
         }

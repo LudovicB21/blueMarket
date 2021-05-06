@@ -40,7 +40,7 @@ export class ShoppingCart extends Component {
                                         <td>
                                             {promotion.map(promotionInfo => {
                                                 if (promotionInfo.id === produits.promotion) {
-                                                    return promotionInfo.message
+                                                    return promotionInfo.label
                                                 }
                                             })}
                                         </td>

@@ -24,6 +24,7 @@ function PurchasePC() {
             price: "1",
             quantity: "1",
             stockD: "15",
+            department_id: "1",
             stockI: "100",
             promotion: 1,
             next_Delivery: "2021-04-17",
@@ -39,6 +40,7 @@ function PurchasePC() {
             quantity: "1",
             size: "0",
             stockD: "10",
+            department_id: "1",
             stockI: "50",
             next_Delivery: "2021-04-17",
             expiration_Date: "2021-07-20",
@@ -53,6 +55,7 @@ function PurchasePC() {
             quantity: "1",
             promotion: 3,
             name: "tomate 1kg",
+            department_id: "1",
             stockD: "14",
             stockI: "30",
             next_Delivery: "2021-04-17",
@@ -68,6 +71,7 @@ function PurchasePC() {
             price: "2",
             quantity: "1",
             promotion: 2,
+            department_id: "1",
             stockD: "6",
             stockI: "20",
             next_Delivery: "2021-04-17",
@@ -82,6 +86,7 @@ function PurchasePC() {
             size: "0",
             price: "3",
             quantity: "1",
+            department_id: "1",
             promotion: 2,
             stockD: "8",
             stockI: "15",
@@ -96,6 +101,7 @@ function PurchasePC() {
             price: "1",
             id_product: 123456789012,
             quantity: "1",
+            department_id: "1",
             promotion: 1,
             size: "0",
             stockD: "7",
@@ -142,7 +148,7 @@ function PurchasePC() {
                                 </h3>
                                 {promotion.map(items => {
                                     if (items.id === item.promotion) {
-                                        return <p style={{ color: "red" }}> Promotion : {items.message}</p>
+                                        return <p style={{ color: "red" }}> Promotion : {items.label}</p>
                                     }
                                 })}
                                 <p>Price: {item.price}€</p>
