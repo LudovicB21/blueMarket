@@ -7,20 +7,20 @@ export async function edit(producer): Object {
         prodtype: producer.type
     }
 
-    console.log(data)
+    console.log(JSON.stringify(data))
 
     const response = await fetch(
         'https://bluemarket.shop/api/registerproducer',
         {
             method: 'POST',
             headers: {
-                'content-type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(data)
         }
     )
 
-    const body = await response.json()
-    console.log(body)
+    //const body = await response.json()
+    console.log(response)
 
 }

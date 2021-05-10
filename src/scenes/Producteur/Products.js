@@ -142,10 +142,10 @@ function Products() {
         const items = data
         items.map(item => {
             if (item.id === id) {
-                item.promotion = null
+                delete item.promotion
+                setData(items)
             }
         })
-        setData(items)
     }
 
     const handleChange = selectedOption => {
@@ -183,7 +183,7 @@ function Products() {
                         </thead>
                         <tbody>
                             {(data || []).map(produits => (
-                                <tr>
+                                <tr key={produits.id}>
                                     <td>
                                         {produits.produit}
                                     </td>

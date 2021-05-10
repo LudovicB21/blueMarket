@@ -18,7 +18,7 @@ import "./App.css"
 import { DataProvider } from './stores/Context'
 import MyProductors from './scenes/MarketView/MyProductors/myProductors';
 import Transition from './components/transition';
-import Statistics from './scenes/Statistiques/Stats';
+import Statistics from './scenes/MarketView/Statistiques/Stats';
 
 function App() {
 
