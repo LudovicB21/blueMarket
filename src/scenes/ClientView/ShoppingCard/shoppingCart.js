@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar/NavBar'
-import { DataContext } from '../../stores/Context'
-import promotion from '../../stores/promotion'
+import NavBar from '../../NavBar/NavBar'
+import { DataContext } from '../../../stores/Context'
+import promotion from '../../../stores/promotion'
 
 export class ShoppingCart extends Component {
     static contextType = DataContext;

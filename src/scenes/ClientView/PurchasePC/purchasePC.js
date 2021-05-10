@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import NavBar from '../NavBar/NavBar'
-import Pate from '../../assets/img/p.jpg'
-import Lait from '../../assets/img/lait.png'
-import Tomate from '../../assets/img/tomate.jpg'
-import Pesto from '../../assets/img/pesto.jpg'
-import Bonbon from '../../assets/img/bonbon.jpg'
-import Riz from '../../assets/img/riz.jpg'
+import NavBar from '../../NavBar/NavBar'
+import Pate from '../../../assets/img/p.jpg'
+import Lait from '../../../assets/img/lait.png'
+import Tomate from '../../../assets/img/tomate.jpg'
+import Pesto from '../../../assets/img/pesto.jpg'
+import Bonbon from '../../../assets/img/bonbon.jpg'
+import Riz from '../../../assets/img/riz.jpg'
 import "./purchasePC.css"
-import { DataContext } from '../../stores/Context'
-import promotion from '../../stores/promotion'
+import { DataContext } from '../../../stores/Context'
+import promotion from '../../../stores/promotion'
 
 
 function PurchasePC() {

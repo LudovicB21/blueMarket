@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import NavBar from '../NavBar/NavBar'
-import "../../assets/modal.css"
+import NavBar from '../../NavBar/NavBar'
+import "../../../assets/modal.css"
 import { Modal, Button } from 'react-bootstrap'
-import Barilla from '../../assets/img/p.jpg'
+import Barilla from '../../../assets/img/p.jpg'
 import moment from 'moment'
 import * as CgIcons from "react-icons/cg"
 

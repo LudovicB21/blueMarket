@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import Select from 'react-select'
-
+import { edit } from '../../../services/Api/Producers/edit'
 
 function MyProductors() {
 
@@ -29,7 +29,10 @@ function MyProductors() {
         setSelectOption(selectedOption);
         setNewProducer({ ...newProducer, "transport": selectedOption.value })
     };
-    console.log(newProducer)
+
+    const addNewProducer = () => {
+        edit(newProducer)
+    }
 
     return (
         <div>
@@ -103,7 +106,7 @@ function MyProductors() {
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="primary" onClick={sendProducer}>
+                            <Button variant="primary" onClick={addNewProducer}>
                                 Add
                             </Button>
                             <Button variant="secondary" onClick={handleClose}>

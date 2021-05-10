@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../../NavBar/NavBar'
 import { Redirect } from 'react-router-dom'
 import Quagga from 'quagga'
 import './scan.css'
 import { Modal, Button } from 'react-bootstrap'
-import Barilla from '../../assets/img/p.jpg'
-import { DataContext } from '../../stores/Context'
+import Barilla from '../../../assets/img/p.jpg'
+import { DataContext } from '../../../stores/Context'
 
 export class Scanner extends Component {
     static contextType = DataContext;

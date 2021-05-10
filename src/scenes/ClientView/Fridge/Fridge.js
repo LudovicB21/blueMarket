@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../../NavBar/NavBar'
 import { CircleProgress } from 'react-gradient-progress'
 import { Redirect } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
@@ -74,6 +74,7 @@ function Fridge() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Use of your fridge </h1>
+                    {console.log(progression)}
                     <CircleProgress percentage={progression} strokeWidth={5} />
 
                 </div>

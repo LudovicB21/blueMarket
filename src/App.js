@@ -1,22 +1,22 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React, { useState } from 'react'
-import PurchasePC from './scenes/PurchasePC/purchasePC'
+import PurchasePC from './scenes/ClientView/PurchasePC/purchasePC'
 import Product from './scenes/Producteur/Products'
 import DetailsProducts from './scenes/Producteur/Details'
 import LoginV2 from "./scenes/login/loginV2"
 import RegisterV2 from "./scenes/register/registerV2"
 import Logout from "./scenes/LogOut/logout"
-import Scan from "./scenes/ScanPage/scan"
-import Fridge from "./scenes/Fridge/Fridge"
+import Scan from "./scenes/ClientView/ScanPage/scan"
+import Fridge from "./scenes/ClientView/Fridge/Fridge"
 import Profile from "./scenes/Profile/Profile"
-import Spokes from "./scenes/Spokes/spokes"
-import DetailsSpokes from "./scenes/Spokes/detailsSpokes"
+import Spokes from "./scenes/MarketView/Spokes/spokes"
+import DetailsSpokes from "./scenes/MarketView/Spokes/detailsSpokes"
 import DetailsProduct from './components/detailsProduct';
-import ShoppingCart from './scenes/ShoppingCard/shoppingCart';
+import ShoppingCart from './scenes/ClientView/ShoppingCard/shoppingCart';
 import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
 import { DataProvider } from './stores/Context'
-import MyProductors from './scenes/MyProductors/myProductors';
+import MyProductors from './scenes/MarketView/MyProductors/myProductors';
 import Transition from './components/transition';
 import Statistics from './scenes/Statistiques/Stats';
 
