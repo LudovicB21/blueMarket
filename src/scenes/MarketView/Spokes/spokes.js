@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import NavBar from '../../NavBar/NavBar'
 import { Redirect } from 'react-router-dom'
+import { getDepartments } from '../../../services/Api/Departments/get'
 
 function Spokes() {
 
@@ -13,6 +14,9 @@ function Spokes() {
         } else {
             setError(true)
         }
+        getDepartments().then(({ data, success }) => {
+            console.log(data)
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
