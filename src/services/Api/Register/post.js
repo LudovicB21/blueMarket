@@ -1,27 +1,45 @@
-export async function edit(register): Object {
-    const data: Object = {
-        frigosize: register.email,
-        password: register.address,
-        firstname: register.distance,
-        lastname: register.transport,
-        role: register.type,
-        email: register.email
+export async function post(user) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    let urlencoded = new URLSearchParams();
+    if (user.email) {
+        urlencoded.append("email", user.email);
+    }
+    if (user.firstname) {
+        urlencoded.append("firstname", user.firstname);
+    }
+    if (user.lastname) {
+        urlencoded.append("lastname", user.lastname);
+    }
+    if (user.frigo) {
+        urlencoded.append("frigosize", user.frigo);
+    }
+    if (user.password) {
+        urlencoded.append("password", user.password);
+    }
+    if (user.role) {
+        urlencoded.append("role", user.role);
     }
 
-    console.log(JSON.stringify(data))
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
 
-    const response = await fetch(
-        'https://bluemarket.shop/api/regsiter',
-        {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(data)
+    const response = await fetch("https://bluemarket.shop/api/register", requestOptions)
+
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            success: true,
         }
-    )
+    }
 
-    //const body = await response.json()
-    console.log(response)
-
+    return {
+        success: false,
+        errors: body.Register
+    }
 }

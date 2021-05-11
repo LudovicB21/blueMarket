@@ -4,6 +4,8 @@ import loginImg from "../../assets/img/th.jpg"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect } from "react-router-dom"
 import { Modal } from 'react-bootstrap'
+import { post } from "../../services/Api/Register/post"
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function RegisterV2() {
 
@@ -11,36 +13,29 @@ function RegisterV2() {
     const [user, setUser] = useState({ name: "", email: "" });
     const [error, setError] = useState("");
     const [show, setShow] = useState(false);
+    const [errors, setErrors] = useState(null)
+    const [loading, setLoading] = useState(null)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const adminUser = {
-        email: "admin@admin.com",
-        password: "admin123"
-    }
-
-    const submitHandler = e => {
+    const submitHandler = async e => {
         e.preventDefault();
 
-        register(details)
-
-    }
-
-    const register = details => {
-        if (details.email === adminUser.email && details.password === adminUser.password) {
-            setUser({
-                name: details.name,
-                email: details.email
-            });
+        setLoading(true)
+        setErrors(null)
+        const { success, errors, data } = await post(details)
+        if (success === true) {
+            setLoading(false)
         } else {
-            setError("Details not match ! ")
+            setErrors(errors)
+            setLoading(false)
         }
     }
 
     return (
         <div>
-            {(user.email !== "") ? (
+            {(loading === false) ? (
                 <div>
                     <Redirect to="/login" />
                 </div>
@@ -55,8 +50,8 @@ function RegisterV2() {
                             <div style={{ display: "flex", flexDirection: "column", maxWidth: 400, minWidth: 300 }}>
                                 <Grid container justify="center">
                                     <img src={BlueMarket} width={200} alt="logo" />
-                                </Grid>
-                                {error}
+                                </Grid> <br></br>
+                                {errors !== null ? <p style={{ color: "red" }}>{errors}</p> : ""}
                                 <TextField label="Email" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                                 <TextField label="firstname" margin="normal" onChange={e => setDetails({ ...details, firstname: e.target.value })} value={details.firstname} />
                                 <TextField label="lastname" margin="normal" onChange={e => setDetails({ ...details, lastname: e.target.value })} value={details.lastname} />
@@ -193,13 +188,13 @@ function RegisterV2() {
                                     </Modal>
                                 </div>
                                 <div style={{ height: 20 }} />
+                                {loading == true ? <CircularProgress />
+                                    : null}
                                 <Button color="primary" variant="contained" type="submit">
                                     Register
                                 </Button>
                                 <div style={{ height: 20 }} />
-
                             </div>
-
                             <div />
                         </Grid>
                     </Grid>
