@@ -1,22 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import Select from 'react-select'
 import { edit } from '../../../services/Api/Producers/edit'
+import { getProducers } from '../../../services/Api/Producers/get'
 
 function MyProductors() {
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     const [show, setShow] = useState(false);
     const [newProducer, setNewProducer] = useState([])
     const [producers, setProducers] = useState([])
     const [selectedOption, setSelectOption] = useState(null)
+    const [errors, setErrors] = useState(null)
+    const [sucess, setSucess] = useState(false)
 
-    const sendProducer = () => {
-        setProducers([...producers, newProducer])
-        handleClose()
-    }
+    useEffect(() => {
+        getProducers().then(({ data, success }) => {
+            if (success === true) {
+                setProducers(data)
+            }
+        })
+    }, [sucess])
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const options = [
         { value: '150', label: 'Truck' },
@@ -30,8 +37,14 @@ function MyProductors() {
         setNewProducer({ ...newProducer, "transport": selectedOption.value })
     };
 
-    const addNewProducer = () => {
-        edit(newProducer)
+    const addNewProducer = async () => {
+        const { sucess, errors, data } = await edit(newProducer)
+        if (sucess === true) {
+            setSucess(true)
+            handleClose()
+        } else {
+            setErrors(errors)
+        }
     }
 
     return (
@@ -49,15 +62,17 @@ function MyProductors() {
                                 <th scope="col">Email</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Type of products</th>
+                                <th scope="col">CarbonFootprint</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {(producers || []).map(producer =>
-                                <tr key={producer.lastname}>
-                                    <td> {producer.email || null} </td>
-                                    <td>  {producer.address} </td>
-                                    <td>  {producer.type || null} </td>
+                                <tr key={producer.Producer_id}>
+                                    <td> {producer.user_email || null} </td>
+                                    <td> {producer.address} </td>
+                                    <td> {producer.prodtype || null} </td>
+                                    <td> {producer.carbonfootprint} eqCO2</td>
                                     <td>  <button className="btn btn-primary">
                                         Details
                                     </button></td>
@@ -72,6 +87,7 @@ function MyProductors() {
                         <Modal.Body>
                             <div>
                                 <form>
+                                    {errors !== null ? <p style={{ color: "red" }}>{errors}</p> : ""}
                                     <div className="row">
                                         <div className="col-sm form-group">
                                             <label htmlFor="email">Email of your productor :</label>

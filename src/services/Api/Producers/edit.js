@@ -1,26 +1,42 @@
-export async function edit(producer): Object {
-    const data: Object = {
-        email: producer.email,
-        address: producer.address,
-        distance: producer.distance,
-        transport: producer.transport,
-        prodtype: producer.type
+export async function edit(producer) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    let urlencoded = new URLSearchParams();
+    if (producer.email) {
+        urlencoded.append("email", producer.email);
+    }
+    if (producer.address) {
+        urlencoded.append("address", producer.address);
+    }
+    if (producer.distance) {
+        urlencoded.append("distance", producer.distance);
+    }
+    if (producer.transport) {
+        urlencoded.append("transport", producer.transport);
+    }
+    if (producer.type) {
+        urlencoded.append("prodtype", producer.type);
     }
 
-    console.log(JSON.stringify(data))
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
 
-    const response = await fetch(
-        'https://bluemarket.shop/api/registerproducer',
-        {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(data)
+    const response = await fetch("https://bluemarket.shop/api/registerproducer", requestOptions)
+
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            sucess: true,
+            data: body.RegisterProducer
         }
-    )
-
-    //const body = await response.json()
-    console.log(response)
-
+    }
+    return {
+        sucess: false,
+        errors: body.RegisterProducer
+    }
 }
