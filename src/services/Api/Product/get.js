@@ -1,6 +1,6 @@
-export async function getProducers() {
+export async function getProducts() {
     const response = await fetch(
-        'https://bluemarket.shop/api/getregister',
+        'https://bluemarket.shop/api/getproducts',
         {
             method: "GET",
         }
@@ -17,6 +17,5 @@ export async function getProducers() {
 
     return {
         success: false,
-        errors: body.GetRegister
     }
 }

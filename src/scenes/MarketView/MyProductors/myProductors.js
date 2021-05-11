@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap'
 import Select from 'react-select'
 import { edit } from '../../../services/Api/Producers/edit'
 import { getProducers } from '../../../services/Api/Producers/get'
+import { deleteProducer } from '../../../services/Api/Producers/delete'
 
 function MyProductors() {
 
@@ -13,14 +14,19 @@ function MyProductors() {
     const [selectedOption, setSelectOption] = useState(null)
     const [errors, setErrors] = useState(null)
     const [sucess, setSucess] = useState(false)
+    const [getRequest, setGetRequest] = useState(null)
+    const [data, setData] = useState(null)
 
     useEffect(() => {
-        getProducers().then(({ data, success }) => {
+        getProducers().then(({ data, success, errors }) => {
             if (success === true) {
                 setProducers(data)
+                setData(true)
+            } else {
+                setData(false)
             }
         })
-    }, [sucess])
+    }, [sucess, errors, data])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -38,12 +44,23 @@ function MyProductors() {
     };
 
     const addNewProducer = async () => {
-        const { sucess, errors, data } = await edit(newProducer)
-        if (sucess === true) {
+        const { success, errors, data } = await edit(newProducer)
+        if (success === true) {
             setSucess(true)
             handleClose()
         } else {
             setErrors(errors)
+        }
+    }
+
+    const removeProducer = async id => {
+        const { success, errors, data } = await deleteProducer(id)
+        if (success === true) {
+            setSucess(false)
+            alert("Producer successfully delete")
+        } else {
+            setErrors(errors)
+            alert(errors)
         }
     }
 
@@ -56,7 +73,7 @@ function MyProductors() {
                 <h1> All my producers  </h1>
                 <button className="btn btn-primary" onClick={handleShow}> Add a producer </button> <br></br> <br></br>
                 <div>
-                    <table className="table">
+                    {data === false ? <p> No producer in database </p> : <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col">Email</th>
@@ -75,11 +92,15 @@ function MyProductors() {
                                     <td> {producer.carbonfootprint} eqCO2</td>
                                     <td>  <button className="btn btn-primary">
                                         Details
-                                    </button></td>
+                                    </button> &nbsp; &nbsp;
+                                    <button className="btn btn-danger" onClick={e => removeProducer(producer.User_id)}>
+                                            X
+                                    </button>
+                                    </td>
                                 </tr>
                             )}
                         </tbody>
-                    </table>
+                    </table>}
                     <Modal size="lg" show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                             <Modal.Title> New producer  </Modal.Title>

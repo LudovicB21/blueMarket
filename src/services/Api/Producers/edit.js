@@ -31,12 +31,12 @@ export async function edit(producer) {
     const body = await response.json()
     if (response.status === 200) {
         return {
-            sucess: true,
+            success: true,
             data: body.RegisterProducer
         }
     }
     return {
-        sucess: false,
+        success: false,
         errors: body.RegisterProducer
     }
 }

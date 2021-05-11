@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
 import Pate from '../../../assets/img/p.jpg'
 import Lait from '../../../assets/img/lait.png'
@@ -9,9 +9,16 @@ import Riz from '../../../assets/img/riz.jpg'
 import "./purchasePC.css"
 import { DataContext } from '../../../stores/Context'
 import promotion from '../../../stores/promotion'
-
+import { getProducts } from '../../../services/Api/Product/get'
 
 function PurchasePC() {
+
+    useEffect(() => {
+        getProducts().then(({ data, success }) => {
+            console.log(data)
+        })
+    }, [])
+
 
     const context = useContext(DataContext)
 
