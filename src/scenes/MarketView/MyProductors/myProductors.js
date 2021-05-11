@@ -14,7 +14,6 @@ function MyProductors() {
     const [selectedOption, setSelectOption] = useState(null)
     const [errors, setErrors] = useState(null)
     const [sucess, setSucess] = useState(false)
-    const [getRequest, setGetRequest] = useState(null)
     const [data, setData] = useState(null)
 
     useEffect(() => {

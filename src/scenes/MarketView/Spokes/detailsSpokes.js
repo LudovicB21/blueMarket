@@ -9,7 +9,6 @@ import * as CgIcons from "react-icons/cg"
 
 function DetailsSpokes(props) {
 
-
     useEffect(() => {
         if (props.location.aboutProps) {
             setName(props.location.aboutProps.name)
