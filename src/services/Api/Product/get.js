@@ -17,5 +17,6 @@ export async function getProducts() {
 
     return {
         success: false,
+        errors: body
     }
 }

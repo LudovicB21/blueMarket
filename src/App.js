@@ -30,31 +30,33 @@ function App() {
   return (
     <div>
       <DataProvider>
-      <Router>
-        <Switch>
-          <Route path="/" exact component={LoginV2} />
-          <Route path="/login" component={LoginV2} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/register" component={RegisterV2} />
-          <Route path="/fridge" component={Fridge} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/spokes" component={Spokes} />
-          <Route path="/purchasePC" component={PurchasePC} />
-          <Route path="/transition" component={Transition} />
-          <Route path="/shoppingCart" component={ShoppingCart} />
-          <Route path="/products" component={Product} />
-          <Route path="/detailsSpokes" component={DetailsSpokes} />
-          <Route path="/productors" component={MyProductors} />
-          <Route path="/detailsProduct" component={DetailsProduct} />
-          <Route path="/scan" component={Scan} />
-          <Route path="/detailsProduct" component={DetailsProducts} />
-          <Route path="/stats" component={Statistics} />
-        </Switch>
-      </Router>
-      <footer className="bg-light text-center text-lg-start" id="footer">
-        <div className="text-center p-3" id="FooterTestPython" style={{ backgroundColor: "grey" }}>
-          © 2021 Copyright :
-          <a className="text-dark" id="TestHtmlValue" style={{ cursor: "pointer" }} onClick={handleShow} href="#foo"> BlueMarket.com <u> Mention légales </u></a>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={LoginV2} />
+            <Route path="/login" component={LoginV2} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/register" component={RegisterV2} />
+            <Route path="/fridge" component={Fridge} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/spokes" component={Spokes} />
+            <Route path="/purchasePC" component={PurchasePC} />
+            <Route path="/transition" component={Transition} />
+            <Route path="/shoppingCart" component={ShoppingCart} />
+            <Route path="/products" component={Product} />
+            <Route path="/detailsSpokes" component={DetailsSpokes} />
+            <Route path="/productors" component={MyProductors} />
+            <Route path="/detailsProduct" component={DetailsProduct} />
+            <Route path="/scan" component={Scan} />
+            <Route path="/detailsProduct" component={DetailsProducts} />
+            <Route path="/stats" component={Statistics} />
+          </Switch>
+        </Router>
+        <div class="footer-dark">
+          <footer>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-6 col-md-3 item">
+                <a id="TestHtmlValue" style={{ cursor: "pointer" }} onClick={handleShow} href="#foo"> BlueMarket.com <u> Mention légales </u></a>
           <Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Condition générales d'utilisation  </Modal.Title>
@@ -105,8 +107,16 @@ Pour plus d’informations, se reporter aux CGU du site bluemarket.shop accessib
 
             </Modal.Footer>
           </Modal>
+                </div>
+                <div class="col-md-6 item text">
+                  <h3>BlueMarket</h3>
+                  <p>Société spécialisé dans la digitalisation de supermarché et site e-commerce en ligne</p>
+                </div>
+              </div>
+              <p class="copyright">BlueMarket © 2021</p>
+            </div>
+          </footer>
         </div>
-      </footer>
       </DataProvider>
     </div >
 
