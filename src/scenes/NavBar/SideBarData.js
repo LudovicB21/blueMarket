@@ -66,7 +66,7 @@ export const SidebarData = [
         role: 0
     },
     {
-        title: 'MyProductors',
+        title: 'MyProducers',
         path: '/productors',
         icon: <BsFill.BsFillPersonFill />,
         cName: 'nav-text',

@@ -24,7 +24,7 @@ export class Scanner extends Component {
             products: [
                 {
                     id: 1,
-                    id_product: 555444332221,
+                    id_product: "A-0010-Z",//555444332221,
                     name: "pâtes1",
                     size: "0",
                     price: "1.00",
