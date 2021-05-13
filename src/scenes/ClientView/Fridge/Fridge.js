@@ -74,7 +74,6 @@ function Fridge() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Use of your fridge </h1>
-                    {console.log(progression)}
                     <CircleProgress percentage={progression} strokeWidth={5} />
 
                 </div>

@@ -17,7 +17,6 @@ export async function deleteProducer(id) {
     const response = await fetch("https://bluemarket.shop/api/deleteproducer", requestOptions)
 
     const body = await response.json()
-    console.log(body)
 
     if (response.status === 200) {
         return {

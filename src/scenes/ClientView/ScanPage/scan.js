@@ -6,6 +6,8 @@ import './scan.css'
 import { Modal, Button } from 'react-bootstrap'
 import { DataContext } from '../../../stores/Context'
 import { getProductsByIdScan } from '../../../services/Api/Product/get'
+import moment from 'moment'
+import promotion from '../../../stores/promotion'
 
 export class Scanner extends Component {
     static contextType = DataContext;
@@ -82,7 +84,6 @@ export class Scanner extends Component {
             getProductsByIdScan(res.codeResult.code).then(({ data, success, errors }) => {
                 if (success === true) {
                     this.setState({ result: data })
-                    console.log(this.state.result)
                     //setLoading(true)
                     this.handleShow()
                 }
@@ -99,19 +100,52 @@ export class Scanner extends Component {
         /* eslint eqeqeq: 0 */
         return (
             <div>
-                <div>
-                    <img src={product.image} width={200} alt="logo" />
-                </div>
                 <div className="mx-5 my-5">
-                    <p> Name:  {product.name}</p>
-                    <p> Size:  {product.size}</p>
-                    <p> Expiration date :  {product.expiration_Date}</p>
-                    <Button variant="success" onClick={() => addCart(product)}>
-                        Add
-                    </Button>
+                    <img src={product.image} width="200px" style={{ marginLeft: "auto", marginRight: "auto", display: "flex", objectFit: "cover" }} height="250px" alt={product.name} />
+                    <div className="row">
+                        <div className="col-sm form-group">
+                            <label htmlFor="email">Name :</label>
+                            <p className="form-control"> {product.name}</p>
+                        </div>
+                        {product.promotion === 0 ? null : <div className="col-sm form-group">
+                            <label htmlFor="email">Promotion :</label>
+                            <p className="form-control"> {(promotion || []).map(promo => {
+                                if (promo.id === product.promotion) {
+                                    return promo.label
+                                } else {
+                                    return null
+                                }
+                            })}</p>
+                        </div>}
+                    </div>
+                    <div className="row">
+                        <div className="col-sm form-group">
+                            <label htmlFor="address">Price :</label>
+                            <p className="form-control"> {product.price} €</p>
+                        </div>
+                        <div className="col-sm form-group">
+                            <label htmlFor="type">Size :</label>
+                            <p className="form-control"> {product.size} L</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm form-group">
+                            <label htmlFor="type">Expiration Date :</label>
+                            <p className="form-control"> {moment(product.expiration_Date).format('DD-MM-YYYY')} </p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm form-group">
+                            <label htmlFor="type">Ingredients :</label>
+                            <p className="form-control"> {product.Ingredients}</p>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <Modal.Footer>
+                        <Button variant="success" onClick={() => addCart(product)}>
+                            Add
+                    </Button>
                         <Button variant="primary" onClick={this.handleClose}>
                             Continue shopping
                             </Button>
@@ -119,10 +153,6 @@ export class Scanner extends Component {
                             See cart
                             </Button>
                     </Modal.Footer>
-                    {/*<div className="input-group mb-3">
-                        <span className="input-group-text">Quantité</span>
-                        <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" />
-                    </div>*/}
                 </div>
             </div>
         )

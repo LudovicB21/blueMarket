@@ -15,7 +15,6 @@ function PurchasePC() {
 
     useEffect(() => {
         getProducts().then(({ data, success, errors }) => {
-            console.log(data)
             if (success === true) {
                 setProducts(data)
                 setLoading(true)

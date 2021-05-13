@@ -22,7 +22,6 @@ function DetailsSpokes(props) {
             setName(props.location.aboutProps.name)
         }
         getProductsByDepartments(props.location.aboutProps.id).then(({ data, success, errors }) => {
-            console.log(data)
             if (success === true) {
                 setDepartmentProduct(data)
                 setLoading(true)
