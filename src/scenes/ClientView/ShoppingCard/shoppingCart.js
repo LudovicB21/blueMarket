@@ -5,6 +5,7 @@ import promotion from '../../../stores/promotion'
 import moment from 'moment'
 import { postShoppingCart } from '../../../services/Api/ShoopingCart/post'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Redirect } from "react-router-dom"
 
 export class ShoppingCart extends Component {
     static contextType = DataContext;
@@ -37,6 +38,8 @@ export class ShoppingCart extends Component {
         /*const { success, errors, data } = await postShoppingCart(obj, total, today, userId)
         if (success === true) {
             this.setState({ loading: false })
+            localStorage.removeItem("dataCart")
+            return <Redirect to="/fridge" />
         } else {
             this.setState({ error: errors })
             this.setState({ loading: true })
