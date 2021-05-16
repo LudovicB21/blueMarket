@@ -9,7 +9,10 @@
 /coverage
 
 # production
-#/build
+/build
+
+# locked file
+package-lock.json
 
 # misc
 .DS_Store
