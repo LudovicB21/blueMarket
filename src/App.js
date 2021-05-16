@@ -56,7 +56,7 @@ function App() {
             <div class="container">
               <div class="row">
                 <div class="col-sm-6 col-md-3 item">
-                <a id="TestHtmlValue" style={{ cursor: "pointer" }} onClick={handleShow} href="#foo"> BlueMarket.comm <u> Mention légales </u></a>
+                <a id="TestHtmlValue" style={{ cursor: "pointer" }} onClick={handleShow} href="#foo"> BlueMarket.com <u> Mention légales </u></a>
           <Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Condition générales d'utilisation  </Modal.Title>
