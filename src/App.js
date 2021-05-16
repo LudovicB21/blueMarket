@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import PurchasePC from './scenes/ClientView/PurchasePC/purchasePC'
 import Product from './scenes/Producteur/Products'
 import DetailsProducts from './scenes/Producteur/Details'
-//import LoginV2 from "./scenes/login/loginV2"
+import LoginV2 from "./scenes/login/loginV2"
 import RegisterV2 from "./scenes/register/registerV2"
 import Logout from "./scenes/LogOut/logout"
 import Scan from "./scenes/ClientView/ScanPage/scan"
