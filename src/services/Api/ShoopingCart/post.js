@@ -1,7 +1,6 @@
 export async function postShoppingCart(cart, total, date, userId) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
     let urlencoded = new URLSearchParams();
     if (cart) {
         urlencoded.append("cartlist", cart);
@@ -24,8 +23,7 @@ export async function postShoppingCart(cart, total, date, userId) {
     };
 
     const response = await fetch("https://bluemarket.shop/api/settransaction", requestOptions)
-    console.log(response.json())
-    /*const body = await response.json()
+    const body = await response.json()
     if (response.status === 200) {
         return {
             success: true,
@@ -34,5 +32,5 @@ export async function postShoppingCart(cart, total, date, userId) {
     return {
         success: false,
         errors: body.SetTransaction
-    }*/
+    }
 }

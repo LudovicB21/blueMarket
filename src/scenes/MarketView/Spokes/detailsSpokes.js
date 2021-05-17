@@ -39,8 +39,9 @@ function DetailsSpokes(props) {
     };
 
     const expiration = (expiration) => {
-        const today = (moment().format('DD-MM-YYYY'))
-        if (moment(expiration).isSameOrBefore(today)) {
+        const today = (moment().format('YYYY-MM-DD'))
+        const newExpirationDate = moment(expiration, 'DD-MM-YYYY').format('YYYY-MM-DD')
+        if (moment(newExpirationDate).isSameOrBefore(today)) {
             return <div className="text-danger"> <CgIcons.CgDanger /> {expiration} </div>
         } else {
             return expiration

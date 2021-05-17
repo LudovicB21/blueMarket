@@ -3,65 +3,111 @@ import NavBar from '../../NavBar/NavBar'
 import { CircleProgress } from 'react-gradient-progress'
 import { Redirect } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
+import { getProductByUserForFridge, getProductByIdForFridge } from '../../../services/Api/Fridge/get'
+import { deleteProductFromFridge } from '../../../services/Api/Fridge/delete'
+import { changeQuantityProduct } from '../../../services/Api/Fridge/post'
+import moment from 'moment'
+import * as CgIcons from "react-icons/cg"
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Fridge() {
 
-    const items = [
-        {
-            id: 50,
-            nom: "item1",
-            size: 2,
-            stock: 2,
-            expiration: "20/04/2021"
-        },
-        {
-            id: 24,
-            nom: "item2",
-            size: 30,
-            stock: 1,
-            expiration: "14/04/2021"
-        },
-        {
-            id: 2,
-            nom: "item3",
-            size: 22,
-            stock: 5,
-            expiration: "15/04/2021"
-        }
-    ]
-
     const [progression, setProgression] = useState(0)
     const [auth, setAuth] = useState("")
-    const [error, setError] = useState(false)
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [show, setShow] = useState(false);
+    const [error, setError] = useState("")
+    const [errorsAuth, setErrorAuth] = useState(false)
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(null)
+    const [showStat, setShowStat] = useState(false)
+    const [sucess, setSucess] = useState(false)
+    const [showDetails, setShowDetails] = useState(false)
+    const [details, setDetails] = useState([])
+
 
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem('user'))) {
-            setAuth(JSON.parse(localStorage.getItem('user')))
-            if (JSON.parse(localStorage.getItem('user')).frigo) {
-                calcul()
-            }
+        const authentification = JSON.parse(localStorage.getItem('user'))
+        if (authentification) {
+            setAuth(authentification)
+            getProductByUserForFridge(JSON.parse(localStorage.getItem("user")).user_id).then(({ data, success, errors }) => {
+                setLoading(true)
+                if (success === true) {
+                    setProducts(data)
+                    setLoading(false)
+                } else {
+                    setError(errors)
+                    setLoading(false)
+                }
+            })
         } else {
-            setError(true)
+            setErrorAuth(true)
         }
-        // eslint-disable-next-line
-    }, [])
+    }, [sucess])
+
+    const handleShowStat = () => {
+        calcul()
+        setShowStat(true)
+    }
+    const handleShowDetails = () => setShowDetails(true)
+    const handleCloseDetails = () => setShowDetails(false)
 
     const calcul = () => {
         let total = 0
-        let frigo = JSON.parse(localStorage.getItem('user')).frigo
-        items.forEach(item => {
+        products.forEach(item => {
             let calc1 = item.size * 100
-            let calcul2 = calc1 / frigo
-            let calcStock = calcul2 * item.stock
+            let calcul2 = calc1 / auth.frigo
+            let calcStock = calcul2 * item.quantity
             total += Math.round(calcStock)
         });
         setProgression(total)
     }
 
-    if (error === true) {
+    const expiration = (expiration) => {
+        const today = (moment().format('YYYY-MM-DD'))
+        const newExpirationDate = moment(expiration, 'DD-MM-YYYY').format('YYYY-MM-DD')
+        if (moment(newExpirationDate).isSameOrBefore(today)) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {expiration} </div>
+        } else {
+            return expiration
+        }
+    }
+
+    const removeProduct = async (cartId, productId) => {
+        const { success, errors, data } = await deleteProductFromFridge(auth.user_id, cartId, productId)
+        setSucess(false)
+        if (success === true) {
+            setSucess(true)
+            alert("Product successfully delete")
+        } else {
+            setError(errors)
+            alert(errors)
+        }
+    }
+
+    const decrease = async (quantity, product_id, cart_id) => {
+        const newQuantity = quantity == 1 ? quantity = 1 : quantity -= 1
+        const { success, errors, data } = await changeQuantityProduct(auth.user_id, product_id, cart_id, newQuantity)
+        setSucess(false)
+        if (success === true) {
+            setSucess(true)
+            alert("Quantity update success")
+        } else {
+            setError(errors)
+            alert(errors)
+        }
+    }
+
+    const getDetailsProduct = async (productId) => {
+        getProductByIdForFridge(productId)
+        const { success, errors, data } = await getProductByIdForFridge(productId)
+        if (success === true) {
+            setDetails(data)
+            handleShowDetails()
+        } else {
+            setError(errors)
+        }
+    }
+
+    if (errorsAuth === true) {
         return <Redirect to="/login" />
     } else {
         return (
@@ -74,14 +120,12 @@ function Fridge() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Use of your fridge </h1>
-                    <CircleProgress percentage={progression} strokeWidth={5} />
+                    {showStat === true ? <CircleProgress percentage={progression} strokeWidth={5} /> : <button className="btn btn-primary" onClick={handleShowStat}>
+                        Look stats
+                    </button>}
 
                 </div>
-                <div className="mx-5 my-5">
-                    <button className="btn btn-primary" onClick={handleShow}>
-                        Purchase history
-                    </button>
-                </div>
+                {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
                 <div className="mx-5 my-5">
                     <h1> In my fridge :  </h1>
                     <table className="table">
@@ -93,58 +137,64 @@ function Fridge() {
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {(items || []).map(produits => (
-                                <tr key={produits.id}>
+                        {loading === true ? <CircularProgress /> : <tbody>
+                            {(products || []).map(produits => (
+                                <tr key={produits.expiration_date}>
                                     <td>
-                                        {produits.nom}
+                                        {produits.name}
                                     </td>
-                                    <td> {produits.expiration} </td>
-                                    <td> {produits.stock} </td>
+                                    <td> {expiration(moment(produits.expiration_date).format('DD-MM-YYYY'))} </td>
+                                    {produits.quantity === 1 ? <td> &nbsp; &nbsp; &nbsp;{produits.quantity} </td> : <td> <button className="btn btn-secondary" onClick={() => decrease(produits.quantity, produits.id, produits.Cart_id)}> - </button> {produits.quantity} </td>}
                                     <td>
-                                        <button className="btn btn-primary">
+                                        <button className="btn btn-primary" onClick={e => getDetailsProduct(produits.id)}>
                                             Details
+                                    </button> &nbsp; &nbsp; &nbsp;
+                                    <Modal size="lg" show={showDetails} onHide={handleCloseDetails}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title> Product's details </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <img src={details.image} width="200px" style={{ marginLeft: "auto", marginRight: "auto", display: "flex", objectFit: "cover" }} height="250px" alt={details.name} />
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="email">Name :</label>
+                                                        <p className="form-control"> {details.name}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="address">Price :</label>
+                                                        <p className="form-control"> {details.price} €</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="type">Size :</label>
+                                                        <p className="form-control"> {details.size} L</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="type">Ingredients :</label>
+                                                        <p className="form-control"> {details.Ingredients}</p>
+                                                    </div>
+                                                </div>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="secondary" onClick={handleCloseDetails}>
+                                                    Close
+                                            </Button>
+                                            </Modal.Footer>
+                                        </Modal>
+                                        <button className="btn btn-danger" onClick={e => removeProduct(produits.Cart_id, produits.id)}>
+                                            X
                                     </button>
-
                                     </td>
                                 </tr>
                             ))}
-                        </tbody>
+                        </tbody>}
                     </table>
                 </div >
-                <Modal size="lg" show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title> Purchase history  </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Carbon footprint</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
             </div>
         )
     }

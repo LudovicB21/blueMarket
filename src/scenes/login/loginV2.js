@@ -37,7 +37,7 @@ function LoginV2() {
                         firstname: data.user_first,
                         lastname: data.user_last,
                         role: data.user_role,
-                        frigo: data.user_size_Fridge,
+                        frigo: data.size_fridge,
                         user_id: data.user_id
                     })
                 } else {

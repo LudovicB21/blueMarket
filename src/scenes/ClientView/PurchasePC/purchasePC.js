@@ -60,9 +60,9 @@ function PurchasePC() {
                                 return <div className="card" key={item.id}>
                                     <img src={item.image} alt={item.name} />
                                     <div className="content">
-                                        <h3>
-                                            {item.name}
-                                        </h3>
+                                        <p>
+                                            <strong> {item.name} </strong>
+                                        </p>
                                         {promotion.map(items => {
                                             if (items.id === item.promotion) {
                                                 return <p style={{ color: "red" }}> Promotion : {items.label}</p>

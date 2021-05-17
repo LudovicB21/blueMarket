@@ -11,7 +11,7 @@ export class ShoppingCart extends Component {
     static contextType = DataContext;
     state = {
         error: null,
-        loading: null
+        loading: null,
     }
 
     componentDidMount() {
@@ -34,21 +34,25 @@ export class ShoppingCart extends Component {
             obj[idValues[i]] = quantityValues[i]
         }
         const strObj = JSON.stringify(obj)
-        postShoppingCart(strObj, total, today, userId)
-        /*const { success, errors, data } = await postShoppingCart(obj, total, today, userId)
+        //postShoppingCart(strObj, total, today, userId)
+        const { success, errors, data } = await postShoppingCart(strObj, total, today, userId)
+        this.setState({ loading: true })
         if (success === true) {
-            this.setState({ loading: false })
             localStorage.removeItem("dataCart")
-            return <Redirect to="/fridge" />
+            localStorage.removeItem("dataTotal")
+            this.setState({ loading: false })
         } else {
             this.setState({ error: errors })
-            this.setState({ loading: true })
-        }*/
+            this.setState({ loading: false })
+        }
     }
 
     render() {
         const { cart, increase, removeProduct, total, reduction } = this.context
         const { payment } = this;
+        if (this.state.success === true) {
+            <Redirect to="/login" />
+        }
         return (
             <div>
                 <div>
