@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import Select from 'react-select'
-import { edit } from '../../../services/Api/Producers/edit'
+import { edit, editProducer } from '../../../services/Api/Producers/edit'
 import { getProducers } from '../../../services/Api/Producers/get'
 import { deleteProducer } from '../../../services/Api/Producers/delete'
 
 function MyProductors() {
 
     const [show, setShow] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
+    const [details, setDetails] = useState([]);
     const [newProducer, setNewProducer] = useState([])
+    const [changeProducer, setChangeProducer] = useState([])
     const [producers, setProducers] = useState([])
     const [selectedOption, setSelectOption] = useState(null)
     const [errors, setErrors] = useState(null)
@@ -29,6 +32,14 @@ function MyProductors() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowDetails = (producer) => {
+        setDetails(producer)
+        setShowDetails(true)
+    }
+    const handleCloseDetails = () => {
+        setErrors(null)
+        setShowDetails(false);
+    }
 
     const options = [
         { value: '150', label: 'Truck' },
@@ -63,6 +74,27 @@ function MyProductors() {
         }
     }
 
+    const changeDataProducer = async () => {
+        const newDataProducer = changeProducer
+        if (newDataProducer.address === null || newDataProducer.address === undefined || newDataProducer.address === "") {
+            newDataProducer.address = details.address
+        }
+        if (newDataProducer.email === null || newDataProducer.email === undefined || newDataProducer.email === "") {
+            newDataProducer.email = details.user_email
+        }
+        if (newDataProducer.type === null || newDataProducer.type === undefined || newDataProducer.type === "") {
+            newDataProducer.type = details.prodtype
+        }
+        const { success, errors, data } = await editProducer(newDataProducer, details.User_id)
+        setSucess(false)
+        if (success === true) {
+            setSucess(true)
+            handleCloseDetails()
+        } else {
+            setErrors(errors)
+        }
+    }
+
     return (
         <div>
             <div>
@@ -89,7 +121,7 @@ function MyProductors() {
                                     <td> {producer.address} </td>
                                     <td> {producer.prodtype || null} </td>
                                     <td> {producer.carbonfootprint} eqCO2</td>
-                                    <td>  <button className="btn btn-primary">
+                                    <td>  <button className="btn btn-primary" onClick={e => handleShowDetails(producer)}>
                                         Details
                                     </button> &nbsp; &nbsp;
                                     <button className="btn btn-danger" onClick={e => removeProducer(producer.User_id)}>
@@ -146,6 +178,42 @@ function MyProductors() {
                                 Add
                             </Button>
                             <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                    <Modal size="lg" show={showDetails} onHide={handleCloseDetails}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>  Change data for {details.user_email}  </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div>
+                                <form>
+                                    {errors !== null ? <p style={{ color: "red" }}>{errors}</p> : ""}
+                                    <div className="row">
+                                        <div className="col-sm form-group">
+                                            <label htmlFor="email">Email of your productor :</label>
+                                            <input type="email" className="form-control" onChange={e => setChangeProducer({ ...changeProducer, "email": e.target.value })} placeholder={details.user_email}></input>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm form-group">
+                                            <label htmlFor="address">Address  :</label>
+                                            <input type="text" className="form-control" onChange={e => setChangeProducer({ ...changeProducer, "address": e.target.value })} placeholder={details.address}></input>
+                                        </div>
+                                        <div className="col-sm form-group">
+                                            <label htmlFor="type">Type of products :</label>
+                                            <input type="text" className="form-control" onChange={e => setChangeProducer({ ...changeProducer, "type": e.target.value })} placeholder={details.prodtype}></input>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="primary" onClick={changeDataProducer}>
+                                Add
+                            </Button>
+                            <Button variant="secondary" onClick={handleCloseDetails}>
                                 Close
                             </Button>
                         </Modal.Footer>

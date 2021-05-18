@@ -40,3 +40,42 @@ export async function edit(producer) {
         errors: body.RegisterProducer
     }
 }
+
+export async function editProducer(producer, id) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    let urlencoded = new URLSearchParams();
+    if (producer.email) {
+        urlencoded.append("email", producer.email);
+    }
+    if (producer.address) {
+        urlencoded.append("address", producer.address);
+    }
+    if (id) {
+        urlencoded.append("userid", id);
+    }
+    if (producer.type) {
+        urlencoded.append("prodtype", producer.type);
+    }
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
+
+    const response = await fetch("https://bluemarket.shop/api/updateproducer", requestOptions)
+
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            success: true,
+            data: body.UpdateProducer
+        }
+    }
+    return {
+        success: false,
+        errors: body.UpdateProducer
+    }
+}
