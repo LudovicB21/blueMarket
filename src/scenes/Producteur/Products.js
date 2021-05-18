@@ -2,122 +2,34 @@ import React, { useState, useEffect } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { Redirect } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
-import Select from 'react-select'
-import promotion from '../../stores/promotion'
-
+import { get } from '../../services/Api/InventoryProducer/get'
+import * as CgIcons from "react-icons/cg"
+import moment from 'moment'
+import { deleteProductFromProducer } from '../../services/Api/InventoryProducer/delete'
 function Products() {
 
-    const dataa = [
-        {
-            id: 1,
-            produit: "lait",
-            department_id: "1",
-            expiration: "27/04/2021",
-            stock: "200",
-            livraison: "22/03/2021",
-            promotion: 3
-        },
-        {
-            id: 2,
-            produit: "lait2",
-            department_id: "1",
-            expiration: "27/04/2021",
-            stock: "100",
-            livraison: "23/03/2021",
-            promotion: 2
-        },
-        {
-            id: 3,
-            produit: "lait3",
-            department_id: "1",
-            expiration: "27/04/2021",
-            stock: "200",
-            livraison: "22/03/2021"
-        },
-        {
-            id: 4,
-            produit: "lait4",
-            department_id: "1",
-            expiration: "30/05/2021",
-            stock: "60",
-            livraison: "01/04/2021",
-            promotion: 1,
-        },
-    ]
+    const [productProducer, setProductProducer] = useState([])
+    const [auth, setAuth] = useState("")
+    const [error, setError] = useState(false)
+    const [show, setShow] = useState(false);
+    const [sucess, setSucess] = useState(false)
+    const [data, setData] = useState(null)
 
     useEffect(() => {
         authenticated()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        setData(dataa)
-    }, [])
-
-    const [auth, setAuth] = useState("")
-    const [error, setError] = useState(false)
-    const [show, setShow] = useState(false);
-    const [showPromotion, setShowPromotion] = useState(false);
-    const [detail, setDetail] = useState([])
-    const [selectedOption, setSelectOption] = useState(null)
-    const [selectedOptionId, setSelectedOptionId] = useState(null)
-    const [data, setData] = useState([])
+        get(JSON.parse(localStorage.getItem("user")).user_id).then(({ data, success, errors }) => {
+            if (success === true) {
+                setProductProducer(data)
+                setData(true)
+            } else {
+                setData(false)
+            }
+        })
+    }, [sucess])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const handleShowPromotion = id => {
-        setSelectedOptionId(id)
-        setShowPromotion(true)
-    };
-    const handleClosePromotion = () => setShowPromotion(false);
-
-    const constitution = [
-        {
-            id: 1,
-            name: "lait",
-            size: "1",
-            ingredient1: "ingrédient 1",
-            ingredient2: "ingrédient 2",
-            ingredient3: "ingrédient 3",
-            ingredient4: "ingrédient 4",
-            ingredient5: "ingrédient 5",
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
-        },
-        {
-            id: 2,
-            size: "1",
-            name: "lait2",
-            ingredient1: "ingrédient 1",
-            ingredient2: "ingrédient 2",
-            ingredient3: "ingrédient 3",
-            ingredient4: "ingrédient 4",
-            ingredient5: "ingrédient 5",
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
-        },
-        {
-            id: 3,
-            name: "lait3",
-            size: "1",
-            ingredient1: "ingrédient 1",
-            ingredient2: "ingrédient 2",
-            ingredient3: "ingrédient 3",
-            ingredient4: "ingrédient 4",
-            ingredient5: "ingrédient 5",
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
-        },
-        {
-            id: 4,
-            name: "lait4",
-            size: "1",
-            ingredient1: "ingrédient 1",
-            ingredient2: "ingrédient 2",
-            ingredient3: "ingrédient 3",
-            ingredient4: "ingrédient 4",
-            ingredient5: "ingrédient 5",
-            livraison: "2021/04/17",
-            expiration: "2021/07/20"
-        },
-    ]
 
     const authenticated = () => {
         if (localStorage.getItem('user')) {
@@ -127,37 +39,27 @@ function Products() {
         }
     }
 
-    const details = id => {
-        // Faire un fetch
-        // eslint-disable-next-line array-callback-return
-        constitution.map(item => {
-            if (id === item.id) {
-                setDetail(item)
-                handleShow()
-            }
-        })
+    const expiration = (expiration) => {
+        const today = (moment().format('YYYY-MM-DD'))
+        const newExpirationDate = moment(expiration, 'DD-MM-YYYY').format('YYYY-MM-DD')
+        if (moment(newExpirationDate).isSameOrBefore(today)) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {expiration} </div>
+        } else {
+            return expiration
+        }
     }
 
-    const removePromotion = id => {
-        const items = data
-        items.map(item => {
-            if (item.id === id) {
-                delete item.promotion
-                setData(items)
-            }
-        })
-    }
-
-    const handleChange = selectedOption => {
-        setSelectOption(selectedOption);
-    };
-
-    const addPromotion = () => {
-        data.map(item => {
-            if (item.id === selectedOptionId) {
-                item.promotion = selectedOption.label
-            }
-        })
+    const removeProduct = async (productId) => {
+        const user_id = JSON.parse(localStorage.getItem("user")).user_id
+        const { success, errors, data } = await deleteProductFromProducer(user_id, productId)
+        setSucess(false)
+        if (success === true) {
+            setSucess(true)
+            alert("Product successfully delete")
+        } else {
+            setError(errors)
+            alert(errors)
+        }
     }
 
     if (error === true) {
@@ -177,29 +79,23 @@ function Products() {
                                 <th scope="col"> Expiration Date</th>
                                 <th scope="col">Stock</th>
                                 <th scope="col">Next delivery</th>
-                                <th scope="col">Promotion</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {(data || []).map(produits => (
+                            {(productProducer || []).map(produits => (
                                 <tr key={produits.id}>
                                     <td>
-                                        {produits.produit}
+                                        {produits.name}
                                     </td>
-                                    <td> {produits.expiration} </td>
-                                    <td> {produits.stock} </td>
-                                    <td> {produits.livraison} </td>
-                                    <td> {(promotion || null).map(item => {
-                                        if (item.id === produits.promotion) {
-                                            return item.label
-                                        }
-                                    })}</td>
+                                    <td> {expiration(moment(produits.expiration_date).format('DD-MM-YYYY'))} </td>
+                                    <td> {produits.stockP} </td>
+                                    <td> {moment(produits.next_Delivery).format('DD-MM-YYYY')} </td>
                                     <td>
-                                        <button className="btn btn-primary" onClick={() => details(produits.id)}>
+                                        <button className="btn btn-primary" /*onClick={() => details(produits.id)}*/>
                                             Details
                                     </button> &nbsp;&nbsp;&nbsp;
-                                        <Modal size="lg" show={show} onHide={handleClose}>
+                                        {/*<Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
                                                 <Modal.Title> Product's details </Modal.Title>
                                             </Modal.Header>
@@ -249,38 +145,11 @@ function Products() {
                                                     Close
                                             </Button>
                                             </Modal.Footer>
-                                        </Modal>
+                                </Modal>*/}
 
-                                        {produits.promotion ? <button className="btn btn-danger" onClick={e => removePromotion(produits.id)}>
+                                        <button className="btn btn-danger" onClick={e => removeProduct(produits.id)}>
                                             X
-                                    </button> : <button className="btn btn-primary" onClick={e => handleShowPromotion(produits.id)}>
-                                            Promotion
-                                    </button>}
-                                        <Modal size="lg" show={showPromotion} onHide={handleClosePromotion}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title> Add new promotion </Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <div className="mx-5 my-5">
-                                                    <div className="col-sm form-group">
-                                                        <label htmlFor="transport">Type of promotion :</label>
-                                                        <Select
-                                                            options={promotion}
-                                                            onChange={handleChange}
-                                                            value={selectedOption}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="secondary" onClick={addPromotion}>
-                                                    Add
-                                                </Button>
-                                                <Button variant="secondary" onClick={handleClosePromotion}>
-                                                    Close
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
+                                    </button>
                                     </td>
                                 </tr>
                             ))}

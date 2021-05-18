@@ -49,7 +49,7 @@ export const SidebarData = [
         path: '/products',
         icon: <FaIcons.FaProductHunt />,
         cName: 'nav-text',
-        role: 0
+        role: 2
     },
     {
         title: 'Spokes',
