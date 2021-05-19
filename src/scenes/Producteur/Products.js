@@ -6,14 +6,20 @@ import { get } from '../../services/Api/InventoryProducer/get'
 import * as CgIcons from "react-icons/cg"
 import moment from 'moment'
 import { deleteProductFromProducer } from '../../services/Api/InventoryProducer/delete'
+import { editProductProducer } from '../../services/Api/InventoryProducer/update'
+
 function Products() {
 
     const [productProducer, setProductProducer] = useState([])
     const [auth, setAuth] = useState("")
     const [error, setError] = useState(false)
+    const [errors, setErrors] = useState(false)
     const [show, setShow] = useState(false);
     const [sucess, setSucess] = useState(false)
     const [data, setData] = useState(null)
+    const [changeProduct, setChangeProduct] = useState([])
+    const [details, setDetails] = useState([]);
+
 
     useEffect(() => {
         authenticated()
@@ -29,8 +35,10 @@ function Products() {
     }, [sucess])
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const handleShow = (product) => {
+        setDetails(product)
+        setShow(true);
+    }
     const authenticated = () => {
         if (localStorage.getItem('user')) {
             setAuth(JSON.parse(localStorage.getItem('user')))
@@ -59,6 +67,26 @@ function Products() {
         } else {
             setError(errors)
             alert(errors)
+        }
+    }
+
+    const changeProductProducer = async () => {
+        const newDataProducer = changeProduct
+        if (newDataProducer.size === null || newDataProducer.size === undefined || newDataProducer.size === "") {
+            newDataProducer.size = details.size
+        }
+        if (newDataProducer.ingredients === null || newDataProducer.ingredients === undefined || newDataProducer.ingredients === "") {
+            newDataProducer.ingredients = details.Ingredients
+        }
+        const auth = JSON.parse(localStorage.getItem("user")).user_id
+        //editProductProducer(newDataProducer, details.id, auth)
+        const { success, errors, data } = await editProductProducer(newDataProducer, details.id, auth)
+        setSucess(false)
+        if (success === true) {
+            setSucess(true)
+            handleClose()
+        } else {
+            setErrors(errors)
         }
     }
 
@@ -92,60 +120,41 @@ function Products() {
                                     <td> {produits.stockP} </td>
                                     <td> {moment(produits.next_Delivery).format('DD-MM-YYYY')} </td>
                                     <td>
-                                        <button className="btn btn-primary" /*onClick={() => details(produits.id)}*/>
+                                        <button className="btn btn-primary" onClick={() => handleShow(produits)}>
                                             Details
                                     </button> &nbsp;&nbsp;&nbsp;
-                                        {/*<Modal size="lg" show={show} onHide={handleClose}>
+                                    <Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
-                                                <Modal.Title> Product's details </Modal.Title>
+                                                <Modal.Title> {details.name} </Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
-                                                <div className="mx-5 my-5">
-                                                    <p> Name:  {detail.name}</p>
-                                                    <p> Size:  {detail.size}</p>
-                                                    <p> Next delivery:  {detail.livraison}</p>
-                                                    <p> Expiration date:  {detail.expiration}</p>
-                                                    <p> Location:  </p>
-                                                </div>
                                                 <div>
-                                                    <table className="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">{detail.ingredient1}</th>
-                                                                <th scope="col">{detail.ingredient2}</th>
-                                                                <th scope="col">{detail.ingredient3}</th>
-                                                                <th scope="col">{detail.ingredient4}</th>
-                                                                <th scope="col">{detail.ingredient5}</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    {detail.ingredient1}
-                                                                </td>
-                                                                <td>
-                                                                    {detail.ingredient2}
-                                                                </td>
-                                                                <td>
-                                                                    {detail.ingredient3}
-                                                                </td>
-                                                                <td>
-                                                                    {detail.ingredient4}
-                                                                </td>
-                                                                <td>
-                                                                    {detail.ingredient5}
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <form>
+                                                        {errors !== null ? <p style={{ color: "red" }}>{errors}</p> : ""}
+                                                        <div className="row">
+                                                            <div className="col-sm form-group">
+                                                                <label htmlFor="size">Size :</label>
+                                                                <input type="text" className="form-control" onChange={e => setChangeProduct({ ...changeProduct, "size": e.target.value })} placeholder={details.size}></input>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col-sm form-group">
+                                                                <label htmlFor="ingredients">Ingredient :</label>
+                                                                <input type="text" className="form-control" onChange={e => setChangeProduct({ ...changeProduct, "ingredients": e.target.value })} placeholder={details.Ingredients}></input>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </Modal.Body>
                                             <Modal.Footer>
+                                                <Button variant="primary" onClick={changeProductProducer}>
+                                                    Add
+                                                </Button>
                                                 <Button variant="secondary" onClick={handleClose}>
                                                     Close
                                             </Button>
                                             </Modal.Footer>
-                                </Modal>*/}
+                                        </Modal>
 
                                         <button className="btn btn-danger" onClick={e => removeProduct(produits.id)}>
                                             X
