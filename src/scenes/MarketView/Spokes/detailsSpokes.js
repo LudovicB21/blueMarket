@@ -7,6 +7,9 @@ import * as CgIcons from "react-icons/cg"
 import { getProductsByDepartments } from '../../../services/Api/Departments/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import promotion from '../../../stores/promotion'
+import { BsBoxArrowInUp, BsTrash } from "react-icons/bs";
+import { BiLinkAlt } from "react-icons/bi";
+import { AiOutlineZoomIn } from "react-icons/ai";
 
 function DetailsSpokes(props) {
 
@@ -45,6 +48,16 @@ function DetailsSpokes(props) {
             return <div className="text-danger"> <CgIcons.CgDanger /> {expiration} </div>
         } else {
             return expiration
+        }
+    }
+
+    const deleteButton = (expiration) => {
+        const today = (moment().format('YYYY-MM-DD'))
+        const newExpirationDate = moment(expiration, 'DD-MM-YYYY').format('YYYY-MM-DD')
+        if (moment(newExpirationDate).isSameOrBefore(today)) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -96,9 +109,10 @@ function DetailsSpokes(props) {
                                             })}
                                         </td>
                                         <td>
-                                            <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick={e => handleShowDetails(produits)}> Details</button> &nbsp;&nbsp;&nbsp;
-                                            <button className="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter"> Order</button> &nbsp;&nbsp;&nbsp;
-                                            <button className="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter"> Add Promotion</button>
+                                            {deleteButton(moment(produits.expiration_Date).format('DD-MM-YYYY')) === true ? <button className="btn btn-danger" data-toggle="tooltip" title="Delete" > <BsTrash /></button> : null}&nbsp;&nbsp;&nbsp;
+                                            <button className="btn btn-primary" data-toggle="tooltip" title="Details" onClick={e => handleShowDetails(produits)}> <AiOutlineZoomIn /></button> &nbsp;&nbsp;&nbsp;
+                                            <button className="btn btn-secondary" data-toggle="tooltip" title="Replenishment"> <BsBoxArrowInUp /> </button> &nbsp;&nbsp;&nbsp;
+                                            <button className="btn btn-success" data-toggle="tooltip" title="Add Promotion"> <BiLinkAlt /></button>
                                             <Modal size="lg" show={show} onHide={handleCloseDetails}>
                                                 <Modal.Header closeButton>
                                                     <Modal.Title> Product's details </Modal.Title>

@@ -88,7 +88,7 @@ function Products() {
                                     <td>
                                         {produits.name}
                                     </td>
-                                    <td> {expiration(moment(produits.expiration_date).format('DD-MM-YYYY'))} </td>
+                                    <td> {expiration(moment(produits.expiration_Date).format('DD-MM-YYYY'))} </td>
                                     <td> {produits.stockP} </td>
                                     <td> {moment(produits.next_Delivery).format('DD-MM-YYYY')} </td>
                                     <td>
