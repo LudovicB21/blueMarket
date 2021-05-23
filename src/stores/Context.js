@@ -17,7 +17,7 @@ export class DataProvider extends Component {
         if (check) {
             this.setState({ cart: [...cart, produits] });
         } else {
-            alert("The product has been added to cart.")
+            alert("Product already in your cart. Increased quantity.")
         }
     }
 

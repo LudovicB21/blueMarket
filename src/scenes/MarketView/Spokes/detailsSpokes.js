@@ -5,6 +5,7 @@ import { Modal, Button } from 'react-bootstrap'
 import moment from 'moment'
 import * as CgIcons from "react-icons/cg"
 import { getProductsByDepartments } from '../../../services/Api/Departments/get'
+import { deleteProduct } from '../../../services/Api/DetailsDepartments/delete'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import promotion from '../../../stores/promotion'
 import { BsBoxArrowInUp, BsTrash } from "react-icons/bs";
@@ -19,21 +20,34 @@ function DetailsSpokes(props) {
     const [loading, setLoading] = useState(false)
     const [departmentProduct, setDepartmentProduct] = useState([])
     const [detailsProduct, setDetailsProduct] = useState([])
+    const [errors, setErrors] = useState(null)
+    const [sucess, setSucess] = useState(false)
 
     useEffect(() => {
         if (props.location.aboutProps) {
             setName(props.location.aboutProps.name)
         }
-        getProductsByDepartments(props.location.aboutProps.id).then(({ data, success, errors }) => {
-            if (success === true) {
-                setDepartmentProduct(data)
-                setLoading(true)
-            } else {
-                setLoading(false)
-            }
-        })
+        if (props.location.aboutProps?.id === undefined || props.location.aboutProps?.id === null) {
+            getProductsByDepartments(localStorage.getItem("Depart_id")).then(({ data, success, errors }) => {
+                if (success === true) {
+                    setDepartmentProduct(data)
+                    setLoading(true)
+                } else {
+                    setLoading(false)
+                }
+            })
+        } else {
+            getProductsByDepartments(props.location.aboutProps.id).then(({ data, success, errors }) => {
+                if (success === true) {
+                    setDepartmentProduct(data)
+                    setLoading(true)
+                } else {
+                    setLoading(false)
+                }
+            })
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [sucess, errors])
 
     const handleCloseDetails = () => setShow(false);
     const handleShowDetails = (produit) => {
@@ -61,13 +75,22 @@ function DetailsSpokes(props) {
         }
     }
 
+    const deleteProductAndReset = async (product_id) => {
+        const { success, errors } = await deleteProduct(product_id)
+        if (success === true) {
+            setSucess(true)
+        } else {
+            setErrors(errors)
+        }
+    }
+
     return (
         <div>
             <div>
                 <NavBar />
             </div>
             <div className="mx-5 my-5">
-                <h1> {name} </h1>
+                <h1> {name || localStorage.getItem("Depart_name")} </h1>
                 {
                     loading === false ? <CircularProgress />
                         :
@@ -109,7 +132,7 @@ function DetailsSpokes(props) {
                                             })}
                                         </td>
                                         <td>
-                                            {deleteButton(moment(produits.expiration_Date).format('DD-MM-YYYY')) === true ? <button className="btn btn-danger" data-toggle="tooltip" title="Delete" > <BsTrash /></button> : null}&nbsp;&nbsp;&nbsp;
+                                            {deleteButton(moment(produits.expiration_Date).format('DD-MM-YYYY')) === true ? <button className="btn btn-danger" data-toggle="tooltip" onClick={e => deleteProductAndReset(produits.id)} title="Delete" > <BsTrash /></button> : null}&nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-primary" data-toggle="tooltip" title="Details" onClick={e => handleShowDetails(produits)}> <AiOutlineZoomIn /></button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-secondary" data-toggle="tooltip" title="Replenishment"> <BsBoxArrowInUp /> </button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-success" data-toggle="tooltip" title="Add Promotion"> <BiLinkAlt /></button>

@@ -37,7 +37,7 @@ function Spokes() {
                 setErrors(errors)
             }
         })
-    }, [errors, loading, confirmPosition])
+    }, [errors, loading, confirmPosition, nbs])
 
     const handleClose = () => setShow(false);
     const handleShow = id => {
@@ -56,6 +56,11 @@ function Spokes() {
                 setErrors(errors)
             }
         })
+    }
+
+    const registerSpokesId = (Depart_id, Depart_name) => {
+        localStorage.setItem("Depart_id", Depart_id)
+        localStorage.setItem("Depart_name", Depart_name)
     }
 
     if (connect === true) {
@@ -97,7 +102,7 @@ function Spokes() {
                                                         id: produits.Depart_id
                                                     }
                                                 }}>
-                                                    <button className="btn btn-primary">
+                                                    <button className="btn btn-primary" onClick={e => registerSpokesId(produits.Depart_id, produits.Depart_name)}>
                                                         Details
                                         </button>&nbsp;&nbsp;&nbsp;
                                         </Link>
