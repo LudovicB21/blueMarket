@@ -12,10 +12,16 @@ export class ShoppingCart extends Component {
     state = {
         error: null,
         loading: null,
+        success: null
     }
 
     componentDidMount() {
         this.context.getTotal()
+        if (localStorage.getItem("user") === null || localStorage.getItem("user") === undefined) {
+            this.setState({ success: false })
+        } else {
+            this.setState({ success: true })
+        }
     }
 
     payment = async (cart, total) => {
@@ -43,15 +49,18 @@ export class ShoppingCart extends Component {
             this.setState({ loading: false })
         } else {
             this.setState({ error: errors })
-            this.setState({ loading: false })
+            this.setState({ loading: true })
         }
     }
 
     render() {
         const { cart, increase, removeProduct, total, reduction } = this.context
         const { payment } = this;
-        if (this.state.success === true) {
-            <Redirect to="/login" />
+        if (this.state.success === false) {
+            return <Redirect to="/login" />
+        }
+        if (this.state.loading === false) {
+            return <Redirect to="/fridge" />
         }
         return (
             <div>
