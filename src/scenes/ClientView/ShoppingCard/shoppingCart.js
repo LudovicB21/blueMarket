@@ -86,7 +86,7 @@ export class ShoppingCart extends Component {
                                         <td>
                                             {produits.name}
                                         </td>
-                                        <td> {produits.price * produits.quantity} € </td>
+                                        <td> {Math.round(produits.price * produits.quantity * 100) / 100} € </td>
                                         <td>
                                             {promotion.map(promotionInfo => {
                                                 if (promotionInfo.id === produits.promotion) {
@@ -105,7 +105,7 @@ export class ShoppingCart extends Component {
                             </tbody>
                         </table>
                         <div>
-                            <h3>Total: {total} €</h3>
+                            <h3>Total: {Math.round(total * 100) / 100} €</h3>
                             <h3>Carbon footprint : {Math.round(total * (0.584))} eqCO2 / €</h3>
                         </div> <br></br>
                         {this.state.error !== null ? <p style={{ color: "red" }}>{this.state.error}</p> : ""}
