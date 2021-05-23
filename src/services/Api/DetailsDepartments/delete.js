@@ -8,7 +8,7 @@ export async function deleteProduct(id) {
     }
 
     let requestOptions = {
-        method: 'POST',
+        method: 'DELETE',
         headers: myHeaders,
         body: urlencoded,
         redirect: 'follow'
