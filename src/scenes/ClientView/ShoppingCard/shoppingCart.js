@@ -25,6 +25,7 @@ export class ShoppingCart extends Component {
     }
 
     payment = async (cart, total) => {
+        this.setState({ errors: null })
         const today = (moment().format('YYYY-MM-DD H:m:s'))
         const userId = JSON.parse(localStorage.getItem("user")).user_id
         const idValues = [];
