@@ -35,14 +35,7 @@ export const SidebarData = [
         path: '/profile',
         icon: <CgIcons.CgProfile />,
         cName: 'nav-text',
-        role: 3
-    },
-    {
-        title: 'Market',
-        path: '/market',
-        icon: <SiIcons.SiMarketo />,
-        cName: 'nav-text',
-        role: 2
+        role: 4
     },
     {
         title: 'Inventory',
@@ -91,6 +84,6 @@ export const SidebarData = [
         path: '/logout',
         icon: <FiIcons.FiLogOut />,
         cName: 'nav-text',
-        role: 3
+        role: 4
     },
 ]

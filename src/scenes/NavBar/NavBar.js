@@ -29,7 +29,7 @@ function NavBar() {
                         </Link>
                     </li>
                     {SidebarData.map((item, index) => {
-                        if (item?.role === auth?.role || item.role === 3) {
+                        if (item?.role === auth?.role || item.role === 4) {
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path} onClick={showSidebar} >

@@ -50,7 +50,7 @@ export class ShoppingCart extends Component {
             this.setState({ loading: false })
         } else {
             this.setState({ error: errors })
-            this.setState({ loading: true })
+            this.setState({ loading: false })
         }
     }
 

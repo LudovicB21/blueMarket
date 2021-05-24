@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React, { useState } from 'react'
 import PurchasePC from './scenes/ClientView/PurchasePC/purchasePC'
-import Product from './scenes/Producteur/Products'
-import DetailsProducts from './scenes/Producteur/Details'
+import Product from './scenes/ProducerView/Producer/Products'
+import DetailsProducts from './scenes/ProducerView/Producer/Details'
 import LoginV2 from "./scenes/login/loginV2"
 import RegisterV2 from "./scenes/register/registerV2"
 import Logout from "./scenes/LogOut/logout"

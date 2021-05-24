@@ -107,7 +107,6 @@ function DetailsSpokes(props) {
     }
 
     const changeReplenishmentQuantities = async () => {
-        setSucess(false)
         const { success, errors } = await changeQuantityReplenishmentDepartment(detailsProduct.id, replenishmentQuantity)
         if (success === true) {
             setSucess(true)
@@ -118,7 +117,6 @@ function DetailsSpokes(props) {
     }
 
     const changeReplenishmentQuantitiesInventory = async () => {
-        setSucess(false)
         const { success, errors } = await changeQuantityReplenishmentInventory(detailsProduct.id, replenishmentQuantityInventory)
         if (success === true) {
             setSucess(true)

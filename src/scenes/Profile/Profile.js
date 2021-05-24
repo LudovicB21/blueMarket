@@ -3,17 +3,32 @@ import NavBar from '../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import "./Profile.css"
+import { getAllPurchase } from '../../services/Api/Profile/get'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as AiIcons from "react-icons/ai"
 
 function Profile() {
 
-    useEffect(() => {
-        authenticated()
-    }, [])
-
     const [auth, setAuth] = useState("")
-    const [error, setError] = useState(false)
     const [details, setDetails] = useState({});
     const [show, setShow] = useState(false);
+    const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(null)
+    const [historyPurchase, setHistoryPurchase] = useState([])
+
+    useEffect(() => {
+        authenticated()
+        setLoading(true)
+        getAllPurchase(JSON.parse(localStorage.getItem("user")).user_id).then(({ data, success, errors }) => {
+            if (success === true) {
+                setHistoryPurchase(data)
+                setLoading(false)
+            } else {
+                setLoading(false)
+                setError(errors)
+            }
+        })
+    }, [error])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -107,6 +122,31 @@ function Profile() {
                             </div>
                         </div>
                     </form>
+                </div>
+                <div className="container mx-5 my-5">
+                    <h1> Purchase history :  </h1>
+                    {loading == true ? <CircularProgress />
+                        : null}
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Cart Price</th>
+                                <th scope="col"> Actions </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {(historyPurchase || []).map(purchase => (
+                                <tr key={purchase.Cart_id}>
+                                    <td>
+                                        {purchase.Date}
+                                    </td>
+                                    <td> {purchase.Cart_price} </td>
+                                    <td> <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase"> <AiIcons.AiOutlineZoomIn /> </button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         )
