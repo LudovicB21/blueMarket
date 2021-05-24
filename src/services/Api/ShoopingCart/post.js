@@ -27,6 +27,7 @@ export async function postShoppingCart(cart, total, date, userId) {
     if (response.status === 200) {
         return {
             success: true,
+            data: body.SetTransaction
         }
     }
     return {

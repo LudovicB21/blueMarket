@@ -12,7 +12,8 @@ export class ShoppingCart extends Component {
     state = {
         error: null,
         loading: null,
-        success: null
+        success: null,
+        successSend: null
     }
 
     componentDidMount() {
@@ -25,7 +26,7 @@ export class ShoppingCart extends Component {
     }
 
     payment = async (cart, total) => {
-        this.setState({ errors: null })
+        this.setState({ loading: true })
         const today = (moment().format('YYYY-MM-DD H:m:s'))
         const userId = JSON.parse(localStorage.getItem("user")).user_id
         const idValues = [];
@@ -48,8 +49,9 @@ export class ShoppingCart extends Component {
             localStorage.removeItem("dataCart")
             localStorage.removeItem("dataTotal")
             this.setState({ loading: false })
+            this.setState({ successSend: true })
         } else {
-            this.setState({ error: errors })
+            this.setState({ error: errors || data })
             this.setState({ loading: false })
         }
     }
@@ -57,10 +59,11 @@ export class ShoppingCart extends Component {
     render() {
         const { cart, increase, removeProduct, total, reduction } = this.context
         const { payment } = this;
+
         if (this.state.success === false) {
             return <Redirect to="/login" />
         }
-        if (this.state.loading === false) {
+        if (this.state.successSend === true) {
             return <Redirect to="/fridge" />
         }
         return (
@@ -109,7 +112,8 @@ export class ShoppingCart extends Component {
                             <h3>Carbon footprint : {Math.round(total * (0.584))} eqCO2 / €</h3>
                         </div> <br></br>
                         {this.state.error !== null ? <p style={{ color: "red" }}>{this.state.error}</p> : ""}
-                        {this.state.loading == true ? <CircularProgress /> : null}
+                        {this.state.loading == true ? <CircularProgress />
+                            : null}
                         <button className="btn btn-primary" onClick={() => payment(cart, total)}>
                             Payment
                         </button>

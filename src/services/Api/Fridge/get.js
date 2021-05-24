@@ -10,13 +10,13 @@ export async function getProductByUserForFridge(userId) {
     if (response.status === 200) {
         return {
             success: true,
-            data: body
+            data: body || body.GetProductFridge
         }
     }
 
     return {
         success: false,
-        errors: body
+        errors: body.GetProductFridge
     }
 }
 

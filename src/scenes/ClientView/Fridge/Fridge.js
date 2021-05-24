@@ -9,6 +9,8 @@ import { changeQuantityProduct } from '../../../services/Api/Fridge/post'
 import moment from 'moment'
 import * as CgIcons from "react-icons/cg"
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as AiIcons from "react-icons/ai"
+import * as BsFill from "react-icons/bs"
 
 function Fridge() {
 
@@ -28,8 +30,8 @@ function Fridge() {
         const authentification = JSON.parse(localStorage.getItem('user'))
         if (authentification) {
             setAuth(authentification)
+            setLoading(true)
             getProductByUserForFridge(JSON.parse(localStorage.getItem("user")).user_id).then(({ data, success, errors }) => {
-                setLoading(true)
                 if (success === true) {
                     setProducts(data)
                     setLoading(false)
@@ -125,9 +127,9 @@ function Fridge() {
                     </button>}
 
                 </div>
-                {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
                 <div className="mx-5 my-5">
                     <h1> In my fridge :  </h1>
+                    {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
                     <table className="table">
                         <thead>
                             <tr>
@@ -147,8 +149,8 @@ function Fridge() {
                                     {produits.quantity === 1 ? <td> &nbsp; &nbsp; &nbsp;{produits.quantity} </td> : <td> <button className="btn btn-secondary" onClick={() => decrease(produits.quantity, produits.id, produits.Cart_id)}> - </button> {produits.quantity} </td>}
                                     <td>
                                         <button className="btn btn-primary" onClick={e => getDetailsProduct(produits.id)}>
-                                            Details
-                                    </button> &nbsp; &nbsp; &nbsp;
+                                            <AiIcons.AiOutlineZoomIn />
+                                        </button> &nbsp; &nbsp; &nbsp;
                                     <Modal size="lg" show={showDetails} onHide={handleCloseDetails}>
                                             <Modal.Header closeButton>
                                                 <Modal.Title> Product's details </Modal.Title>
@@ -187,8 +189,8 @@ function Fridge() {
                                             </Modal.Footer>
                                         </Modal>
                                         <button className="btn btn-danger" onClick={e => removeProduct(produits.Cart_id, produits.id)}>
-                                            X
-                                    </button>
+                                            <BsFill.BsTrash />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

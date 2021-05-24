@@ -21,7 +21,6 @@ function Profile() {
         setLoading(true)
         getAllPurchase(JSON.parse(localStorage.getItem("user")).user_id).then(({ data, success, errors }) => {
             if (success === true) {
-                console.log(data)
                 setHistoryPurchase(data)
                 setLoading(false)
             } else {
