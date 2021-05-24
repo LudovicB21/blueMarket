@@ -45,8 +45,8 @@ export const SidebarData = [
         role: 2
     },
     {
-        title: 'Spokes',
-        path: '/spokes',
+        title: 'Department',
+        path: '/department',
         icon: <AiIcons.AiOutlineDatabase />,
         cName: 'nav-text',
         role: 0

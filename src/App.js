@@ -2,16 +2,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React, { useState } from 'react'
 import PurchasePC from './scenes/ClientView/PurchasePC/purchasePC'
 import Product from './scenes/ProducerView/Producer/Products'
-import DetailsProducts from './scenes/ProducerView/Producer/Details'
 import LoginV2 from "./scenes/login/loginV2"
 import RegisterV2 from "./scenes/register/registerV2"
 import Logout from "./scenes/LogOut/logout"
 import Scan from "./scenes/ClientView/ScanPage/scan"
 import Fridge from "./scenes/ClientView/Fridge/Fridge"
 import Profile from "./scenes/Profile/Profile"
-import Spokes from "./scenes/MarketView/Spokes/spokes"
-import DetailsSpokes from "./scenes/MarketView/Spokes/detailsSpokes"
-import DetailsProduct from './components/detailsProduct';
+import Spokes from "./scenes/MarketView/Departments/departments"
+import DetailsSpokes from "./scenes/MarketView/Departments/detailsDepartment"
 import ShoppingCart from './scenes/ClientView/ShoppingCard/shoppingCart';
 import { Modal, Button } from 'react-bootstrap'
 import "./App.css"
@@ -38,16 +36,14 @@ function App() {
             <Route path="/register" component={RegisterV2} />
             <Route path="/fridge" component={Fridge} />
             <Route path="/profile" component={Profile} />
-            <Route path="/spokes" component={Spokes} />
+            <Route path="/department" component={Spokes} />
             <Route path="/purchasePC" component={PurchasePC} />
             <Route path="/transition" component={Transition} />
             <Route path="/shoppingCart" component={ShoppingCart} />
             <Route path="/products" component={Product} />
             <Route path="/detailsSpokes" component={DetailsSpokes} />
             <Route path="/productors" component={MyProductors} />
-            <Route path="/detailsProduct" component={DetailsProduct} />
             <Route path="/scan" component={Scan} />
-            <Route path="/detailsProduct" component={DetailsProducts} />
             <Route path="/stats" component={Statistics} />
           </Switch>
         </Router>

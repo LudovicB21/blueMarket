@@ -73,7 +73,7 @@ function Spokes() {
                     <NavBar />
                 </div>
                 <div className="mx-5 my-5">
-                    <h1> My departments </h1>
+                    <h1> Departments </h1>
                     {
                         loading === false ? <CircularProgress />
                             : <table className="table">
