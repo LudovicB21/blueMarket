@@ -28,7 +28,7 @@ function Profile() {
                 setError(errors)
             }
         })
-    }, [error])
+    }, [])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -127,6 +127,7 @@ function Profile() {
                     <h1> Purchase history :  </h1>
                     {loading == true ? <CircularProgress />
                         : null}
+                    {error !== null ? <p style={{ color: "red" }}>{error.GetUserCart}</p> : ""}
                     <table className="table">
                         <thead>
                             <tr>

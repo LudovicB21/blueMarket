@@ -9,7 +9,7 @@ export async function getAllPurchase(userId) {
     if (response.status === 200) {
         return {
             success: true,
-            data: body
+            data: body.GetUserCart
         }
     }
 

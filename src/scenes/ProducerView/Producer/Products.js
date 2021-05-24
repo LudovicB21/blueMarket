@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../../NavBar/NavBar'
 import { Redirect } from 'react-router-dom'
 import { Modal, Button } from 'react-bootstrap'
-import { get } from '../../services/Api/InventoryProducer/get'
-import * as CgIcons from "react-icons/cg"
+import { get } from '../../../services/Api/InventoryProducer/get'
 import moment from 'moment'
-import { deleteProductFromProducer } from '../../services/Api/InventoryProducer/delete'
-import { editProductProducer, changeQuantityReplenishmentProducer } from '../../services/Api/InventoryProducer/update'
+import { deleteProductFromProducer } from '../../../services/Api/InventoryProducer/delete'
+import { editProductProducer, changeQuantityReplenishmentProducer } from '../../../services/Api/InventoryProducer/update'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as FaIcons from "react-icons/fa"
+import * as AiIcons from "react-icons/ai"
+import * as CgIcons from "react-icons/cg"
+import * as BsFill from "react-icons/bs"
 
 function Products() {
 
@@ -148,9 +150,9 @@ function Products() {
                                     <td> {moment(produits.next_Delivery).format('DD-MM-YYYY')} </td>
                                     <td>
                                         <button className="btn btn-primary" onClick={() => handleShow(produits)}>
-                                            Details
-                                    </button> &nbsp;&nbsp;&nbsp;
-                                    <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentProducer(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                            <AiIcons.AiOutlineZoomIn />
+                                        </button> &nbsp;&nbsp;&nbsp;
+                                    <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentProducer(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp;
                                     <Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
                                                 <Modal.Title> {details.name} </Modal.Title>
@@ -207,8 +209,8 @@ function Products() {
                                             </Modal.Footer>
                                         </Modal>
                                         <button className="btn btn-danger" onClick={e => removeProduct(produits.id)}>
-                                            X
-                                    </button>
+                                            <BsFill.BsTrash />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
