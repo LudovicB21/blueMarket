@@ -5,6 +5,9 @@ import Select from 'react-select'
 import { edit, editProducer } from '../../../services/Api/Producers/edit'
 import { getProducers } from '../../../services/Api/Producers/get'
 import { deleteProducer } from '../../../services/Api/Producers/delete'
+import * as AiIcons from "react-icons/ai"
+import * as BsFill from "react-icons/bs"
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function MyProductors() {
 
@@ -18,14 +21,18 @@ function MyProductors() {
     const [errors, setErrors] = useState(null)
     const [sucess, setSucess] = useState(false)
     const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(null)
 
     useEffect(() => {
+        setLoading(true)
         getProducers().then(({ data, success, errors }) => {
             if (success === true) {
                 setProducers(data)
                 setData(true)
+                setLoading(false)
             } else {
                 setData(false)
+                setLoading(false)
             }
         })
     }, [sucess, errors, data])
@@ -54,7 +61,7 @@ function MyProductors() {
     };
 
     const addNewProducer = async () => {
-        const { success, errors, data } = await edit(newProducer)
+        const { success, errors } = await edit(newProducer)
         if (success === true) {
             setSucess(true)
             handleClose()
@@ -64,13 +71,15 @@ function MyProductors() {
     }
 
     const removeProducer = async id => {
-        const { success, errors, data } = await deleteProducer(id)
-        if (success === true) {
-            setSucess(false)
-            alert("Producer successfully delete")
-        } else {
-            setErrors(errors)
-            alert(errors)
+        if (window.confirm("Do you want to delete this producer ?")) {
+            const { success, errors } = await deleteProducer(id)
+            if (success === true) {
+                setSucess(false)
+                alert("Producer successfully delete")
+            } else {
+                setErrors(errors)
+                alert(errors)
+            }
         }
     }
 
@@ -104,6 +113,8 @@ function MyProductors() {
                 <h1> All my producers  </h1>
                 <button className="btn btn-primary" onClick={handleShow}> Add a producer </button> <br></br> <br></br>
                 <div>
+                    {loading == true ? <CircularProgress />
+                        : null}
                     {data === false ? <p> No producer in database </p> : <table className="table">
                         <thead>
                             <tr>
@@ -122,11 +133,11 @@ function MyProductors() {
                                     <td> {producer.prodtype || null} </td>
                                     <td> {producer.carbonfootprint} eqCO2</td>
                                     <td>  <button className="btn btn-primary" onClick={e => handleShowDetails(producer)}>
-                                        Details
+                                        <AiIcons.AiOutlineZoomIn />
                                     </button> &nbsp; &nbsp;
                                     <button className="btn btn-danger" onClick={e => removeProducer(producer.User_id)}>
-                                            X
-                                    </button>
+                                            <BsFill.BsFillTrashFill />
+                                        </button>
                                     </td>
                                 </tr>
                             )}

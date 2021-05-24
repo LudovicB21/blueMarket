@@ -6,7 +6,8 @@ import { getDepartments } from '../../../services/Api/Departments/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Modal, Button } from 'react-bootstrap'
 import { changePosition } from '../../../services/Api/Departments/post'
-
+import * as AiIcons from "react-icons/ai"
+import * as GiIcons from "react-icons/gi"
 function Spokes() {
 
     const [connect, setConnect] = useState(false)
@@ -103,12 +104,13 @@ function Spokes() {
                                                     }
                                                 }}>
                                                     <button className="btn btn-primary" onClick={e => registerSpokesId(produits.Depart_id, produits.Depart_name)}>
-                                                        Details
-                                        </button>&nbsp;&nbsp;&nbsp;
+                                                        <AiIcons.AiOutlineZoomIn />
+
+                                                    </button>&nbsp;&nbsp;&nbsp;
                                         </Link>
                                                 <button className="btn btn-secondary" onClick={e => handleShow(produits.Depart_id)}>
-                                                    Position
-                                        </button>
+                                                    <GiIcons.GiPositionMarker />
+                                                </button>
                                                 <Modal size="lg" show={show} onHide={handleClose}>
                                                     <Modal.Header closeButton>
                                                         <Modal.Title> New position  </Modal.Title>
