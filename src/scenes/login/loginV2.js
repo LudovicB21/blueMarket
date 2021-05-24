@@ -51,15 +51,15 @@ function LoginV2() {
             {(user.email !== "") ? (
                 <div>
                     {localStorage.setItem("user", JSON.stringify(user))}
-                    {user.role === 0 && <Redirect to="/transition" />}
-                    {user.role === 1 && <Redirect to="/products" />}
-                    {user.role === 2 && <Redirect to="/spokes" />}
+                    {user.role === 0 && <Redirect to="/spokes" />}
+                    {user.role === 1 && <Redirect to="/transition" />}
+                    {user.role === 2 && <Redirect to="/products" />}
                 </div>
             ) : (auth) ? (
                 <div>
-                    {auth.role === 0 && <Redirect to="/transition" />}
-                    {auth.role === 1 && <Redirect to="/products" />}
-                    {auth.role === 2 && <Redirect to="/spokes" />}
+                    {auth.role === 0 && <Redirect to="/spokes" />}
+                    {auth.role === 1 && <Redirect to="/transition" />}
+                    {auth.role === 2 && <Redirect to="/products" />}
                 </div>
             ) : (
                 <form onSubmit={submitHandler}>

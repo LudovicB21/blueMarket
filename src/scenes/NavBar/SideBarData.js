@@ -21,14 +21,14 @@ export const SidebarData = [
         path: '/fridge',
         icon: <BiIcons.BiFridge />,
         cName: 'nav-text',
-        role: 0
+        role: 1
     },
     {
         title: 'Scan',
         path: '/scan',
         icon: <AiIcons.AiOutlineBarcode />,
         cName: 'nav-text',
-        role: 0
+        role: 1
     },
     {
         title: 'Profile',
@@ -49,14 +49,14 @@ export const SidebarData = [
         path: '/spokes',
         icon: <AiIcons.AiOutlineDatabase />,
         cName: 'nav-text',
-        role: 3
+        role: 0
     },
     {
         title: 'Shopping cart',
         path: '/shoppingCart',
         icon: <FaIcons.FaCartPlus />,
         cName: 'nav-text',
-        role: 0
+        role: 1
     },
     {
         title: 'MyProducers',
@@ -70,7 +70,7 @@ export const SidebarData = [
         path: '/purchasePC',
         icon: <RiIcons.RiComputerLine />,
         cName: 'nav-text',
-        role: 0
+        role: 1
     },
     {
         title: 'Statistics',
