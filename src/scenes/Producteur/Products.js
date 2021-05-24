@@ -6,7 +6,9 @@ import { get } from '../../services/Api/InventoryProducer/get'
 import * as CgIcons from "react-icons/cg"
 import moment from 'moment'
 import { deleteProductFromProducer } from '../../services/Api/InventoryProducer/delete'
-import { editProductProducer } from '../../services/Api/InventoryProducer/update'
+import { editProductProducer, changeQuantityReplenishmentProducer } from '../../services/Api/InventoryProducer/update'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as FaIcons from "react-icons/fa"
 
 function Products() {
 
@@ -19,6 +21,9 @@ function Products() {
     const [data, setData] = useState(null)
     const [changeProduct, setChangeProduct] = useState([])
     const [details, setDetails] = useState([]);
+    const [loading, setLoading] = useState(false)
+    const [showReplenishmentProducer, setShowReplenishmentProducer] = useState(false);
+    const [replenishmentQuantityProducer, setReplenishmentQuantityProducer] = useState([])
 
 
     useEffect(() => {
@@ -28,8 +33,10 @@ function Products() {
             if (success === true) {
                 setProductProducer(data)
                 setData(true)
+                setLoading(true)
             } else {
                 setData(false)
+                setLoading(false)
             }
         })
     }, [sucess])
@@ -39,6 +46,14 @@ function Products() {
         setDetails(product)
         setShow(true);
     }
+
+    const handleCloseReplenishmentProducer = () => setShowReplenishmentProducer(false);
+    const handleShowReplenishmentProducer = (produit) => {
+        setErrors(null)
+        setDetails(produit)
+        setShowReplenishmentProducer(true)
+    };
+
     const authenticated = () => {
         if (localStorage.getItem('user')) {
             setAuth(JSON.parse(localStorage.getItem('user')))
@@ -79,12 +94,22 @@ function Products() {
             newDataProducer.ingredients = details.Ingredients
         }
         const auth = JSON.parse(localStorage.getItem("user")).user_id
-        //editProductProducer(newDataProducer, details.id, auth)
         const { success, errors, data } = await editProductProducer(newDataProducer, details.id, auth)
         setSucess(false)
         if (success === true) {
             setSucess(true)
             handleClose()
+        } else {
+            setErrors(errors)
+        }
+    }
+
+    const changeReplenishmentQuantitiesProducer = async () => {
+        setSucess(false)
+        const { success, errors } = await changeQuantityReplenishmentProducer(details.id, replenishmentQuantityProducer)
+        if (success === true) {
+            setSucess(true)
+            handleCloseReplenishmentProducer()
         } else {
             setErrors(errors)
         }
@@ -100,6 +125,8 @@ function Products() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Inventory </h1>
+                    {loading == false ? <CircularProgress />
+                        : null}
                     <table className="table">
                         <thead>
                             <tr>
@@ -123,6 +150,7 @@ function Products() {
                                         <button className="btn btn-primary" onClick={() => handleShow(produits)}>
                                             Details
                                     </button> &nbsp;&nbsp;&nbsp;
+                                    <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentProducer(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                                     <Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
                                                 <Modal.Title> {details.name} </Modal.Title>
@@ -155,7 +183,29 @@ function Products() {
                                             </Button>
                                             </Modal.Footer>
                                         </Modal>
-
+                                        <Modal size="lg" show={showReplenishmentProducer} onHide={handleCloseReplenishmentProducer}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title> Send how many products you want to produce </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <p> <strong> Actual stock : </strong> {details.stockP} </p>
+                                                        <label htmlFor="replenishmentInventory">Quantity :</label>
+                                                        {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
+                                                        <input type="text" className="form-control" onChange={e => setReplenishmentQuantityProducer({ ...replenishmentQuantityProducer, "produceprod": e.target.value })}></input>
+                                                    </div>
+                                                </div>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="primary" onClick={changeReplenishmentQuantitiesProducer}>
+                                                    Send
+                                            </Button>
+                                                <Button variant="secondary" onClick={handleCloseReplenishmentProducer}>
+                                                    Close
+                                            </Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                         <button className="btn btn-danger" onClick={e => removeProduct(produits.id)}>
                                             X
                                     </button>
