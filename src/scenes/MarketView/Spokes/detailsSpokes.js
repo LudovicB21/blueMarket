@@ -6,21 +6,28 @@ import moment from 'moment'
 import * as CgIcons from "react-icons/cg"
 import { getProductsByDepartments } from '../../../services/Api/Departments/get'
 import { deleteProduct } from '../../../services/Api/DetailsDepartments/delete'
+import { changeQuantityReplenishmentDepartment, changeQuantityReplenishmentInventory } from '../../../services/Api/DetailsDepartments/post'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import promotion from '../../../stores/promotion'
-import { BsBoxArrowInUp, BsTrash } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
 import { BiLinkAlt } from "react-icons/bi";
 import { AiOutlineZoomIn } from "react-icons/ai";
+import * as AiIcons from "react-icons/ai"
+import * as FaIcons from "react-icons/fa"
 
 function DetailsSpokes(props) {
 
 
     const [name, setName] = useState("")
     const [show, setShow] = useState(false);
+    const [showReplenishment, setShowReplenishment] = useState(false);
+    const [showReplenishmentInventory, setShowReplenishmentInventory] = useState(false);
     const [loading, setLoading] = useState(false)
     const [departmentProduct, setDepartmentProduct] = useState([])
     const [detailsProduct, setDetailsProduct] = useState([])
-    const [errors, setErrors] = useState(null)
+    const [replenishmentQuantity, setReplenishmentQuantity] = useState([])
+    const [replenishmentQuantityInventory, setReplenishmentQuantityInventory] = useState([])
+    const [error, setErrors] = useState(null)
     const [sucess, setSucess] = useState(false)
 
     useEffect(() => {
@@ -47,12 +54,27 @@ function DetailsSpokes(props) {
             })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sucess, errors])
+    }, [sucess, error])
 
     const handleCloseDetails = () => setShow(false);
     const handleShowDetails = (produit) => {
+        setErrors(null)
         setDetailsProduct(produit)
         setShow(true)
+    };
+
+    const handleCloseReplenishment = () => setShowReplenishment(false);
+    const handleShowReplenishment = (produit) => {
+        setErrors(null)
+        setDetailsProduct(produit)
+        setShowReplenishment(true)
+    };
+
+    const handleCloseReplenishmentInventory = () => setShowReplenishmentInventory(false);
+    const handleShowReplenishmentInventory = (produit) => {
+        setErrors(null)
+        setDetailsProduct(produit)
+        setShowReplenishmentInventory(true)
     };
 
     const expiration = (expiration) => {
@@ -79,6 +101,28 @@ function DetailsSpokes(props) {
         const { success, errors } = await deleteProduct(product_id)
         if (success === true) {
             setSucess(true)
+        } else {
+            setErrors(errors)
+        }
+    }
+
+    const changeReplenishmentQuantities = async () => {
+        setSucess(false)
+        const { success, errors } = await changeQuantityReplenishmentDepartment(detailsProduct.id, replenishmentQuantity)
+        if (success === true) {
+            setSucess(true)
+            handleCloseReplenishment()
+        } else {
+            setErrors(errors)
+        }
+    }
+
+    const changeReplenishmentQuantitiesInventory = async () => {
+        setSucess(false)
+        const { success, errors } = await changeQuantityReplenishmentInventory(detailsProduct.id, replenishmentQuantityInventory)
+        if (success === true) {
+            setSucess(true)
+            handleCloseReplenishmentInventory()
         } else {
             setErrors(errors)
         }
@@ -134,7 +178,8 @@ function DetailsSpokes(props) {
                                         <td>
                                             {deleteButton(moment(produits.expiration_Date).format('DD-MM-YYYY')) === true ? <button className="btn btn-danger" data-toggle="tooltip" onClick={e => deleteProductAndReset(produits.id)} title="Delete" > <BsTrash /></button> : null}&nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-primary" data-toggle="tooltip" title="Details" onClick={e => handleShowDetails(produits)}> <AiOutlineZoomIn /></button> &nbsp;&nbsp;&nbsp;
-                                            <button className="btn btn-secondary" data-toggle="tooltip" title="Replenishment"> <BsBoxArrowInUp /> </button> &nbsp;&nbsp;&nbsp;
+                                            <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishment(produits)} title="Replenishment Department"> <AiIcons.AiOutlineDatabase /> </button> &nbsp;&nbsp;&nbsp;
+                                            <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentInventory(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-success" data-toggle="tooltip" title="Add Promotion"> <BiLinkAlt /></button>
                                             <Modal size="lg" show={show} onHide={handleCloseDetails}>
                                                 <Modal.Header closeButton>
@@ -169,6 +214,52 @@ function DetailsSpokes(props) {
                                                 </Modal.Body>
                                                 <Modal.Footer>
                                                     <Button variant="secondary" onClick={handleCloseDetails}>
+                                                        Close
+                                            </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                            <Modal size="lg" show={showReplenishment} onHide={handleCloseReplenishment}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title> Send product from producer to inventory </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <div className="row">
+                                                        <div className="col-sm form-group">
+                                                            <p> <strong> Quantity max you can send to your inventory: </strong> {detailsProduct.stockI} </p>
+                                                            <label htmlFor="replenishment">Quantity :</label>
+                                                            {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
+                                                            <input type="text" className="form-control" onChange={e => setReplenishmentQuantity({ ...replenishmentQuantity, "reducestocki": e.target.value })}></input>
+                                                        </div>
+                                                    </div>
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="primary" onClick={changeReplenishmentQuantities}>
+                                                        Send
+                                            </Button>
+                                                    <Button variant="secondary" onClick={handleCloseReplenishment}>
+                                                        Close
+                                            </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                            <Modal size="lg" show={showReplenishmentInventory} onHide={handleCloseReplenishmentInventory}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title> Send product from inventory to department </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <div className="row">
+                                                        <div className="col-sm form-group">
+                                                            <p> <strong> Quantity max you can send to your department : </strong> {detailsProduct.stockP} </p>
+                                                            <label htmlFor="replenishmentInventory">Quantity :</label>
+                                                            {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
+                                                            <input type="text" className="form-control" onChange={e => setReplenishmentQuantityInventory({ ...replenishmentQuantityInventory, "reducestockp": e.target.value })}></input>
+                                                        </div>
+                                                    </div>
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="primary" onClick={changeReplenishmentQuantitiesInventory}>
+                                                        Send
+                                            </Button>
+                                                    <Button variant="secondary" onClick={handleCloseReplenishmentInventory}>
                                                         Close
                                             </Button>
                                                 </Modal.Footer>
