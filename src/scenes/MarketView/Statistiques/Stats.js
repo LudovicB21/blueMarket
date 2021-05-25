@@ -34,12 +34,13 @@ function Stats() {
                 <NavBar />
             </div>
             <div className="mx-5 my-5">
-                <h1>Statistics</h1>
+                <h1 style={{ textAlign: "center" }}> <strong> Statistics </strong></h1>
                 {error !== null ? <p style={{ color: "red" }}>{error.GetUserCart}</p> : ""}
                 {loading == true ? <CircularProgress />
                     : <div>
+                        <h2> Average spend:</h2>
                         <div style={{ border: "solid", borderRadius: "5%", borderColor: "gray" }}>
-                            <h2> Average spend: {statistics?.MeanCartPrice}€</h2>
+                            <h3>{statistics?.MeanCartPrice}€</h3>
                         </div> <br></br>
                         <h2>Best product sell :</h2>
                         <div style={{ border: "solid", borderRadius: "3%", borderColor: "gray" }}>
