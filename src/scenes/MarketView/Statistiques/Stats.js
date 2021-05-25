@@ -23,7 +23,10 @@ function Stats() {
         })
     }, [])
 
-    console.log(statistics)
+
+    if (statistics !== []) {
+        localStorage.setItem("statistics", JSON.stringify(statistics))
+    }
 
     return (
         <div>
@@ -40,13 +43,13 @@ function Stats() {
                         </div> <br></br>
                         <h2>Best product sell :</h2>
                         <div style={{ border: "solid", borderRadius: "3%", borderColor: "gray" }}>
-                            <PolarArea
+                            {JSON.parse(localStorage.getItem("statistics")).MeanCartProduct ? <PolarArea
                                 data={{
-                                    labels: Object.keys(statistics?.MeanCartProduct),
+                                    labels: Object.keys(statistics.MeanCartProduct),
                                     datasets: [
                                         {
                                             label: '# of votes',
-                                            data: Object.values(statistics?.MeanCartProduct),
+                                            data: Object.values(statistics.MeanCartProduct),
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.4)',
                                                 'rgba(75, 192, 192, 0.4)',
@@ -76,9 +79,10 @@ function Stats() {
                                         },
                                     },
                                 }}
-                            />
+                            /> : null}
                         </div>
-                    </div>}
+                    </div>
+                }
             </div>
         </div>
     )

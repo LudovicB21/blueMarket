@@ -9,7 +9,7 @@ export async function getAllStats() {
     if (response.status === 200) {
         return {
             success: true,
-            data: body.GetStatistics || body
+            data: body
         }
     }
 
