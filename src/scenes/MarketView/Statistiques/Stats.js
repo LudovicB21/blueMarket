@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
-import { getAllStats } from "../../../services/Api/Statistics/get"
+import { getAllStats, updateStatBefore } from "../../../services/Api/Statistics/get"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { PolarArea } from 'react-chartjs-2'
+import { Link } from 'react-router-dom';
 
 function Stats() {
 
@@ -12,16 +13,26 @@ function Stats() {
 
     useEffect(() => {
         setLoading(true)
-        getAllStats().then(({ data, success, errors }) => {
+        loadStats()
+    }, [])
+
+    const loadStats = () => {
+        updateStatBefore().then(({ success, errors }) => {
             if (success === true) {
-                setStatistics(data)
-                setLoading(false)
+                getAllStats().then(({ data, success, errors }) => {
+                    if (success === true) {
+                        setStatistics(data)
+                        setLoading(false)
+                    } else {
+                        setLoading(false)
+                        setError(errors)
+                    }
+                })
             } else {
-                setLoading(false)
                 setError(errors)
             }
         })
-    }, [])
+    }
 
 
     if (statistics !== []) {
@@ -40,8 +51,23 @@ function Stats() {
                     : <div>
                         <h2> Average spend:</h2>
                         <div style={{ border: "solid", borderRadius: "5%", borderColor: "gray" }}>
-                            <h3>{statistics?.MeanCartPrice}€</h3>
+                            <div style={{ margin: "5px" }}>
+                                <h3>{statistics?.MeanCartPrice}€</h3>
+                            </div>
                         </div> <br></br>
+                        <h2> Advice for moving departments :</h2>
+                        <div style={{ border: "solid", borderRadius: "5%", borderColor: "gray" }}>
+                            <div style={{ margin: "5px", fontSize: "20px" }}>
+                                <p>{statistics?.phrasing1}</p>
+                                <p>{statistics?.phrasing2}</p>
+                            </div>
+                        </div>
+                        <div style={{ margin: "5px" }}>
+                            <Link style={{ textDecoration: "none" }} to={{ pathname: "/department" }}>
+                                <button className="btn btn-primary"> Go to departments</button>
+                            </Link>
+                        </div>
+                        <br></br>
                         <h2>Best product sell :</h2>
                         <div style={{ border: "solid", borderRadius: "3%", borderColor: "gray" }}>
                             {JSON.parse(localStorage.getItem("statistics")).MeanCartProduct ? <PolarArea

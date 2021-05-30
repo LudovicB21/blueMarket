@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import "./Profile.css"
-import { getAllPurchase } from '../../services/Api/Profile/get'
+import { getAllPurchase, getDetailsShoppingCart } from '../../services/Api/Profile/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as AiIcons from "react-icons/ai"
 import moment from 'moment'
@@ -13,9 +13,12 @@ function Profile() {
     const [auth, setAuth] = useState("")
     const [details, setDetails] = useState({});
     const [show, setShow] = useState(false);
+    const [showCartDetail, setShowCartDetail] = useState(false);
     const [error, setError] = useState(false)
+    const [errorDetails, setErrorsDetails] = useState(false)
     const [loading, setLoading] = useState(null)
     const [historyPurchase, setHistoryPurchase] = useState([])
+    const [detailsCart, setDetailsCart] = useState([])
 
     useEffect(() => {
         authenticated()
@@ -33,6 +36,22 @@ function Profile() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleShowCartDetail = (cartId) => {
+        setShowCartDetail(true)
+        setLoading(true)
+        getDetailsShoppingCart(cartId).then(({ data, success, errors }) => {
+            if (success === true) {
+                setLoading(false)
+                setDetailsCart(data)
+            } else {
+                setLoading(false)
+                setErrorsDetails(errors)
+            }
+        })
+    }
+
+    const handleCloseCartDetail = () => setShowCartDetail(false)
 
     const role = () => {
         if (auth.role === 0) {
@@ -143,8 +162,41 @@ function Profile() {
                                     <td>
                                         {moment(purchase.Date).format('DD-MM-YYYY')}
                                     </td>
-                                    <td> {purchase.Cart_price} </td>
-                                    <td> <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase"> <AiIcons.AiOutlineZoomIn /> </button></td>
+                                    <td> {purchase.Cart_price} € </td>
+                                    <td> <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase" onClick={e => handleShowCartDetail(purchase.Cart_id)}> <AiIcons.AiOutlineZoomIn /> </button></td>
+                                    <Modal size="lg" show={showCartDetail} onHide={handleCloseCartDetail}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title> Details of your shopping cart</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            {errorDetails !== null ? <p style={{ color: "red" }}>{errorDetails.GetDetailsUserCart}</p> : ""}
+                                            <table className="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Expiration Date</th>
+                                                        <th scope="col"> Price </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {(detailsCart || []).map(cart => (
+                                                        <tr key={cart.name}>
+                                                            <td>
+                                                                {cart.name}
+                                                            </td>
+                                                            <td> {moment(cart.expiration_Date).format('DD-MM-YYYY')}</td>
+                                                            <td> {cart.price} € </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleCloseCartDetail}>
+                                                Close
+                                        </Button>
+                                        </Modal.Footer>
+                                    </Modal>
                                 </tr>
                             ))}
                         </tbody>

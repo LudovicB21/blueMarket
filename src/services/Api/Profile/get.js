@@ -18,3 +18,25 @@ export async function getAllPurchase(userId) {
         errors: body
     }
 }
+
+
+export async function getDetailsShoppingCart(cartId) {
+    const response = await fetch(
+        `https://bluemarket.shop/api/getdetailsusercart?cartid=${cartId}`,
+        {
+            method: "GET",
+        }
+    )
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            success: true,
+            data: body.GetDetailsUserCart || body
+        }
+    }
+
+    return {
+        success: false,
+        errors: body
+    }
+}
