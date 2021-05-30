@@ -6,6 +6,7 @@ import "./Profile.css"
 import { getAllPurchase } from '../../services/Api/Profile/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as AiIcons from "react-icons/ai"
+import moment from 'moment'
 
 function Profile() {
 
@@ -140,7 +141,7 @@ function Profile() {
                             {(historyPurchase || []).map(purchase => (
                                 <tr key={purchase.Cart_id}>
                                     <td>
-                                        {purchase.Date}
+                                        {moment(purchase.Date).format('DD-MM-YYYY')}
                                     </td>
                                     <td> {purchase.Cart_price} </td>
                                     <td> <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase"> <AiIcons.AiOutlineZoomIn /> </button></td>

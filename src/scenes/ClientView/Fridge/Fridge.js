@@ -109,6 +109,14 @@ function Fridge() {
         }
     }
 
+    const stockAlert = (stock) => {
+        if (stock === 1) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {stock} </div>
+        } else {
+            return stock
+        }
+    }
+
     if (errorsAuth === true) {
         return <Redirect to="/login" />
     } else {
@@ -146,7 +154,7 @@ function Fridge() {
                                         {produits.name}
                                     </td>
                                     <td> {expiration(moment(produits.expiration_date).format('DD-MM-YYYY'))} </td>
-                                    {produits.quantity === 1 ? <td> &nbsp; &nbsp; &nbsp;{produits.quantity} </td> : <td> <button className="btn btn-secondary" onClick={() => decrease(produits.quantity, produits.id, produits.Cart_id)}> - </button> {produits.quantity} </td>}
+                                    {produits.quantity === 1 ? <td> {stockAlert(produits.quantity)} </td> : <td> <button className="btn btn-secondary" onClick={() => decrease(produits.quantity, produits.id, produits.Cart_id)}> - </button> {produits.quantity} </td>}
                                     <td>
                                         <button className="btn btn-primary" onClick={e => getDetailsProduct(produits.id)}>
                                             <AiIcons.AiOutlineZoomIn />

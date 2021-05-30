@@ -74,6 +74,14 @@ function Products() {
         }
     }
 
+    const stockPAlert = (stockP) => {
+        if (stockP <= 1000) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {stockP} </div>
+        } else {
+            return stockP
+        }
+    }
+
     const removeProduct = async (productId) => {
         const user_id = JSON.parse(localStorage.getItem("user")).user_id
         const { success, errors, data } = await deleteProductFromProducer(user_id, productId)
@@ -146,7 +154,7 @@ function Products() {
                                         {produits.name}
                                     </td>
                                     <td> {expiration(moment(produits.expiration_Date).format('DD-MM-YYYY'))} </td>
-                                    <td> {produits.stockP} </td>
+                                    <td> {stockPAlert(produits.stockP)} </td>
                                     <td> {moment(produits.next_Delivery).format('DD-MM-YYYY')} </td>
                                     <td>
                                         <button className="btn btn-primary" onClick={() => handleShow(produits)}>

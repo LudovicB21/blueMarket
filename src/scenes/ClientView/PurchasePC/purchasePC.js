@@ -70,12 +70,6 @@ function PurchasePC() {
                                         })}
                                         <p>Price: {item.price}€</p>
                                         <p>Expiration date: {moment(item.expiration_Date).format('DD-MM-YYYY')}</p>
-                                        {promotion.map(items => {
-                                            if (items.id === item.promotion) {
-                                                return <button onClick={() => addPromotionToCard(item)}> Use promotion </button>
-                                            }
-                                        })
-                                        }
                                         <button onClick={() => addCart(item)}>Add to cart</button>
                                     </div>
                                 </div>

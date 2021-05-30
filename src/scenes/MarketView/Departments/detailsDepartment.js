@@ -54,7 +54,7 @@ function DetailsSpokes(props) {
             })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sucess, error])
+    }, [sucess, error, replenishmentQuantity, replenishmentQuantityInventory])
 
     const handleCloseDetails = () => setShow(false);
     const handleShowDetails = (produit) => {
@@ -98,6 +98,7 @@ function DetailsSpokes(props) {
     }
 
     const deleteProductAndReset = async (product_id) => {
+        setSucess(false)
         const { success, errors } = await deleteProduct(product_id)
         if (success === true) {
             setSucess(true)
@@ -107,6 +108,7 @@ function DetailsSpokes(props) {
     }
 
     const changeReplenishmentQuantities = async () => {
+        setSucess(false)
         const { success, errors } = await changeQuantityReplenishmentDepartment(detailsProduct.id, replenishmentQuantity)
         if (success === true) {
             setSucess(true)
@@ -117,12 +119,29 @@ function DetailsSpokes(props) {
     }
 
     const changeReplenishmentQuantitiesInventory = async () => {
+        setSucess(false)
         const { success, errors } = await changeQuantityReplenishmentInventory(detailsProduct.id, replenishmentQuantityInventory)
         if (success === true) {
             setSucess(true)
             handleCloseReplenishmentInventory()
         } else {
             setErrors(errors)
+        }
+    }
+
+    const stockAlertD = (stockD) => {
+        if (stockD <= 5) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {stockD} </div>
+        } else {
+            return stockD
+        }
+    }
+
+    const stockAlertP = (stockI) => {
+        if (stockI <= 50) {
+            return <div className="text-danger"> <CgIcons.CgDanger /> {stockI} </div>
+        } else {
+            return stockI
         }
     }
 
@@ -154,9 +173,9 @@ function DetailsSpokes(props) {
                                         <td>
                                             {produits.name}
                                         </td>
-                                        <td> {produits.stockD} </td>
+                                        <td> {stockAlertD(produits.stockD)} </td>
                                         <td>
-                                            {produits.stockI}
+                                            {stockAlertP(produits.stockI)}
                                         </td>
                                         <td>
                                             {moment(produits.next_Delivery).format('DD-MM-YYYY')}
@@ -218,12 +237,12 @@ function DetailsSpokes(props) {
                                             </Modal>
                                             <Modal size="lg" show={showReplenishment} onHide={handleCloseReplenishment}>
                                                 <Modal.Header closeButton>
-                                                    <Modal.Title> Send product from producer to inventory </Modal.Title>
+                                                    <Modal.Title> Send product from inventory to department </Modal.Title>
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <div className="row">
                                                         <div className="col-sm form-group">
-                                                            <p> <strong> Quantity max you can send to your inventory: </strong> {detailsProduct.stockI} </p>
+                                                            <p> <strong> Quantity max you have in your inventory: </strong> {detailsProduct.stockI} </p>
                                                             <label htmlFor="replenishment">Quantity :</label>
                                                             {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
                                                             <input type="text" className="form-control" onChange={e => setReplenishmentQuantity({ ...replenishmentQuantity, "reducestocki": e.target.value })}></input>
@@ -241,12 +260,12 @@ function DetailsSpokes(props) {
                                             </Modal>
                                             <Modal size="lg" show={showReplenishmentInventory} onHide={handleCloseReplenishmentInventory}>
                                                 <Modal.Header closeButton>
-                                                    <Modal.Title> Send product from inventory to department </Modal.Title>
+                                                    <Modal.Title> Send product from producer to inventory </Modal.Title>
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <div className="row">
                                                         <div className="col-sm form-group">
-                                                            <p> <strong> Quantity max you can send to your department : </strong> {detailsProduct.stockP} </p>
+                                                            <p> <strong> Quantity max you can have in your inventory  : </strong> {detailsProduct.stockP} </p>
                                                             <label htmlFor="replenishmentInventory">Quantity :</label>
                                                             {error !== null ? <p style={{ color: "red" }}>{error}</p> : ""}
                                                             <input type="text" className="form-control" onChange={e => setReplenishmentQuantityInventory({ ...replenishmentQuantityInventory, "reducestockp": e.target.value })}></input>
