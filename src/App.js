@@ -17,6 +17,8 @@ import { DataProvider } from './stores/Context'
 import MyProductors from './scenes/MarketView/MyProductors/myProductors';
 import Transition from './components/transition';
 import Statistics from './scenes/MarketView/Statistiques/Stats';
+import Forum from './scenes/Forum/Forum'
+import Commentary from './scenes/Forum/commentary'
 
 function App() {
 
@@ -45,6 +47,8 @@ function App() {
             <Route path="/productors" component={MyProductors} />
             <Route path="/scan" component={Scan} />
             <Route path="/stats" component={Statistics} />
+            <Route path="/forum" component={Forum} />
+            <Route path="/commentary" component={Commentary} />
           </Switch>
         </Router>
         <div class="footer-dark">
