@@ -13,7 +13,7 @@ export async function post(user) {
         urlencoded.append("lastname", user.lastname);
     }
     if (user.fridgesize) {
-        urlencoded.append("fridgesizesize", user.fridgesize);
+        urlencoded.append("fridgesize", user.fridgesize);
     }
     if (user.password) {
         urlencoded.append("password", user.password);
