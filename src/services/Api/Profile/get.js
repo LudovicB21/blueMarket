@@ -40,3 +40,24 @@ export async function getDetailsShoppingCart(cartId) {
         errors: body
     }
 }
+
+export async function getProfile(userId) {
+    const response = await fetch(
+        `https://bluemarket.shop/api/getuserprofil?userid=${userId}`,
+        {
+            method: "GET",
+        }
+    )
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            success: true,
+            data: body.GetUserProfil || body
+        }
+    }
+
+    return {
+        success: false,
+        errors: body.GetUserProfil
+    }
+}

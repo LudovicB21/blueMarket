@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import "./Profile.css"
-import { getAllPurchase, getDetailsShoppingCart } from '../../services/Api/Profile/get'
+import { getAllPurchase, getDetailsShoppingCart, getProfile } from '../../services/Api/Profile/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as AiIcons from "react-icons/ai"
 import moment from 'moment'
@@ -80,8 +80,6 @@ function Profile() {
         // Appel api pour changement des données profile
     }
 
-    console.log(auth)
-
     const updateProfile = async () => {
         const user = JSON.parse(localStorage.getItem("user"))
         const newProfile = details
@@ -100,12 +98,28 @@ function Profile() {
         if (newProfile.lastname === null || newProfile.lastname === undefined || newProfile.lastname === "") {
             newProfile.lastname = auth.lastname
         }
-        updateProdile(newProfile, user.user_id)
         const { success, errors } = await updateProdile(newProfile, user.user_id)
         setLoadingUpdateProfile(true)
         if (success === true) {
-            setLoadingUpdateProfile(false)
+            //setLoadingUpdateProfile(false)
             //Ajouter la mise à jour du localStorage + de l'affichage dans auth
+            const { success, errors, data } = await getProfile(user.user_id)
+            setLoadingUpdateProfile(true)
+            if (success === true) {
+                setLoadingUpdateProfile(false)
+                let profile = ({
+                    email: data.user_email,
+                    firstname: data.user_first,
+                    lastname: data.user_last,
+                    user_id: data.user_id,
+                    fridgesize: data.Size_fridge,
+                    role: data.user_role
+                })
+                localStorage.setItem("user", JSON.stringify(profile))
+            } else {
+                setLoadingUpdateProfile(false)
+                setError(errors)
+            }
         } else {
             setLoadingUpdateProfile(false)
             setError(errors)
