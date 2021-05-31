@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 function Logout() {
 
     useEffect(() => {
-        localStorage.removeItem("user")
+        localStorage.clear();
     })
 
     return (

@@ -3,6 +3,7 @@ import { Button, Grid, TextField } from "@material-ui/core"
 import loginImg from "../../assets/img/login.png"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect, Link } from "react-router-dom"
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function LoginV2() {
 
@@ -17,7 +18,8 @@ function LoginV2() {
     const [details, setDetails] = useState({ email: "", password: "" });
     const [user, setUser] = useState({ email: "", role: "", firstname: "", lastname: "", fridgesize: 0, user_id: "" });
     const [error, setError] = useState("");
-    const [auth, setAuth] = useState("")
+    const [auth, setAuth] = useState("");
+    const [loading, setLoading] = useState(null)
 
     const submitHandler = e => {
         e.preventDefault();
@@ -26,6 +28,7 @@ function LoginV2() {
     }
 
     const getLogin = () => {
+        setLoading(true)
         fetch(`https://bluemarket.shop/api/login?email=${details.email}&password=${details.password}`,
             {
                 method: "GET",
@@ -40,8 +43,10 @@ function LoginV2() {
                         fridgesize: data.size_fridge,
                         user_id: data.user_id
                     })
+                    setLoading(false)
                 } else {
                     setError(data.Login)
+                    setLoading(false)
                 }
             });
     }
@@ -78,6 +83,8 @@ function LoginV2() {
                                 <TextField label="Email" id="emailField" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                                 <TextField label="Password" id="passwordField" type="password" margin="normal" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                                 <div style={{ height: 20 }} />
+                                {loading == true ? <CircularProgress />
+                                    : null}
                                 <Button color="primary" id="LoginButton" variant="contained" type="submit">
                                     Log in
                         </Button>
