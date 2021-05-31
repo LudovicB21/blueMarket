@@ -170,7 +170,7 @@ function MyProductors() {
                                     <div className="row">
                                         <div className="col-sm form-group">
                                             <label htmlFor="type">Type of products :</label>
-                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "type": e.target.value })} /*placeholder={auth.frigo}*/></input>
+                                            <input type="text" className="form-control" onChange={e => setNewProducer({ ...newProducer, "type": e.target.value })} /*placeholder={auth.fridgesize}*/></input>
                                         </div>
                                         <div className="col-sm form-group">
                                             <label htmlFor="transport">Transport :</label>

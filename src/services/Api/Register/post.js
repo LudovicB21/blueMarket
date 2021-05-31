@@ -12,8 +12,8 @@ export async function post(user) {
     if (user.lastname) {
         urlencoded.append("lastname", user.lastname);
     }
-    if (user.frigo) {
-        urlencoded.append("frigosize", user.frigo);
+    if (user.fridgesize) {
+        urlencoded.append("fridgesizesize", user.fridgesize);
     }
     if (user.password) {
         urlencoded.append("password", user.password);

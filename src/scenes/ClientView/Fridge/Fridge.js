@@ -56,7 +56,7 @@ function Fridge() {
         let total = 0
         products.forEach(item => {
             let calc1 = item.size * 100
-            let calcul2 = calc1 / auth.frigo
+            let calcul2 = calc1 / auth.fridgesize
             let calcStock = calcul2 * item.quantity
             total += Math.round(calcStock)
         });

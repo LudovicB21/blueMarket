@@ -7,6 +7,7 @@ import { getAllPurchase, getDetailsShoppingCart } from '../../services/Api/Profi
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as AiIcons from "react-icons/ai"
 import moment from 'moment'
+import { updateProdile } from '../../services/Api/Profile/update'
 
 function Profile() {
 
@@ -17,8 +18,10 @@ function Profile() {
     const [error, setError] = useState(false)
     const [errorDetails, setErrorsDetails] = useState(false)
     const [loading, setLoading] = useState(null)
+    const [loadingUpdateProfile, setLoadingUpdateProfile] = useState(null)
     const [historyPurchase, setHistoryPurchase] = useState([])
     const [detailsCart, setDetailsCart] = useState([])
+    const [profile, setProfile] = useState([])
 
     useEffect(() => {
         authenticated()
@@ -32,7 +35,7 @@ function Profile() {
                 setError(errors)
             }
         })
-    }, [])
+    }, [loadingUpdateProfile])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -55,11 +58,11 @@ function Profile() {
 
     const role = () => {
         if (auth.role === 0) {
-            return "Client"
+            return "Administrator"
         } else if (auth.role === 1) {
-            return "Producteur"
+            return "Client"
         } else {
-            return "Administrateur"
+            return "Producer"
         }
     }
 
@@ -73,7 +76,40 @@ function Profile() {
 
     const submitHandler = e => {
         e.preventDefault();
+        updateProfile()
         // Appel api pour changement des données profile
+    }
+
+    console.log(auth)
+
+    const updateProfile = async () => {
+        const user = JSON.parse(localStorage.getItem("user"))
+        const newProfile = details
+        if (newProfile.firstname === null || newProfile.firstname === undefined || newProfile.firstname === "") {
+            newProfile.firstname = auth.firstname
+        }
+        if (newProfile.email === null || newProfile.email === undefined || newProfile.email === "") {
+            newProfile.email = auth.email
+        }
+        if (newProfile.lastname === null || newProfile.lastname === undefined || newProfile.lastname === "") {
+            newProfile.lastname = auth.lastname
+        }
+        if (newProfile.fridge === null || newProfile.fridge === undefined || newProfile.fridge === "") {
+            newProfile.fridge = auth.fridgesize
+        }
+        if (newProfile.lastname === null || newProfile.lastname === undefined || newProfile.lastname === "") {
+            newProfile.lastname = auth.lastname
+        }
+        updateProdile(newProfile, user.user_id)
+        const { success, errors } = await updateProdile(newProfile, user.user_id)
+        setLoadingUpdateProfile(true)
+        if (success === true) {
+            setLoadingUpdateProfile(false)
+            //Ajouter la mise à jour du localStorage + de l'affichage dans auth
+        } else {
+            setLoadingUpdateProfile(false)
+            setError(errors)
+        }
     }
 
     if (error === true) {
@@ -86,6 +122,8 @@ function Profile() {
                 </div>
                 <div className="container mx-5 my-5">
                     <h1>My profile </h1>
+                    {loadingUpdateProfile == true ? <CircularProgress />
+                        : null}
                     <a className="text-danger" id="removeunderline" href="foo"> <strong> To change your data fill in the fields </strong>  </a>
                     <form onSubmit={submitHandler} >
                         <div className="row">
@@ -107,7 +145,7 @@ function Profile() {
                         <div className="row">
                             <div className="col-sm form-group">
                                 <label htmlFor="fridge">Fridge ( Litre ) :</label>
-                                <input type="text" className="form-control" onChange={e => setDetails({ ...details, "fridge": e.target.value })} placeholder={auth.frigo}></input>
+                                <input type="text" className="form-control" onChange={e => setDetails({ ...details, "fridge": e.target.value })} placeholder={auth.fridgesize}></input>
                             </div>
                             <div className="col-sm form-group">
                                 <label htmlFor="role">Role :</label>
@@ -138,7 +176,7 @@ function Profile() {
                         </div>
                         <div className="row">
                             <div className="col-sm form-group">
-                                <button className="btn btn-primary"> Save</button>
+                                <button className="btn btn-primary" type="submit"> Save</button>
                             </div>
                         </div>
                     </form>

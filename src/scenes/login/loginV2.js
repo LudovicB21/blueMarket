@@ -15,7 +15,7 @@ function LoginV2() {
     }
 
     const [details, setDetails] = useState({ email: "", password: "" });
-    const [user, setUser] = useState({ email: "", role: "", firstname: "", lastname: "", frigo: 0, user_id: "" });
+    const [user, setUser] = useState({ email: "", role: "", firstname: "", lastname: "", fridgesize: 0, user_id: "" });
     const [error, setError] = useState("");
     const [auth, setAuth] = useState("")
 
@@ -37,7 +37,7 @@ function LoginV2() {
                         firstname: data.user_first,
                         lastname: data.user_last,
                         role: data.user_role,
-                        frigo: data.size_fridge,
+                        fridgesize: data.size_fridge,
                         user_id: data.user_id
                     })
                 } else {

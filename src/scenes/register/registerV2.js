@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 function RegisterV2() {
 
-    const [details, setDetails] = useState({ firstname: "", lastname: "", email: "", frigo: "", password: "", role: "1" });
+    const [details, setDetails] = useState({ firstname: "", lastname: "", email: "", fridgesize: "", password: "", role: "1" });
     const [user, setUser] = useState({ name: "", email: "" });
     const [error, setError] = useState("");
     const [show, setShow] = useState(false);
@@ -55,7 +55,7 @@ function RegisterV2() {
                                 <TextField label="Email" type="email" margin="normal" onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                                 <TextField label="firstname" margin="normal" onChange={e => setDetails({ ...details, firstname: e.target.value })} value={details.firstname} />
                                 <TextField label="lastname" margin="normal" onChange={e => setDetails({ ...details, lastname: e.target.value })} value={details.lastname} />
-                                <TextField label="frigo" margin="normal" onChange={e => setDetails({ ...details, frigo: e.target.value })} value={details.frigo} />
+                                <TextField label="fridgesize" margin="normal" onChange={e => setDetails({ ...details, fridgesize: e.target.value })} value={details.fridgesize} />
                                 <TextField label="Password" margin="normal" type="password" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                                 <div>
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -95,7 +95,7 @@ function RegisterV2() {
                                                 L’Utilisateur du site  https://bluemarket.shop a accès aux services suivants : <br></br>
                                                 •	Achat de produit alimentaire <br></br>
                                                 •	Scan de produit <br></br>
-                                                •	Consommation du frigo <br></br>
+                                                •	Consommation du fridgesize <br></br>
                                                 •	Page de d’enregistrement et de connexion <br></br>
                                                 •	Page produit <br></br>
                                                 •	Calcul empreinte carbonne <br></br>
