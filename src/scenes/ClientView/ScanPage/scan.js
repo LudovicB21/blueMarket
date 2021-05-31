@@ -8,6 +8,7 @@ import { DataContext } from '../../../stores/Context'
 import { getProductsByIdScan } from '../../../services/Api/Product/get'
 import moment from 'moment'
 import promotion from '../../../stores/promotion'
+import *  as FaIcons from 'react-icons/fa'
 
 export class Scanner extends Component {
     static contextType = DataContext;
@@ -106,6 +107,9 @@ export class Scanner extends Component {
                         <div className="col-sm form-group">
                             <label htmlFor="email">Name :</label>
                             <p className="form-control"> {product.name}</p>
+                            <a> {product.carbonfootprint <= 1000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
+                                product.carbonfootprint > 1000 && product.carbonfootprint <= 2000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
+                                    product.carbonfootprint > 2000 && product.carbonfootprint <= 3000 ? <div> <FaIcons.FaLeaf />  </div> : null}</a>
                         </div>
                         {product.promotion === 0 ? null : <div className="col-sm form-group">
                             <label htmlFor="email">Promotion :</label>
