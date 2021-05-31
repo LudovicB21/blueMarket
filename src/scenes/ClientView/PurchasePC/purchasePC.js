@@ -6,6 +6,7 @@ import promotion from '../../../stores/promotion'
 import { getProducts } from '../../../services/Api/Product/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment'
+import *  as FaIcons from 'react-icons/fa'
 
 function PurchasePC() {
 
@@ -26,6 +27,7 @@ function PurchasePC() {
     }, [errors, loading])
 
     const context = useContext(DataContext)
+    console.log(products)
 
     const addPromotionToCard = (itemPromotion) => {
         const { addCart } = context;
@@ -60,8 +62,11 @@ function PurchasePC() {
                                 return <div className="card" key={item.id}>
                                     <img src={item.image} alt={item.name} />
                                     <div className="content">
-                                        <p>
+                                        <p style={{ color: item.carbonfootprint <= 3000 ? "green" : null }}>
                                             <strong> {item.name} </strong>
+                                            <a> {item.carbonfootprint <= 1000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
+                                                item.carbonfootprint > 1000 && item.carbonfootprint <= 2000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
+                                                    item.carbonfootprint > 2000 && item.carbonfootprint <= 3000 ? <div> <FaIcons.FaLeaf />  </div> : null}</a>
                                         </p>
                                         {promotion.map(items => {
                                             if (items.id === item.promotion) {
