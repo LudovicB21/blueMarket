@@ -45,6 +45,7 @@ export class ShoppingCart extends Component {
         //postShoppingCart(strObj, total, today, userId)
         const { success, errors, data } = await postShoppingCart(strObj, total, today, userId)
         this.setState({ loading: true })
+        this.setState({ error: true })
         if (success === true) {
             localStorage.removeItem("dataCart")
             localStorage.removeItem("dataTotal")
