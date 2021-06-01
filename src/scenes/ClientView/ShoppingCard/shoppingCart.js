@@ -6,6 +6,7 @@ import moment from 'moment'
 import { postShoppingCart } from '../../../services/Api/ShoopingCart/post'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from "react-router-dom"
+import { Modal, Button } from 'react-bootstrap'
 
 export class ShoppingCart extends Component {
     static contextType = DataContext;
@@ -13,7 +14,8 @@ export class ShoppingCart extends Component {
         error: null,
         loading: null,
         success: null,
-        successSend: null
+        successSend: null,
+        show: null,
     }
 
     componentDidMount() {
@@ -23,6 +25,11 @@ export class ShoppingCart extends Component {
         } else {
             this.setState({ success: true })
         }
+    }
+
+    handleClose = () => this.setState({ show: false });
+    handleShow = () => {
+        this.setState({ show: true });
     }
 
     payment = async (cart, total) => {
@@ -116,9 +123,61 @@ export class ShoppingCart extends Component {
                         {this.state.error !== null ? <p style={{ color: "red" }}>{this.state.error}</p> : ""}
                         {this.state.loading == true ? <CircularProgress />
                             : null}
-                        <button className="btn btn-primary" onClick={() => payment(cart, total)}>
+                        <button className="btn btn-primary" onClick={/*() => payment(cart, total)*/ this.handleShow}>
                             Payment
                         </button>
+                        <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title> Payment </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div>
+                                    <p style={{ color: "red" }}> <strong> You will receive your order in less than an hour when you have paid </strong> </p>
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="delivery">Delivery address :</label>
+                                                <input type="text" className="form-control" placeholder="11 rue du test"></input>
+                                            </div>
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="Phone">Phone :</label>
+                                                <input type="text" className="form-control" placeholder="07 58 71 93 46"></input>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="Cart">Cart number :</label>
+                                                <input type="text" className="form-control" placeholder="4111 1111 1111 1111"></input>
+                                            </div>
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="possessor">Possessor of the card :</label>
+                                                <input type="text" className="form-control" placeholder="Jane Doe"></input>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="Expiration">Expiration :</label>
+                                                <input type="text" className="form-control" placeholder="10/17"></input>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="Cryptogramme">Cryptogramme :</label>
+                                                <input type="text" className="form-control" placeholder="303"></input>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="primary" onClick={() => payment(cart, total)}>
+                                    Pay
+                                                </Button>
+                                <Button variant="secondary" onClick={this.handleClose}>
+                                    Close
+                                            </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </div >
                 </div>
             </div>
