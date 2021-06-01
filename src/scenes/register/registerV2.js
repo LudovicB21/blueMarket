@@ -14,22 +14,27 @@ function RegisterV2() {
     const [error, setError] = useState("");
     const [show, setShow] = useState(false);
     const [errors, setErrors] = useState(null)
+    const [errorsCheck, setErrorsCheck] = useState(null)
     const [loading, setLoading] = useState(null)
+    const [check, setCheck] = useState(false)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const submitHandler = async e => {
         e.preventDefault();
-
-        setLoading(true)
-        setErrors(null)
-        const { success, errors, data } = await post(details)
-        if (success === true) {
-            setLoading(false)
+        if (check === true) {
+            setLoading(true)
+            setErrors(null)
+            const { success, errors, data } = await post(details)
+            if (success === true) {
+                setLoading(false)
+            } else {
+                setErrors(errors)
+                setLoading(false)
+            }
         } else {
-            setErrors(errors)
-            setLoading(false)
+            setErrorsCheck("You didn't accept generals conditions")
         }
     }
 
@@ -58,7 +63,8 @@ function RegisterV2() {
                                 <TextField label="fridgesize" margin="normal" onChange={e => setDetails({ ...details, fridgesize: e.target.value })} value={details.fridgesize} />
                                 <TextField label="Password" margin="normal" type="password" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                                 <div>
-                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    {errorsCheck !== null ? <p style={{ color: "red" }}>{errorsCheck}</p> : ""}
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => setCheck(!check)} />
                                     <label className="form-check-label" htmlFor="flexCheckDefault">
                                         J'accepte les <a onClick={handleShow} href="#foo"> <u> conditions générale d'utilisation </u>  </a>
                                     </label>

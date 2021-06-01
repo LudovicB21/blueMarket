@@ -87,17 +87,14 @@ function LoginV2() {
                                     : null}
                                 <Button color="primary" id="LoginButton" variant="contained" type="submit">
                                     Log in
-                        </Button>
+                                </Button>
                                 <div style={{ height: 20 }} />
                                 <Link to="/register">
-                                    <Button> Interested in joining ?</Button>
+                                    <Button style={{ width: "100%" }} color="primary" variant="contained"> Register </Button>
                                 </Link>
+                                <div style={{ height: 20 }} />
+                                <Button style={{ width: "100%" }} color="primary" variant="contained">  Forgot password ?</Button>
                             </div>
-                            <Grid container justify="center" space={2}>
-                                <Grid item>
-                                    <Button> Forgot password ? </Button>
-                                </Grid>
-                            </Grid>
                             <div />
                         </Grid>
                     </Grid>
