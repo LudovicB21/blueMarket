@@ -27,7 +27,6 @@ function PurchasePC() {
     }, [errors, loading])
 
     const context = useContext(DataContext)
-    console.log(products)
 
     const addPromotionToCard = (itemPromotion) => {
         const { addCart } = context;

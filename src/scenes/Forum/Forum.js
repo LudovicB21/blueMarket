@@ -3,32 +3,59 @@ import NavBar from '../NavBar/NavBar'
 import { Modal, Button } from 'react-bootstrap'
 import * as AiIcons from "react-icons/ai"
 import { Link } from 'react-router-dom'
+import { getAllCommentaries } from '../../services/Api/Forum/get'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { postCommentary } from '../../services/Api/Forum/post'
+import moment from 'moment'
 
 function Forum() {
 
     const [show, setShow] = useState(null)
     const [loading, setLoading] = useState(null)
+    const [loadingAddCommentary, setLoadingAddCommentary] = useState(null)
     const [allCommentaries, setAllCommentaries] = useState([])
     const [newCommentary, setNewCommentary] = useState([])
     const [errors, setErrors] = useState(null)
     const [errorsCommentary, setErrorsCommentary] = useState(null)
     const [user, setUser] = useState(null)
+    const [success, setSuccess] = useState(null)
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")))
-    }, [])
+        setLoading(true)
+        getAllCommentaries().then(({ data, success, errors }) => {
+            if (success === true) {
+                setAllCommentaries(data)
+                setLoading(false)
+            } else {
+                setErrorsCommentary(errors)
+                setLoading(false)
+            }
+        })
+    }, [success])
 
     const handleShow = () => {
         setShow(true)
     }
     const handleClose = () => setShow(false);
 
-    const addNewCommentary = () => {
-        setNewCommentary({ ...newCommentary, "author": user?.firstname + ' ' + user?.lastname, "status": "open", "userId": user?.user_id })
+    const addNewCommentary = async () => {
+        const user = JSON.parse(localStorage.getItem("user"))
+        const { success, errors } = await postCommentary(newCommentary)
+        setLoadingAddCommentary(true)
+        setSuccess(null)
+        if (success === true) {
+            handleClose()
+            setSuccess(true)
+            setLoadingAddCommentary(false)
+        } else {
+            setErrors(errors)
+            setLoadingAddCommentary(false)
+        }
     }
 
-    const closeCommentary = () => {
-        console.log("close")
+    const registerInLocalStorageCommentary = (commentaries) => {
+        localStorage.setItem("Commentary_data", JSON.stringify(commentaries))
     }
 
     return (
@@ -38,6 +65,9 @@ function Forum() {
             </div>
             <div className="container mx-5 my-5">
                 <h1> All commentaries :  </h1>
+                {loading == true ? <CircularProgress />
+                    : null}
+                {errorsCommentary !== null ? <p style={{ color: "red" }}>{errorsCommentary}</p> : ""}
                 <button className="btn btn-primary" onClick={handleShow}> New commentary </button> <br></br> <br></br>
                 <Modal size="lg" show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -56,25 +86,21 @@ function Forum() {
                                 <div className="row">
                                     <div className="col-sm form-group">
                                         <label htmlFor="text">Object  :</label>
-                                        <input type="text" className="form-control" onChange={e => setNewCommentary({ ...newCommentary, "object": e.target.value })}></input>
+                                        <input type="text" className="form-control" onChange={e => setNewCommentary({ ...newCommentary, "subjectcommentary": e.target.value, "author": user?.firstname + ' ' + user?.lastname, "userId": user?.user_id })}></input>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-sm form-group">
                                         <label htmlFor="text">Description  :</label>
-                                        <textarea type="text-area" className="form-control" onChange={e => setNewCommentary({ ...newCommentary, "description": e.target.value })}></textarea>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-sm form-group">
-                                        <label htmlFor="type">Status</label>
-                                        <input type="text" disabled={true} className="form-control" placeholder="Open"></input>
+                                        <textarea type="text-area" className="form-control" onChange={e => setNewCommentary({ ...newCommentary, "contenu": e.target.value })}></textarea>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
+                        {loadingAddCommentary == true ? <CircularProgress />
+                            : null}
                         <Button variant="primary" onClick={addNewCommentary}>
                             Add
                             </Button>
@@ -89,33 +115,29 @@ function Forum() {
                             <th scope="col">Author</th>
                             <th scope="col">Object</th>
                             <th scope="col"> Date</th>
-                            <th scope="col"> Status </th>
                             <th scope="col"> Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Link style={{ textDecoration: "none" }} to={{
-                                    pathname: "/commentary",
-                                    /*aboutProps: {
-                                        name: produits.Depart_name,
-                                        id: produits.Depart_id
-                                    }*/
-                                }}>
-                                    <button className="btn btn-primary" data-toggle="tooltip" title="look the commentary" /*onClick={e => handleShowDetails(producer)}*/>
-                                        <AiIcons.AiOutlineZoomIn />
-                                    </button> &nbsp; &nbsp;
-                                </Link>
-                                {user?.role === 0 ? <button className="btn btn-danger" data-toggle="tooltip" title="Close status" onClick={e => closeCommentary()}>
-                                    <AiIcons.AiOutlineClose />
-                                </button> : null}
-                            </td>
-                        </tr>
+                        {(allCommentaries || []).map(commentaries => (
+                            <tr key={commentaries.id}>
+                                <td>{commentaries.author}</td>
+                                <td>{commentaries.subject}</td>
+                                <td>{moment(commentaries.creation_date).format('DD-MM-YYYY')}</td>
+                                <td>
+                                    <Link style={{ textDecoration: "none" }} to={{
+                                        pathname: "/commentary",
+                                        aboutProps: {
+                                            commentary: commentaries
+                                        }
+                                    }}>
+                                        <button className="btn btn-primary" data-toggle="tooltip" title="look the commentary" onClick={e => registerInLocalStorageCommentary(commentaries)}>
+                                            <AiIcons.AiOutlineZoomIn />
+                                        </button> &nbsp; &nbsp;
+                                        </Link>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
