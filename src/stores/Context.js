@@ -68,6 +68,11 @@ export class DataProvider extends Component {
         this.getTotal();
     };
 
+    resetCartAndTotal = () => {
+        this.setState({ total: 0, cart: [] })
+        console.log("remove")
+    }
+
     componentDidUpdate() {
         localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
         localStorage.setItem('dataTotal', JSON.stringify(this.state.total))
@@ -85,10 +90,12 @@ export class DataProvider extends Component {
     }
 
     render() {
+        console.log(this.state.cart)
+        console.log(this.state.total)
         const { cart, total } = this.state;
-        const { addCart, increase, reduction, removeProduct, getTotal } = this;
+        const { addCart, increase, reduction, removeProduct, getTotal, resetCartAndTotal } = this;
         return (
-            <DataContext.Provider value={{ cart, addCart, total, getTotal, reduction, increase, removeProduct }}>
+            <DataContext.Provider value={{ cart, addCart, total, getTotal, reduction, increase, removeProduct, resetCartAndTotal }}>
                 {this.props.children}
             </DataContext.Provider>
         )

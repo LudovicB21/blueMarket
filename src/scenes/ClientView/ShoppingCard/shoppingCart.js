@@ -47,6 +47,7 @@ export class ShoppingCart extends Component {
         this.setState({ loading: true })
         this.setState({ error: true })
         if (success === true) {
+            this.context.resetCartAndTotal()
             localStorage.removeItem("dataCart")
             localStorage.removeItem("dataTotal")
             this.setState({ loading: false })
