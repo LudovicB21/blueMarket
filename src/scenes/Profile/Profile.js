@@ -22,6 +22,7 @@ function Profile() {
     const [historyPurchase, setHistoryPurchase] = useState([])
     const [detailsCart, setDetailsCart] = useState([])
     const [profile, setProfile] = useState([])
+    const [password, setPassword] = useState({})
 
     useEffect(() => {
         authenticated()
@@ -78,6 +79,12 @@ function Profile() {
         e.preventDefault();
         updateProfile()
         // Appel api pour changement des données profile
+    }
+
+    const sendNewPassword = () => {
+        console.log(password)
+        const user = JSON.parse(localStorage.getItem("user"))
+        console.log(user.user_id)
     }
 
     const updateProfile = async () => {
@@ -174,14 +181,20 @@ function Profile() {
                                         <Modal.Title>Modify your password </Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <label htmlFor="password">New password :</label>
-                                        <input type="password" className="form-control" onChange={e => setDetails({ ...details, "password": e.target.value })}></input>
+                                        <label htmlFor="password">Current password :</label>
+                                        <input type="password" className="form-control" onChange={e => setPassword({ ...password, "currentPassword": e.target.value })}></input>
+                                        <div className="row">
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="password">New password :</label>
+                                                <input type="password" className="form-control" onChange={e => setPassword({ ...password, "newPassword": e.target.value })}></input>
+                                            </div>
+                                        </div>
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                     </Button>
-                                        <Button variant="primary" onClick={handleClose}>
+                                        <Button variant="primary" onClick={() => sendNewPassword()}>
                                             Save It!
                                     </Button>
                                     </Modal.Footer>
