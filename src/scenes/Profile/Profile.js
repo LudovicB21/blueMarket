@@ -82,9 +82,7 @@ function Profile() {
     }
 
     const sendNewPassword = () => {
-        console.log(password)
         const user = JSON.parse(localStorage.getItem("user"))
-        console.log(user.user_id)
     }
 
     const updateProfile = async () => {

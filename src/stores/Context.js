@@ -70,7 +70,6 @@ export class DataProvider extends Component {
 
     resetCartAndTotal = () => {
         this.setState({ total: 0, cart: [] })
-        console.log("remove")
     }
 
     componentDidUpdate() {
@@ -90,8 +89,6 @@ export class DataProvider extends Component {
     }
 
     render() {
-        console.log(this.state.cart)
-        console.log(this.state.total)
         const { cart, total } = this.state;
         const { addCart, increase, reduction, removeProduct, getTotal, resetCartAndTotal } = this;
         return (
