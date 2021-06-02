@@ -135,6 +135,7 @@ function Products() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Inventory </h1>
+                    <button className="btn btn-primary"> New product </button> <br></br> <br></br>
                     {loading == false ? <CircularProgress />
                         : null}
                     <table className="table">

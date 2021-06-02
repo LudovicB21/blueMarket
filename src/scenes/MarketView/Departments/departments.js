@@ -74,6 +74,7 @@ function Spokes() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Departments </h1>
+                    <button className="btn btn-primary"> New Department </button> <br></br> <br></br>
                     {
                         loading === false ? <CircularProgress />
                             : <table className="table">
