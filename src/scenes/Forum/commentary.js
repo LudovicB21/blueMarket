@@ -57,22 +57,37 @@ function Commentary(props) {
                 <NavBar />
             </div>
             <div className="container mx-5 my-5">
+                <h2> Commentary : </h2>
                 {loading == false ? <CircularProgress />
                     : null}
-                {errorsCommentary !== null ? <p style={{ color: "red" }}>{errorsCommentary}</p> : ""}
-                <h1> {commentaryData.author} </h1>
-                <h2> {moment(commentaryData.creation_date).format('DD-MM-YYYY')} -  {commentaryData.subject} </h2>
-                <p> {commentaryData.contenu}</p>
+                <div class="card">
+                    <div class="card-header">
+                        {commentaryData.author} - {moment(commentaryData.creation_date).format('DD-MM-YYYY')}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{commentaryData.subject}</h5>
+                        <p class="card-text">{commentaryData.contenu}</p>
+                    </div>
+                </div>
+            </div>
+            <div className="container mx-5 my-5">
+                <h2>Answers : </h2>
             </div>
             {(allCommentaries || []).map(answers => (
                 <div key={answers.answer_creation_date} className="container mx-5 my-5">
-                    <h2> {answers.answer_author} </h2>
-                    <h3> {moment(answers.answer_creation_date).format('DD-MM-YYYY')} </h3>
-                    <p> {answers.answer_contenu}</p>
+                    <div class="card">
+                        <div class="card-header">
+                            {answers.answer_author} - {moment(answers.answer_creation_date).format('DD-MM-YYYY')}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{answers.answer_contenu}</p>
+                        </div>
+                    </div>
                 </div>
+
             ))}
             <div className="container mx-5 my-5">
-                <label htmlFor="text"> Answer  :</label>
+                {errorsCommentary !== null ? <p style={{ color: "red" }}>{errorsCommentary}</p> : ""}
                 <textarea type="text-area" className="form-control" onChange={e => setAnswer({ ...answer, "contenu": e.target.value, "author": user?.firstname + ' ' + user?.lastname, "comid": props.location.aboutProps?.commentary.id || JSON.parse(localStorage.getItem("Commentary_data")).id, "userid": user.user_id })}></textarea> <br></br>
                 {loadingNewAnswer === false ? <CircularProgress />
                     : null}

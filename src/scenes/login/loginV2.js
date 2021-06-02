@@ -4,7 +4,8 @@ import loginImg from "../../assets/img/login.png"
 import BlueMarket from "../../assets/img/BlueMarket.png"
 import { Redirect, Link } from "react-router-dom"
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import { Modal, Button as ButtonB } from 'react-bootstrap'
+import { forgotPassword } from '../../services/Api/Login/update'
 function LoginV2() {
 
     useEffect(() => {
@@ -20,12 +21,18 @@ function LoginV2() {
     const [error, setError] = useState("");
     const [auth, setAuth] = useState("");
     const [loading, setLoading] = useState(null)
+    const [email, setEmail] = useState({})
+    const [errorEmail, setErrorEmail] = useState(null)
+    const [show, setShow] = useState(null)
 
     const submitHandler = e => {
         e.preventDefault();
 
         getLogin(details)
     }
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const getLogin = () => {
         setLoading(true)
@@ -49,6 +56,15 @@ function LoginV2() {
                     setLoading(false)
                 }
             });
+    }
+
+    const forgotMyPassword = async () => {
+        const { success, errors } = await forgotPassword(email)
+        if (success === true) {
+            handleClose()
+        } else {
+            setErrorEmail(errors)
+        }
     }
 
     return (
@@ -93,7 +109,30 @@ function LoginV2() {
                                     <Button style={{ width: "100%" }} color="primary" variant="contained"> Register </Button>
                                 </Link>
                                 <div style={{ height: 20 }} />
-                                <Button style={{ width: "100%" }} color="primary" variant="contained">  Forgot password ?</Button>
+                                <Button style={{ width: "100%" }} color="primary" variant="contained" onClick={() => handleShow()}>  Forgot password ?</Button>
+                                <Modal size="lg" show={show} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title> Enter your email </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <p style={{ color: "red" }}> <strong> We will send you a new password by email, we advise you to change your password in your profile page when you are connect </strong></p>
+                                        <div className="row">
+                                            <div className="col-sm form-group">
+                                                <label htmlFor="email">Email :</label>
+                                                <input type="email" className="form-control" onChange={e => setEmail({ ...email, "email": e.target.value })}></input>
+                                            </div>
+                                        </div>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        {errorEmail !== null ? <p style={{ color: "red" }}>{errorEmail}</p> : ""}
+                                        <ButtonB variant="primary" onClick={() => forgotMyPassword()}>
+                                            Send new password
+                                    </ButtonB>
+                                        <ButtonB variant="secondary" onClick={handleClose}>
+                                            Close
+                                    </ButtonB>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>
                             <div />
                         </Grid>

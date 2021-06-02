@@ -64,7 +64,7 @@ function Forum() {
                 <NavBar />
             </div>
             <div className="container mx-5 my-5">
-                <h1> All commentaries :  </h1>
+                <h1> Forum :  </h1>
                 {loading == true ? <CircularProgress />
                     : null}
                 {errorsCommentary !== null ? <p style={{ color: "red" }}>{errorsCommentary}</p> : ""}
@@ -110,11 +110,12 @@ function Forum() {
                     </Modal.Footer>
                 </Modal>
                 <table className="table">
-                    <thead>
+                    <thead className="thead-dark">
                         <tr>
                             <th scope="col">Author</th>
                             <th scope="col">Object</th>
                             <th scope="col"> Date</th>
+                            <th scope="col"> Answers</th>
                             <th scope="col"> Actions</th>
                         </tr>
                     </thead>
@@ -124,6 +125,7 @@ function Forum() {
                                 <td>{commentaries.author}</td>
                                 <td>{commentaries.subject}</td>
                                 <td>{moment(commentaries.creation_date).format('DD-MM-YYYY')}</td>
+                                <td> {commentaries.TotalAnswer}</td>
                                 <td>
                                     <Link style={{ textDecoration: "none" }} to={{
                                         pathname: "/commentary",

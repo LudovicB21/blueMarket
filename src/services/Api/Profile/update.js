@@ -45,11 +45,8 @@ export async function updatePassword(password, id) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     let urlencoded = new URLSearchParams();
-    if (password.currentPassword) {
-        urlencoded.append("currrentPassword", password.currentPassword);
-    }
     if (password.newPassword) {
-        urlencoded.append("newPassword", password.newPassword);
+        urlencoded.append("password", password.newPassword);
     }
     if (id) {
         urlencoded.append("userid", id);
@@ -62,17 +59,16 @@ export async function updatePassword(password, id) {
         redirect: 'follow'
     };
 
-    const response = await fetch("https://bluemarket.shop/api/updatepassword", requestOptions)
+    const response = await fetch("https://bluemarket.shop/api/setnewpassword", requestOptions)
 
     const body = await response.json()
     if (response.status === 200) {
         return {
             success: true,
-            data: body.Updatepassword
         }
     }
     return {
         success: false,
-        errors: body.Updatepassword
+        errors: body.SetNewPassword
     }
 }

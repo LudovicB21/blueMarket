@@ -7,7 +7,7 @@ import { getAllPurchase, getDetailsShoppingCart, getProfile } from '../../servic
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as AiIcons from "react-icons/ai"
 import moment from 'moment'
-import { updateProdile } from '../../services/Api/Profile/update'
+import { updateProdile, updatePassword } from '../../services/Api/Profile/update'
 
 function Profile() {
 
@@ -23,6 +23,7 @@ function Profile() {
     const [detailsCart, setDetailsCart] = useState([])
     const [profile, setProfile] = useState([])
     const [password, setPassword] = useState({})
+    const [errorPassword, setErrorPassword] = useState(null)
 
     useEffect(() => {
         authenticated()
@@ -81,8 +82,15 @@ function Profile() {
         // Appel api pour changement des données profile
     }
 
-    const sendNewPassword = () => {
+    const sendNewPassword = async () => {
         const user = JSON.parse(localStorage.getItem("user"))
+        //updatePassword(password, user.user_id)
+        const { success, errors } = await updatePassword(password, user.user_id)
+        if (success === true) {
+            handleClose()
+        } else {
+            setErrorPassword(errors)
+        }
     }
 
     const updateProfile = async () => {
@@ -179,8 +187,6 @@ function Profile() {
                                         <Modal.Title>Modify your password </Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <label htmlFor="password">Current password :</label>
-                                        <input type="password" className="form-control" onChange={e => setPassword({ ...password, "currentPassword": e.target.value })}></input>
                                         <div className="row">
                                             <div className="col-sm form-group">
                                                 <label htmlFor="password">New password :</label>
@@ -189,11 +195,12 @@ function Profile() {
                                         </div>
                                     </Modal.Body>
                                     <Modal.Footer>
+                                        {errorPassword !== null ? <p style={{ color: "red" }}>{errorPassword}</p> : ""}
+                                        <Button variant="primary" onClick={() => sendNewPassword()}>
+                                            Save
+                                    </Button>
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
-                                    </Button>
-                                        <Button variant="primary" onClick={() => sendNewPassword()}>
-                                            Save It!
                                     </Button>
                                     </Modal.Footer>
                                 </Modal>
