@@ -25,10 +25,11 @@ function PurchasePC() {
             if (success === true) {
                 setProducts(data)
                 setLoading(true)
+                localStorage.setItem("disableRecommandation", "null")
                 getRecommandationsForOneClient(user.user_id).then(({ data, success, errors }) => {
                     if (success === true) {
                         setRecommendations(data)
-                        if (check === false && (localStorage.getItem('disableRecommandation') !== "false")) {
+                        if (localStorage.getItem('disableRecommandation') === "false" || localStorage.getItem('disableRecommandation') === "null") {
                             handleShow()
                         }
                     } else {
@@ -68,7 +69,7 @@ function PurchasePC() {
 
     const disabledRecommendations = () => {
         setCheck(!check)
-        localStorage.setItem("disableRecommandation", check)
+        localStorage.setItem("disableRecommandation", !check)
     }
 
     return (
@@ -78,6 +79,7 @@ function PurchasePC() {
             </div>
             <div className="container mx-2 my-3">
                 <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase" onClick={e => handleShow()}> Show recommandations </button>
+                {errorRecommendation !== null ? <p style={{ color: "red" }}>{errorRecommendation}</p> : ""}
             </div>
             {
                 loading === false ? <CircularProgress />
@@ -110,7 +112,7 @@ function PurchasePC() {
                                         </Modal.Header>
                                         <Modal.Body>
                                             <div className="container mx-3">
-                                                <input className="form-check-input" type="checkbox" value="" checked={check} id="flexCheckDefault" onClick={() => disabledRecommendations()} />
+                                                <input className="form-check-input" type="checkbox" value="" checked={check} id="flexCheckDefault" onChange={() => disabledRecommendations()} />
                                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                                     Don't either show me recommandations
                                                 </label>
@@ -127,7 +129,7 @@ function PurchasePC() {
                                                         </p>
                                                         {promotion.map(recommandations => {
                                                             if (recommandations.id === recommandation.promotion) {
-                                                                return <p style={{ color: "red" }}> Promotion : {recommandations.label}</p>
+                                                                return <p key={recommendations.id} style={{ color: "red" }}> Promotion : {recommandations.label}</p>
                                                             }
                                                         })}
                                                         <p>Price: {recommandation.price}€</p>
@@ -138,7 +140,6 @@ function PurchasePC() {
                                             ))}
                                         </Modal.Body>
                                         <Modal.Footer>
-                                            {errorRecommendation !== null ? <p style={{ color: "red" }}>{errorRecommendation}</p> : ""}
                                             <Button variant="secondary" onClick={handleClose}>
                                                 Close
                                             </Button>
