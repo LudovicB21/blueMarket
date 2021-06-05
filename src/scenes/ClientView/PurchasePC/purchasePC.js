@@ -28,7 +28,7 @@ function PurchasePC() {
                 getRecommandationsForOneClient(user.user_id).then(({ data, success, errors }) => {
                     if (success === true) {
                         setRecommendations(data)
-                        if (check === false && (localStorage.getItem('disableRecommandation') !== "null" || localStorage.getItem('disableRecommandation') === undefined || localStorage.getItem('disableRecommandation') === null)) {
+                        if (check === false && (localStorage.getItem('disableRecommandation') !== "false")) {
                             handleShow()
                         }
                     } else {
@@ -67,7 +67,8 @@ function PurchasePC() {
     }
 
     const disabledRecommendations = () => {
-        localStorage.setItem("disableRecommandation", "null")
+        setCheck(!check)
+        localStorage.setItem("disableRecommandation", check)
     }
 
     return (
@@ -96,7 +97,7 @@ function PurchasePC() {
                                         </p>
                                         {promotion.map(items => {
                                             if (items.id === item.promotion) {
-                                                return <p style={{ color: "red" }}> Promotion : {items.label}</p>
+                                                return <p key={item.id} style={{ color: "red" }}> Promotion : {items.label}</p>
                                             }
                                         })}
                                         <p>Price: {item.price}€</p>
@@ -109,13 +110,13 @@ function PurchasePC() {
                                         </Modal.Header>
                                         <Modal.Body>
                                             <div className="container mx-3">
-                                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => disabledRecommendations()} />
+                                                <input className="form-check-input" type="checkbox" value="" checked={check} id="flexCheckDefault" onClick={() => disabledRecommendations()} />
                                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                                     Don't either show me recommandations
                                                 </label>
                                             </div>
                                             {(recommendations || []).map(recommandation => (
-                                                <div className="card" >
+                                                <div key={recommandation.name} className="card" >
                                                     <img src={recommandation.image} alt={recommandation.name} />
                                                     <div className="content">
                                                         <p style={{ color: recommandation.carbonfootprint <= 3000 ? "green" : null }}>
