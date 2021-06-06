@@ -17,7 +17,7 @@ function PurchasePC() {
     const [show, setShow] = useState(false)
     const [errorRecommendation, setErrorRecommendation] = useState(null)
     const [recommendations, setRecommendations] = useState([])
-    const [check, setCheck] = useState(false)
+    const [check, setCheck] = useState(localStorage.getItem('disableRecommandation'))
 
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem("user"))
@@ -25,11 +25,10 @@ function PurchasePC() {
             if (success === true) {
                 setProducts(data)
                 setLoading(true)
-                localStorage.setItem("disableRecommandation", "null")
                 getRecommandationsForOneClient(user.user_id).then(({ data, success, errors }) => {
                     if (success === true) {
                         setRecommendations(data)
-                        if (localStorage.getItem('disableRecommandation') === "false" || localStorage.getItem('disableRecommandation') === "null") {
+                        if (localStorage.getItem('disableRecommandation') === "false" || localStorage.getItem('disableRecommandation') === "null" || localStorage.getItem('disableRecommandation') === null) {
                             handleShow()
                         }
                     } else {
@@ -41,8 +40,7 @@ function PurchasePC() {
                 setLoading(false)
             }
         })
-    }, [errors, loading])
-
+    }, [errors, loading, check])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -78,7 +76,7 @@ function PurchasePC() {
                 <NavBar />
             </div>
             <div className="container mx-2 my-3">
-                <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase" onClick={e => handleShow()}> Show recommandations </button>
+                {recommendations !== [] ? <button className="btn btn-primary" data-toggle="tooltip" title="Details purchase" onClick={e => handleShow()}> Show recommandations </button> : ""}
                 {errorRecommendation !== null ? <p style={{ color: "red" }}>{errorRecommendation}</p> : ""}
             </div>
             {

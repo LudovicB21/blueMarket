@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
-import { getAllStats, updateStatBefore } from "../../../services/Api/Statistics/get"
+import { getAllStats, updateStatBefore, getLessProduct } from "../../../services/Api/Statistics/get"
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { PolarArea } from 'react-chartjs-2'
+import { PolarArea, Bar } from 'react-chartjs-2'
 import { Link } from 'react-router-dom';
 
 function Stats() {
@@ -10,6 +10,9 @@ function Stats() {
     const [loading, setLoading] = useState(null)
     const [statistics, setStatistics] = useState([])
     const [error, setError] = useState(null)
+    const [lessProduct, setLessProduct] = useState([])
+    const [errorsLess, setErrorsLess] = useState(null)
+    const [loadingLess, setLoadingLess] = useState(null)
 
     useEffect(() => {
         setLoading(true)
@@ -17,26 +20,38 @@ function Stats() {
     }, [])
 
     const loadStats = () => {
-        updateStatBefore().then(({ success, errors }) => {
-            if (success === true) {
-                getAllStats().then(({ data, success, errors }) => {
-                    if (success === true) {
-                        setStatistics(data)
-                        setLoading(false)
-                    } else {
-                        setLoading(false)
-                        setError(errors)
-                    }
-                })
-            } else {
-                setError(errors)
-            }
-        })
+        loadData()
     }
 
+    const loadData = async () => {
+        const { success, errors } = await updateStatBefore()
+        if (success === true) {
+            getAllStats().then(({ data, success, errors }) => {
+                if (success === true) {
+                    setStatistics(data)
+                    setLoading(false)
+                } else {
+                    setLoading(false)
+                    setError(errors)
+                }
+            })
+        } else {
+            setError(errors)
+        }
+
+        const { sucess, errorsLess, data } = await getLessProduct()
+        if (sucess === true) {
+            setLessProduct(data)
+            setLoadingLess(false)
+        } else {
+            setLoading(false)
+            setErrorsLess(errorsLess)
+        }
+    }
 
     if (statistics !== []) {
         localStorage.setItem("statistics", JSON.stringify(statistics))
+        localStorage.setItem("lessProduct", JSON.stringify(lessProduct))
     }
 
     return (
@@ -47,7 +62,7 @@ function Stats() {
             <div className="mx-5 my-5">
                 <h1 style={{ textAlign: "center" }}> <strong> Statistics </strong></h1>
                 {error !== null ? <p style={{ color: "red" }}>{error.GetUserCart}</p> : ""}
-                {loading == true ? <CircularProgress />
+                {loading === true && loadingLess === true ? <CircularProgress />
                     : <div>
                         <h2> Average spend:</h2>
                         <div style={{ border: "solid", borderRadius: "5%", borderColor: "gray" }}>
@@ -56,16 +71,16 @@ function Stats() {
                             </div>
                         </div> <br></br>
                         <h2> Advice for moving departments :</h2>
+                        <div style={{ margin: "5px" }}>
+                            <Link style={{ textDecoration: "none" }} to={{ pathname: "/department" }}>
+                                <button className="btn btn-primary"> Go to departments</button>
+                            </Link>
+                        </div>
                         <div style={{ border: "solid", borderRadius: "5%", borderColor: "gray" }}>
                             <div style={{ margin: "5px", fontSize: "20px" }}>
                                 <p>{statistics?.phrasing1}</p>
                                 <p>{statistics?.phrasing2}</p>
                             </div>
-                        </div>
-                        <div style={{ margin: "5px" }}>
-                            <Link style={{ textDecoration: "none" }} to={{ pathname: "/department" }}>
-                                <button className="btn btn-primary"> Go to departments</button>
-                            </Link>
                         </div>
                         <br></br>
                         <h2>Best product sell :</h2>
@@ -108,6 +123,35 @@ function Stats() {
                                 }}
                             /> : null}
                         </div>
+                        <br></br>
+                        <h2> The least sold products :</h2>
+                        {errorsLess !== null ? <p style={{ color: "red" }}>{errorsLess}</p> :
+                            <div>
+                                <div style={{ margin: "5px" }}>
+                                    <Link style={{ textDecoration: "none" }} to={{ pathname: "/department" }}>
+                                        <button className="btn btn-primary"> Go to your departments</button>
+                                    </Link>
+                                </div>
+                                <div style={{ border: "solid", borderRadius: "3%", borderColor: "gray" }}>
+                                    {JSON.parse(localStorage.getItem("lessProduct")) ? <Bar
+                                        data={{
+                                            labels: lessProduct.map(product => (product.name)),
+                                            datasets: [
+                                                {
+                                                    label: 'number of times the product has been purchased',
+                                                    data: lessProduct.map(product => (product.TotalSales)),
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.4)',
+                                                        'rgba(75, 192, 192, 0.4)',
+                                                        'rgba(255, 205, 86, 0.4)',
+                                                    ]
+                                                },
+                                            ],
+                                        }}
+                                    /> : null}
+                                </div>
+                            </div>
+                        }
                     </div>
                 }
             </div>

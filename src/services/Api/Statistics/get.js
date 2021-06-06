@@ -38,3 +38,25 @@ export async function updateStatBefore() {
         errors: body.UpdateProductAssociation
     }
 }
+
+export async function getLessProduct() {
+    const response = await fetch(
+        `https://bluemarket.shop/api/getlessproduct`,
+        {
+            method: "GET",
+        }
+    )
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            sucess: true,
+            data: body
+        }
+    }
+
+    return {
+        sucess: false,
+        errorsLess: body.GetLessProduct
+    }
+}
+
