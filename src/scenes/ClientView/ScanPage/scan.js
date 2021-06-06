@@ -9,6 +9,7 @@ import { getProductsByIdScan } from '../../../services/Api/Product/get'
 import moment from 'moment'
 import promotion from '../../../stores/promotion'
 import *  as FaIcons from 'react-icons/fa'
+import { Link } from 'react-router-dom';
 
 export class Scanner extends Component {
     static contextType = DataContext;
@@ -152,10 +153,12 @@ export class Scanner extends Component {
                     </Button>
                         <Button variant="primary" onClick={this.handleClose}>
                             Continue shopping
+                        </Button>
+                        <Link style={{ textDecoration: "none" }} to={{ pathname: "/shoppingCart" }}>
+                            <Button variant="danger" onClick={this.handleClose}>
+                                shoppingCart
                             </Button>
-                        <Button variant="danger" onClick={this.handleClose}>
-                            See cart
-                            </Button>
+                        </Link>
                     </Modal.Footer>
                 </div>
             </div>

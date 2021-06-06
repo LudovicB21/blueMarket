@@ -6,7 +6,7 @@ function Transition() {
         if (window.innerWidth > 768) {
             return <Redirect to="/purchasePC" />
         } else if (window.innerWidth < 768) {
-            return <Redirect to="/scan" />
+            return <Redirect to="/recommendations" />
         }
     }
 

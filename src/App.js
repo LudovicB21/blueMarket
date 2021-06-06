@@ -19,6 +19,7 @@ import Transition from './components/transition';
 import Statistics from './scenes/MarketView/Statistiques/Stats';
 import Forum from './scenes/Forum/Forum'
 import Commentary from './scenes/Forum/commentary'
+import Recommandations from './scenes/ClientView/Recommandations/recommandations';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/stats" component={Statistics} />
             <Route path="/forum" component={Forum} />
             <Route path="/commentary" component={Commentary} />
+            <Route path="/recommendations" component={Recommandations} />
           </Switch>
         </Router>
         <div class="footer-dark">

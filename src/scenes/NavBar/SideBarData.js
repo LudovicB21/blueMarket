@@ -24,6 +24,13 @@ export const SidebarData = [
         role: 1
     },
     {
+        title: 'Recommendations',
+        path: '/recommendations',
+        icon: <FiIcons.FiAlertTriangle />,
+        cName: 'nav-text',
+        role: 1
+    },
+    {
         title: 'Scan',
         path: '/scan',
         icon: <AiIcons.AiOutlineBarcode />,
