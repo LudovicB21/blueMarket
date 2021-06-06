@@ -63,3 +63,36 @@ export async function changeQuantityReplenishmentInventory(product_id, reducesto
         errors: body.DepartmentOrderProduct
     }
 }
+
+export async function setPromotions(product_id, promotionid) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    let urlencoded = new URLSearchParams();
+    if (product_id) {
+        urlencoded.append("productid", product_id);
+    }
+    if (promotionid.promotionid) {
+        urlencoded.append("promotionid", promotionid.promotionid);
+    }
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
+
+    const response = await fetch("https://bluemarket.shop/api/setpromotion", requestOptions)
+
+    const body = await response.json()
+    if (response.status === 200) {
+        return {
+            success: true,
+        }
+    }
+    return {
+        success: false,
+        errors: body.SetPromotion
+    }
+}

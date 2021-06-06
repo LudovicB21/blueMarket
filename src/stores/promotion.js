@@ -1,8 +1,7 @@
 const promotion = [
-    { id: 0, label: "No promotion" },
-    { id: 1, label: "2 acheté = le 3ème offert" },
-    { id: 2, label: "1 acheté = 2ème à moitié prix" },
-    { id: 3, label: "1 acheté = 1 offert " }
+    { value: 1, label: "No promotion" },
+    { value: 2, label: "2 bought = the third offered" },
+    { value: 3, label: "1 bought = 1 free " }
 ]
 
 export default promotion

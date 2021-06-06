@@ -6,7 +6,7 @@ import moment from 'moment'
 import * as CgIcons from "react-icons/cg"
 import { getProductsByDepartments } from '../../../services/Api/Departments/get'
 import { deleteProduct } from '../../../services/Api/DetailsDepartments/delete'
-import { changeQuantityReplenishmentDepartment, changeQuantityReplenishmentInventory } from '../../../services/Api/DetailsDepartments/post'
+import { changeQuantityReplenishmentDepartment, changeQuantityReplenishmentInventory, setPromotions } from '../../../services/Api/DetailsDepartments/post'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import promotion from '../../../stores/promotion'
 import { BsTrash } from "react-icons/bs";
@@ -14,6 +14,8 @@ import { BiLinkAlt } from "react-icons/bi";
 import { AiOutlineZoomIn } from "react-icons/ai";
 import * as AiIcons from "react-icons/ai"
 import * as FaIcons from "react-icons/fa"
+import { getPromotion } from "../../../services/Api/DetailsDepartments/get"
+import Select from 'react-select'
 
 function DetailsSpokes(props) {
 
@@ -21,6 +23,7 @@ function DetailsSpokes(props) {
     const [name, setName] = useState("")
     const [show, setShow] = useState(false);
     const [showReplenishment, setShowReplenishment] = useState(false);
+    const [showPromotion, setShowPromotion] = useState(false);
     const [showReplenishmentInventory, setShowReplenishmentInventory] = useState(false);
     const [loading, setLoading] = useState(false)
     const [departmentProduct, setDepartmentProduct] = useState([])
@@ -29,6 +32,11 @@ function DetailsSpokes(props) {
     const [replenishmentQuantityInventory, setReplenishmentQuantityInventory] = useState([])
     const [error, setErrors] = useState(null)
     const [sucess, setSucess] = useState(false)
+    const [promotions, setPromotion] = useState([])
+    const [newPromotions, setNewPromotion] = useState([])
+    const [loadingPromotion, setLoadingPromotion] = useState(false)
+    const [errorPromotion, setErrorsPromotion] = useState(null)
+    const [selectedOption, setSelectOption] = useState(null)
 
     useEffect(() => {
         if (props.location.aboutProps) {
@@ -62,6 +70,21 @@ function DetailsSpokes(props) {
         setDetailsProduct(produit)
         setShow(true)
     };
+
+    const handleClosePromotion = () => setShowPromotion(false);
+    const handleShowPromotion = () => {
+        getPromotion().then(({ data, success, errors }) => {
+            if (success === true) {
+                setLoadingPromotion(true)
+                setPromotion(data)
+            } else {
+                setLoadingPromotion(false)
+                setErrorsPromotion(errors)
+            }
+        })
+        setShowPromotion(true)
+    };
+
 
     const handleCloseReplenishment = () => setShowReplenishment(false);
     const handleShowReplenishment = (produit) => {
@@ -129,6 +152,22 @@ function DetailsSpokes(props) {
         }
     }
 
+    const addNewPromotion = async (productid) => {
+        setSucess(false)
+        const { success, errors } = await setPromotions(productid, newPromotions)
+        if (success === true) {
+            setSucess(true)
+            handleClosePromotion()
+        } else {
+            setErrors(errors)
+        }
+    }
+
+    const handleChange = selectedOption => {
+        setSelectOption(selectedOption);
+        setNewPromotion({ ...newPromotions, "promotionid": selectedOption.value })
+    };
+
     const stockAlertD = (stockD) => {
         if (stockD <= 5) {
             return <div className="text-danger"> <CgIcons.CgDanger /> {stockD} </div>
@@ -185,7 +224,7 @@ function DetailsSpokes(props) {
                                         </td>
                                         <td>
                                             {(promotion || []).map(promo => {
-                                                if (promo.id === produits.promotion) {
+                                                if (promo.value === produits.promotion) {
                                                     return promo.label
                                                 } else {
                                                     return null
@@ -197,7 +236,7 @@ function DetailsSpokes(props) {
                                             <button className="btn btn-primary" data-toggle="tooltip" title="Details" onClick={e => handleShowDetails(produits)}> <AiOutlineZoomIn /></button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishment(produits)} title="Replenishment Department"> <AiIcons.AiOutlineDatabase /> </button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentInventory(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="btn btn-success" data-toggle="tooltip" title="Add Promotion"> <BiLinkAlt /></button>
+                                            <button className="btn btn-success" data-toggle="tooltip" onClick={e => handleShowPromotion()} title="Add Promotion"> <BiLinkAlt /></button>
                                             <Modal size="lg" show={show} onHide={handleCloseDetails}>
                                                 <Modal.Header closeButton>
                                                     <Modal.Title> Product's details </Modal.Title>
@@ -279,6 +318,39 @@ function DetailsSpokes(props) {
                                                     <Button variant="secondary" onClick={handleCloseReplenishmentInventory}>
                                                         Close
                                             </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                            <Modal size="lg" show={showPromotion} onHide={handleClosePromotion}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title> New promotion  </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <div>
+                                                        {
+                                                            loadingPromotion === false ? <CircularProgress />
+                                                                :
+                                                                <form>
+                                                                    {errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""}
+                                                                    <div className="row">
+                                                                        <div className="col-sm form-group">
+                                                                            <Select
+                                                                                options={promotion}
+                                                                                onChange={handleChange}
+                                                                                value={selectedOption}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                        }
+                                                    </div>
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="primary" onClick={e => addNewPromotion(produits.id)}>
+                                                        Save
+                                                        </Button>
+                                                    <Button variant="secondary" onClick={handleClosePromotion}>
+                                                        Close
+                                                        </Button>
                                                 </Modal.Footer>
                                             </Modal>
                                         </td>
