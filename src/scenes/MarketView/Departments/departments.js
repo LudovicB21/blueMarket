@@ -18,6 +18,7 @@ function Spokes() {
     const [show, setShow] = useState(false);
     const [position, setPosition] = useState()
     const [confirmPosition, setConfirmePosition] = useState(null)
+    const [showNewDepartment, setShowNewDepartment] = useState(false)
 
     useEffect(() => {
         if (localStorage.getItem('user')) {
@@ -44,6 +45,11 @@ function Spokes() {
     const handleShow = id => {
         setPosition({ ...position, "departid": id.toString() })
         setShow(true);
+    }
+
+    const handleCloseNewDepartment = () => setShowNewDepartment(false);
+    const handleShowNewDepartment = () => {
+        setShowNewDepartment(true);
     }
 
     const sendNewPosition = () => {
@@ -74,7 +80,7 @@ function Spokes() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Departments </h1>
-                    <button className="btn btn-primary"> New Department </button> <br></br> <br></br>
+                    <button className="btn btn-primary" onClick={e => handleShowNewDepartment()}> New Department </button> <br></br> <br></br>
                     {
                         loading === false ? <CircularProgress />
                             : <table className="table">
@@ -132,10 +138,42 @@ function Spokes() {
                                                     <Modal.Footer>
                                                         <Button variant="primary" onClick={sendNewPosition}>
                                                             Save
-                            </Button>
+                                                        </Button>
                                                         <Button variant="secondary" onClick={handleClose}>
                                                             Close
-                            </Button>
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
+                                                <Modal size="lg" show={showNewDepartment} onHide={handleCloseNewDepartment}>
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title> New Department  </Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>
+                                                        <div>
+                                                            <form>
+                                                                {errors !== null ? <p style={{ color: "red" }}>{errors}</p> : ""}
+                                                                <div className="row">
+                                                                    <div className="col-sm form-group">
+                                                                        <label htmlFor="text">Name of the department: </label>
+                                                                        <input type="text" className="form-control"></input>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="row">
+                                                                    <div className="col-sm form-group">
+                                                                        <label htmlFor="text">Position: </label>
+                                                                        <input type="text" className="form-control"></input>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button variant="primary" onClick={sendNewPosition}>
+                                                            Save
+                                                        </Button>
+                                                        <Button variant="secondary" onClick={handleCloseNewDepartment}>
+                                                            Close
+                                                        </Button>
                                                     </Modal.Footer>
                                                 </Modal>
                                             </td>

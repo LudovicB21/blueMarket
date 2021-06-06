@@ -19,6 +19,7 @@ function Products() {
     const [error, setError] = useState(false)
     const [errors, setErrors] = useState(false)
     const [show, setShow] = useState(false);
+    const [showNewProduct, setShowNewProduct] = useState(false);
     const [sucess, setSucess] = useState(false)
     const [data, setData] = useState(null)
     const [changeProduct, setChangeProduct] = useState([])
@@ -47,6 +48,11 @@ function Products() {
     const handleShow = (product) => {
         setDetails(product)
         setShow(true);
+    }
+
+    const handleCloseNewProduct = () => setShowNewProduct(false);
+    const handleShowNewProduct = () => {
+        setShowNewProduct(true);
     }
 
     const handleCloseReplenishmentProducer = () => setShowReplenishmentProducer(false);
@@ -135,7 +141,7 @@ function Products() {
                 </div>
                 <div className="mx-5 my-5">
                     <h1> Inventory </h1>
-                    <button className="btn btn-primary"> New product </button> <br></br> <br></br>
+                    <button className="btn btn-primary" onClick={e => handleShowNewProduct()}> New product </button> <br></br> <br></br>
                     {loading == false ? <CircularProgress />
                         : null}
                     <table className="table">
@@ -213,6 +219,45 @@ function Products() {
                                                     Send
                                             </Button>
                                                 <Button variant="secondary" onClick={handleCloseReplenishmentProducer}>
+                                                    Close
+                                            </Button>
+                                            </Modal.Footer>
+                                        </Modal>
+                                        <Modal size="lg" show={showNewProduct} onHide={handleCloseNewProduct}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title> Add new product </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="Name"> Name :</label>
+                                                        <input type="text" className="form-control"></input>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="Expiration_Date"> Expiration Date :</label>
+                                                        <input type="text" className="form-control"></input>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="stock"> Stock :</label>
+                                                        <input type="text" className="form-control"></input>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm form-group">
+                                                        <label htmlFor="Next_Delivery"> Next delivery :</label>
+                                                        <input type="text" className="form-control"></input>
+                                                    </div>
+                                                </div>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="primary">
+                                                    Send
+                                            </Button>
+                                                <Button variant="secondary" onClick={handleCloseNewProduct}>
                                                     Close
                                             </Button>
                                             </Modal.Footer>
