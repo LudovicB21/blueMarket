@@ -25,6 +25,10 @@ function Recommandations() {
         })
     }, [])
 
+    const handleclose = () => {
+        setShow(false)
+    }
+
     const context = useContext(DataContext)
 
 
@@ -35,7 +39,7 @@ function Recommandations() {
             </div>
             <div>
                 {errorRecommendation !== null ? <p style={{ color: "red" }}>{errorRecommendation}</p> : ""}
-                <Modal size="lg" show={show}>
+                <Modal size="lg" show={show} onHide={handleclose}>
                     <Modal.Header closeButton>
                         <Modal.Title> Recommandations </Modal.Title>
                     </Modal.Header>

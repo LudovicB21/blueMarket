@@ -101,7 +101,7 @@ export class ShoppingCart extends Component {
                                         <td> {Math.round(produits.price * produits.quantity * 100) / 100} € </td>
                                         <td>
                                             {promotion.map(promotionInfo => {
-                                                if (promotionInfo.id === produits.promotion) {
+                                                if (promotionInfo.value === produits.promotion) {
                                                     return promotionInfo.label
                                                 }
                                             })}

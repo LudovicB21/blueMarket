@@ -152,7 +152,7 @@ export class Scanner extends Component {
                             Add
                     </Button>
                         <Button variant="primary" onClick={this.handleClose}>
-                            Continue shopping
+                            Continue
                         </Button>
                         <Link style={{ textDecoration: "none" }} to={{ pathname: "/shoppingCart" }}>
                             <Button variant="danger" onClick={this.handleClose}>
