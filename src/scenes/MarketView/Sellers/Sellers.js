@@ -37,7 +37,7 @@ function Sellers() {
                     <div className="row">
                         <div className="col-sm form-group">
                             <label htmlFor="email">Email :</label>
-                            <input type="email" className="form-control" onChange={e => setDetails({ ...details, "email": e.target.value, "fridgesize": "0", "role": "4" })}></input>
+                            <input type="email" className="form-control" onChange={e => setDetails({ ...details, "email": e.target.value, "fridgesize": "0", "role": "3" })}></input>
                         </div>
                         <div className="col-sm form-group">
                             <label htmlFor="password">Password :</label>

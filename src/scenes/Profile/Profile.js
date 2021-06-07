@@ -63,6 +63,8 @@ function Profile() {
             return "Administrator"
         } else if (auth.role === 1) {
             return "Client"
+        } else if (auth.role === 3) {
+            return "Seller"
         } else {
             return "Producer"
         }

@@ -26,7 +26,7 @@ export const SidebarData = [
     {
         title: 'Sellers',
         path: '/sellers',
-        icon: <FiIcons.FiAlertTriangle />,
+        icon: <AiIcons.AiOutlineUserAdd />,
         cName: 'nav-text',
         role: 0
     },
@@ -57,6 +57,13 @@ export const SidebarData = [
         icon: <AiIcons.AiOutlineDatabase />,
         cName: 'nav-text',
         role: 0
+    },
+    {
+        title: 'Department',
+        path: '/department',
+        icon: <AiIcons.AiOutlineDatabase />,
+        cName: 'nav-text',
+        role: 3
     },
     {
         title: 'Shopping cart',
