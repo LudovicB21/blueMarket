@@ -112,7 +112,7 @@ export class Scanner extends Component {
                                 product.carbonfootprint > 1000 && product.carbonfootprint <= 2000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
                                     product.carbonfootprint > 2000 && product.carbonfootprint <= 3000 ? <div> <FaIcons.FaLeaf />  </div> : null}</a>
                         </div>
-                        {product.promotion === 0 ? null : <div className="col-sm form-group">
+                        {product.promotion === 1 ? null : <div className="col-sm form-group">
                             <label htmlFor="email">Promotion :</label>
                             <p className="form-control"> {(promotion || []).map(promo => {
                                 if (promo.id === product.promotion) {

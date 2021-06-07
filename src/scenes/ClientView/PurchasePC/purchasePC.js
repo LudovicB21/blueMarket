@@ -96,8 +96,10 @@ function PurchasePC() {
                                                     item.carbonfootprint > 2000 && item.carbonfootprint <= 3000 ? <div> <FaIcons.FaLeaf />  </div> : null}</a>
                                         </p>
                                         {promotion.map(items => {
-                                            if (items.id === item.promotion) {
-                                                return <p key={item.id} style={{ color: "red" }}> Promotion : {items.label}</p>
+                                            if (items.value === item.promotion) {
+                                                return <div>
+                                                    {item.promotion !== 1 ? <p key={item.value} style={{ color: "red" }}> Promotion : {items.label}</p> : null}
+                                                </div>
                                             }
                                         })}
                                         <p>Price: {item.price}€</p>

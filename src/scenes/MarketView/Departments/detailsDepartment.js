@@ -37,6 +37,7 @@ function DetailsSpokes(props) {
     const [loadingPromotion, setLoadingPromotion] = useState(false)
     const [errorPromotion, setErrorsPromotion] = useState(null)
     const [selectedOption, setSelectOption] = useState(null)
+    const [productPromotion, setProductPromotion] = useState(null)
 
     useEffect(() => {
         if (props.location.aboutProps) {
@@ -72,7 +73,8 @@ function DetailsSpokes(props) {
     };
 
     const handleClosePromotion = () => setShowPromotion(false);
-    const handleShowPromotion = () => {
+    const handleShowPromotion = (produits) => {
+        setProductPromotion(produits)
         getPromotion().then(({ data, success, errors }) => {
             if (success === true) {
                 setLoadingPromotion(true)
@@ -152,9 +154,9 @@ function DetailsSpokes(props) {
         }
     }
 
-    const addNewPromotion = async (productid) => {
+    const addNewPromotion = async () => {
         setSucess(false)
-        const { success, errors } = await setPromotions(productid, newPromotions)
+        const { success, errors } = await setPromotions(productPromotion, newPromotions)
         if (success === true) {
             setSucess(true)
             handleClosePromotion()
@@ -236,7 +238,7 @@ function DetailsSpokes(props) {
                                             <button className="btn btn-primary" data-toggle="tooltip" title="Details" onClick={e => handleShowDetails(produits)}> <AiOutlineZoomIn /></button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishment(produits)} title="Replenishment Department"> <AiIcons.AiOutlineDatabase /> </button> &nbsp;&nbsp;&nbsp;
                                             <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentInventory(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="btn btn-success" data-toggle="tooltip" onClick={e => handleShowPromotion()} title="Add Promotion"> <BiLinkAlt /></button>
+                                            <button className="btn btn-success" data-toggle="tooltip" onClick={e => handleShowPromotion(produits.id)} title="Add Promotion"> <BiLinkAlt /></button>
                                             <Modal size="lg" show={show} onHide={handleCloseDetails}>
                                                 <Modal.Header closeButton>
                                                     <Modal.Title> Product's details </Modal.Title>
@@ -345,7 +347,7 @@ function DetailsSpokes(props) {
                                                     </div>
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <Button variant="primary" onClick={e => addNewPromotion(produits.id)}>
+                                                    <Button variant="primary" onClick={e => addNewPromotion()}>
                                                         Save
                                                         </Button>
                                                     <Button variant="secondary" onClick={handleClosePromotion}>
