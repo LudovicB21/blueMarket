@@ -10,13 +10,6 @@ import * as MdIcons from "react-icons/md"
 
 export const SidebarData = [
     {
-        title: 'Home',
-        path: '/homePage',
-        icon: <AiIcons.AiFillHome />,
-        cName: 'nav-text',
-        role: 3
-    },
-    {
         title: 'Fridge',
         path: '/fridge',
         icon: <BiIcons.BiFridge />,
@@ -29,6 +22,13 @@ export const SidebarData = [
         icon: <FiIcons.FiAlertTriangle />,
         cName: 'nav-text',
         role: 1
+    },
+    {
+        title: 'Sellers',
+        path: '/sellers',
+        icon: <FiIcons.FiAlertTriangle />,
+        cName: 'nav-text',
+        role: 0
     },
     {
         title: 'Scan',

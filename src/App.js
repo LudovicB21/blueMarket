@@ -20,6 +20,7 @@ import Statistics from './scenes/MarketView/Statistiques/Stats';
 import Forum from './scenes/Forum/Forum'
 import Commentary from './scenes/Forum/commentary'
 import Recommandations from './scenes/ClientView/Recommandations/recommandations';
+import Seller from './scenes/MarketView/Sellers/Sellers';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
             <Route path="/forum" component={Forum} />
             <Route path="/commentary" component={Commentary} />
             <Route path="/recommendations" component={Recommandations} />
+            <Route path="/sellers" component={Seller} />
           </Switch>
         </Router>
         <div class="footer-dark">
