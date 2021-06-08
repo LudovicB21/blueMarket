@@ -29,7 +29,7 @@ export class DataProvider extends Component {
         const { cart } = this.state;
         const res = cart.reduce((prev, item) => {
             let total = prev + (item.price * item.quantity);
-            let calcul = promotion.map(promo => {
+            let calcul = this.state.promotions.map(promo => {
                 if (promo.value === item.promotion) {
                     let x = Number(promo.label)
                     let pourcentage = 1 - `0.${x}`
