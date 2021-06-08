@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-//import promotion from './promotion';
+import promotion from './promotion';
+import { getPromotion } from "../services/Api/DetailsDepartments/get"
 
 export const DataContext = React.createContext();
 
 export class DataProvider extends Component {
     state = {
         cart: [],
-        total: 0
+        total: 0,
+        promotions: [],
+        errorPromotion: null
     }
 
     addCart = (produits) => {
@@ -25,8 +28,16 @@ export class DataProvider extends Component {
     getTotal = () => {
         const { cart } = this.state;
         const res = cart.reduce((prev, item) => {
-            // No promotion = undefined
-            return prev + (item.price * item.quantity);
+            let total = prev + (item.price * item.quantity);
+            let calcul = promotion.map(promo => {
+                if (promo.value === item.promotion) {
+                    let x = Number(promo.label)
+                    let pourcentage = 1 - `0.${x}`
+                    return pourcentage
+                }
+            })
+            console.log(calcul)
+            return total
         }, 0)
         this.setState({ total: res })
     };
@@ -86,6 +97,13 @@ export class DataProvider extends Component {
         if (dataTotal !== null) {
             this.setState({ total: dataTotal });
         }
+        getPromotion().then(({ data, success, errors }) => {
+            if (success === true) {
+                this.setState({ promotions: data })
+            } else {
+                this.setState({ errorPromotion: errors })
+            }
+        })
     }
 
     render() {
