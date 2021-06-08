@@ -29,7 +29,7 @@ export async function postNewSeller(user) {
         redirect: 'follow'
     };
 
-    const response = await fetch("https://bluemarket.shop/api/registerseller", requestOptions)
+    const response = await fetch("https://bluemarket.shop/api/register", requestOptions)
 
     const body = await response.json()
     if (response.status === 200) {
@@ -40,6 +40,6 @@ export async function postNewSeller(user) {
 
     return {
         success: false,
-        errors: body.RegisterSeller
+        errors: body.Register
     }
 }

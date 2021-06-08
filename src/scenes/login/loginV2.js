@@ -75,12 +75,14 @@ function LoginV2() {
                     {user.role === 0 && <Redirect to="/department" />}
                     {user.role === 1 && <Redirect to="/transition" />}
                     {user.role === 2 && <Redirect to="/products" />}
+                    {user.role === 3 && <Redirect to="/department" />}
                 </div>
             ) : (auth) ? (
                 <div>
                     {auth.role === 0 && <Redirect to="/department" />}
                     {auth.role === 1 && <Redirect to="/transition" />}
                     {auth.role === 2 && <Redirect to="/products" />}
+                    {auth.role === 3 && <Redirect to="/department" />}
                 </div>
             ) : (
                 <form onSubmit={submitHandler}>

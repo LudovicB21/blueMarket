@@ -1,20 +1,32 @@
 import React, { useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
 import { postNewSeller } from '../../../services/Api/Sellers/post'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 function Sellers() {
 
     const [details, setDetails] = useState([])
+    const [errors, setErrors] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const submitHandler = e => {
         e.preventDefault();
         registerSeller()
     }
 
-    const registerSeller = () => {
-        postNewSeller(details)
+    const registerSeller = async () => {
+        //postNewSeller(details)
+        setLoading(true)
+        setErrors(null)
+        const { success, errors } = await postNewSeller(details)
+        if (success === true) {
+            setLoading(false)
+            alert("New sellers add correctly")
+        } else {
+            setLoading(false)
+            setErrors(errors)
+        }
     }
-
-    //ajouter un role et un frigosize
 
     return (
         <div>
@@ -45,6 +57,9 @@ function Sellers() {
                         </div>
                     </div>
                     <div className="row">
+                        {loading === true ? <CircularProgress />
+                            : null}
+                        {errors !== null ? <p style={{ color: "red" }}>{errors}</p> : ""}
                         <div className="col-sm form-group">
                             <button className="btn btn-primary" type="submit"> Add </button>
                         </div>
