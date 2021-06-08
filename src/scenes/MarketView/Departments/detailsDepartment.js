@@ -8,7 +8,6 @@ import { getProductsByDepartments } from '../../../services/Api/Departments/get'
 import { deleteProduct } from '../../../services/Api/DetailsDepartments/delete'
 import { changeQuantityReplenishmentDepartment, changeQuantityReplenishmentInventory, setPromotions } from '../../../services/Api/DetailsDepartments/post'
 import CircularProgress from '@material-ui/core/CircularProgress';
-import promotion from '../../../stores/promotion'
 import { BsTrash } from "react-icons/bs";
 import { BiLinkAlt } from "react-icons/bi";
 import { AiOutlineZoomIn } from "react-icons/ai";
@@ -48,6 +47,15 @@ function DetailsSpokes(props) {
                 if (success === true) {
                     setDepartmentProduct(data)
                     setLoading(true)
+                    getPromotion().then(({ data, success, errors }) => {
+                        if (success === true) {
+                            setLoadingPromotion(true)
+                            setPromotion(data)
+                        } else {
+                            setLoadingPromotion(false)
+                            setErrorsPromotion(errors)
+                        }
+                    })
                 } else {
                     setLoading(false)
                 }
@@ -57,6 +65,15 @@ function DetailsSpokes(props) {
                 if (success === true) {
                     setDepartmentProduct(data)
                     setLoading(true)
+                    getPromotion().then(({ data, success, errors }) => {
+                        if (success === true) {
+                            setLoadingPromotion(true)
+                            setPromotion(data)
+                        } else {
+                            setLoadingPromotion(false)
+                            setErrorsPromotion(errors)
+                        }
+                    })
                 } else {
                     setLoading(false)
                 }
@@ -75,15 +92,6 @@ function DetailsSpokes(props) {
     const handleClosePromotion = () => setShowPromotion(false);
     const handleShowPromotion = (produits) => {
         setProductPromotion(produits)
-        getPromotion().then(({ data, success, errors }) => {
-            if (success === true) {
-                setLoadingPromotion(true)
-                setPromotion(data)
-            } else {
-                setLoadingPromotion(false)
-                setErrorsPromotion(errors)
-            }
-        })
         setShowPromotion(true)
     };
 
@@ -225,11 +233,11 @@ function DetailsSpokes(props) {
                                             {expiration(moment(produits.expiration_Date).format('DD-MM-YYYY'))}
                                         </td>
                                         <td>
-                                            {(promotion || []).map(promo => {
+                                            {(promotions || []).map(promo => {
                                                 if (promo.value === produits.promotion) {
                                                     return promo.label
                                                 } else {
-                                                    return null
+                                                    return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
                                                 }
                                             })}
                                         </td>
@@ -335,8 +343,9 @@ function DetailsSpokes(props) {
                                                                     {errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""}
                                                                     <div className="row">
                                                                         <div className="col-sm form-group">
+                                                                            <p> Set the reduction : </p>
                                                                             <Select
-                                                                                options={promotion}
+                                                                                options={promotions}
                                                                                 onChange={handleChange}
                                                                                 value={selectedOption}
                                                                             />

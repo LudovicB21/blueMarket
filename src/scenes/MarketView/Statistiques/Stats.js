@@ -64,7 +64,7 @@ function Stats() {
             <div className="mx-5 my-5">
                 <h1 style={{ textAlign: "center" }}> <strong> Statistics </strong></h1>
                 {error !== null ? <p style={{ color: "red" }}>{error.GetUserCart}</p> : ""}
-                {loading === true && loadingLess === true ? <CircularProgress />
+                {loading === true ? <CircularProgress />
                     : <div>
                         <div className="row">
                             <h2 style={{ marginLeft: "1%" }}> <strong> Average spend: </strong></h2>

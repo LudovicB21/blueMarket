@@ -7,9 +7,9 @@ import { Modal, Button } from 'react-bootstrap'
 import { DataContext } from '../../../stores/Context'
 import { getProductsByIdScan } from '../../../services/Api/Product/get'
 import moment from 'moment'
-import promotion from '../../../stores/promotion'
 import *  as FaIcons from 'react-icons/fa'
 import { Link } from 'react-router-dom';
+import { getPromotion } from "../../../services/Api/DetailsDepartments/get"
 
 export class Scanner extends Component {
     static contextType = DataContext;
@@ -25,6 +25,8 @@ export class Scanner extends Component {
             error: false,
             show: false,
             result: [],
+            promotions: [],
+            errorPromotion: null
         }
         this.onDetect = this.onDetect.bind(this)
     }
@@ -36,6 +38,13 @@ export class Scanner extends Component {
         } else {
             this.setState({ error: true })
         }
+        getPromotion().then(({ data, success, errors }) => {
+            if (success === true) {
+                this.setState({ promotions: data })
+            } else {
+                this.setState({ errorPromotion: errors })
+            }
+        })
         Quagga.init({
             inputStream: {
                 name: "Live",
@@ -114,8 +123,8 @@ export class Scanner extends Component {
                         </div>
                         {product.promotion === 1 ? null : <div className="col-sm form-group">
                             <label htmlFor="email">Promotion :</label>
-                            <p className="form-control"> {(promotion || []).map(promo => {
-                                if (promo.id === product.promotion) {
+                            <p className="form-control"> {(this.state.promotions || []).map(promo => {
+                                if (promo.value === product.promotion) {
                                     return promo.label
                                 } else {
                                     return null

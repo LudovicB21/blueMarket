@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
 import "./purchasePC.css"
 import { DataContext } from '../../../stores/Context'
-import promotion from '../../../stores/promotion'
 import { getProducts, getRecommandationsForOneClient } from '../../../services/Api/Product/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment'
 import *  as FaIcons from 'react-icons/fa'
 import { Modal, Button } from 'react-bootstrap'
+import { getPromotion } from "../../../services/Api/DetailsDepartments/get"
 
 function PurchasePC() {
 
@@ -18,6 +18,8 @@ function PurchasePC() {
     const [errorRecommendation, setErrorRecommendation] = useState(null)
     const [recommendations, setRecommendations] = useState([])
     const [check, setCheck] = useState(localStorage.getItem('disableRecommandation'))
+    const [errorPromotion, setErrorsPromotion] = useState(null)
+    const [promotions, setPromotion] = useState([])
 
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem("user"))
@@ -31,6 +33,13 @@ function PurchasePC() {
                         if (localStorage.getItem('disableRecommandation') === "false" || localStorage.getItem('disableRecommandation') === "null" || localStorage.getItem('disableRecommandation') === null) {
                             handleShow()
                         }
+                        getPromotion().then(({ data, success, errors }) => {
+                            if (success === true) {
+                                setPromotion(data)
+                            } else {
+                                setErrorsPromotion(errors)
+                            }
+                        })
                     } else {
                         setErrorRecommendation(errors)
                     }
@@ -95,10 +104,19 @@ function PurchasePC() {
                                                 item.carbonfootprint > 1000 && item.carbonfootprint <= 2000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
                                                     item.carbonfootprint > 2000 && item.carbonfootprint <= 3000 ? <div> <FaIcons.FaLeaf />  </div> : null}</a>
                                         </p>
-                                        {promotion.map(items => {
+                                        {promotions.map(items => {
                                             if (items.value === item.promotion) {
                                                 return <div>
-                                                    {item.promotion !== 1 ? <p key={item.value} style={{ color: "red" }}> Promotion : {items.label}</p> : null}
+                                                    {item.promotion !== 1 ?
+                                                        <p key={item.value} style={{ color: "red" }}> Promotion : -
+                                                        {(promotions || []).map(promo => {
+                                                            if (promo.value === item.promotion) {
+                                                                return promo.label
+                                                            } else {
+                                                                return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
+                                                            }
+                                                        })} %
+                                                        </p> : null}
                                                 </div>
                                             }
                                         })}
@@ -127,11 +145,19 @@ function PurchasePC() {
                                                                 recommandation.carbonfootprint > 1000 && recommandation.carbonfootprint <= 2000 ? <div> <FaIcons.FaLeaf /> <FaIcons.FaLeaf /> </div> :
                                                                     recommandation.carbonfootprint > 2000 && recommandation.carbonfootprint <= 3000 ? <div> <FaIcons.FaLeaf />  </div> : null}</a>
                                                         </p>
-                                                        {promotion.map(recommandations => {
-                                                            if (recommandations.id === recommandation.promotion) {
-                                                                return <p key={recommendations.id} style={{ color: "red" }}> Promotion : {recommandations.label}</p>
+                                                        <div>
+                                                            {recommandation.promotion === 1 ? null :
+                                                                <p key={recommandation.value} style={{ color: "red" }}> Promotion : -
+                                                                    {(promotions || []).map(promo => {
+                                                                    if (promo.value === recommandation.promotion) {
+                                                                        return promo.label
+                                                                    } else {
+                                                                        return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
+                                                                    }
+                                                                })} %
+                                                                </p>
                                                             }
-                                                        })}
+                                                        </div>
                                                         <p>Price: {recommandation.price}€</p>
                                                         <p>Expiration date: {moment(recommandation.expiration_Date).format('DD-MM-YYYY')}</p>
                                                         <button onClick={() => addCart(recommandation)}>Add to cart</button>

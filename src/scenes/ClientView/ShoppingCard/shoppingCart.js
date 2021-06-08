@@ -7,6 +7,7 @@ import { postShoppingCart } from '../../../services/Api/ShoopingCart/post'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from "react-router-dom"
 import { Modal, Button } from 'react-bootstrap'
+import { getPromotion } from "../../../services/Api/DetailsDepartments/get"
 
 export class ShoppingCart extends Component {
     static contextType = DataContext;
@@ -16,6 +17,8 @@ export class ShoppingCart extends Component {
         success: null,
         successSend: null,
         show: null,
+        promotions: [],
+        errorPromotion: null
     }
 
     componentDidMount() {
@@ -25,6 +28,13 @@ export class ShoppingCart extends Component {
         } else {
             this.setState({ success: true })
         }
+        getPromotion().then(({ data, success, errors }) => {
+            if (success === true) {
+                this.setState({ promotions: data })
+            } else {
+                this.setState({ errorPromotion: errors })
+            }
+        })
     }
 
     handleClose = () => this.setState({ show: false });
@@ -100,11 +110,17 @@ export class ShoppingCart extends Component {
                                         </td>
                                         <td> {Math.round(produits.price * produits.quantity * 100) / 100} € </td>
                                         <td>
-                                            {promotion.map(promotionInfo => {
-                                                if (promotionInfo.value === produits.promotion) {
-                                                    return promotionInfo.label
-                                                }
-                                            })}
+                                            {produits.promotion === 1 ? null :
+                                                <p key={produits.value} style={{ color: "red" }}>
+                                                    {(this.state.promotions || []).map(promo => {
+                                                        if (promo.value === produits.promotion) {
+                                                            return promo.label
+                                                        } else {
+                                                            return this.state.errorPromotion !== null ? <p style={{ color: "red" }}>{this.state.errorPromotion}</p> : ""
+                                                        }
+                                                    })} %
+                                                </p>
+                                            }
                                         </td>
                                         <td>
                                             <button className="btn btn-primary" onClick={() => reduction(produits.id)}> - </button>
