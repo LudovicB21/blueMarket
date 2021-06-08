@@ -54,6 +54,8 @@ function Stats() {
         localStorage.setItem("lessProduct", JSON.stringify(lessProduct))
     }
 
+    console.log(statistics)
+
     return (
         <div>
             <div>
@@ -64,13 +66,26 @@ function Stats() {
                 {error !== null ? <p style={{ color: "red" }}>{error.GetUserCart}</p> : ""}
                 {loading === true && loadingLess === true ? <CircularProgress />
                     : <div>
-                        <h2> Average spend:</h2>
-                        <div style={{ border: "solid", borderRadius: "5%", borderColor: "gray" }}>
-                            <div style={{ margin: "5px" }}>
+                        <div className="row">
+                            <h2 style={{ marginLeft: "1%" }}> <strong> Average spend: </strong></h2>
+                            <div className="col-sm form-group" style={{ margin: "5px" }}>
                                 <h3>{statistics?.MeanCartPrice}€</h3>
                             </div>
-                        </div> <br></br>
-                        <h2> Advice for moving departments :</h2>
+                        </div>
+                        <div className="row">
+                            <h2 style={{ marginLeft: "1%" }}> <strong>Total Cart: </strong> </h2>
+                            <div className="col-sm form-group" style={{ margin: "5px" }}>
+                                <h3>{statistics?.totalcart}</h3>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <h2 style={{ marginLeft: "1%" }}> <strong> Total Customers register :</strong></h2>
+                            <div className="col-sm form-group" style={{ margin: "5px" }}>
+                                <h3>{statistics?.totalcustomer}</h3>
+                            </div>
+                        </div>
+                        <br></br>
+                        <h2> <strong> Advice for moving departments :</strong></h2>
                         <div style={{ margin: "5px" }}>
                             <Link style={{ textDecoration: "none" }} to={{ pathname: "/department" }}>
                                 <button className="btn btn-primary"> Go to departments</button>
@@ -83,7 +98,7 @@ function Stats() {
                             </div>
                         </div>
                         <br></br>
-                        <h2>Best product sell :</h2>
+                        <h2><strong> Best product sell :</strong></h2>
                         <div style={{ border: "solid", borderRadius: "3%", borderColor: "gray" }}>
                             {JSON.parse(localStorage.getItem("statistics")).MeanCartProduct ? <PolarArea
                                 data={{
@@ -124,7 +139,7 @@ function Stats() {
                             /> : null}
                         </div>
                         <br></br>
-                        <h2> The least sold products :</h2>
+                        <h2> <strong> The least sold products :</strong></h2>
                         {errorsLess !== null ? <p style={{ color: "red" }}>{errorsLess}</p> :
                             <div>
                                 <div style={{ margin: "5px" }}>
