@@ -29,12 +29,14 @@ export class DataProvider extends Component {
         const { cart } = this.state;
         const res = cart.reduce((prev, item) => {
             let total = prev + (item.price * item.quantity);
-            let calcul = this.state.promotions.map(promo => {
-                if (promo.value === item.promotion) {
-                    let x = Number(promo.label)
-                    let pourcentage = 1 - `0.${x}`
-                    return pourcentage
-                }
+            let calcul = this.state.promotions.filter(prom => {
+                if (prom.value === item.promotion && item.promotion !== 1) {
+                    return true
+                } return false
+            }).map(promo => {
+                let x = Number(promo.label)
+                let pourcentage = 1 - `0.${x}`
+                return pourcentage
             })
             console.log(calcul)
             return total
