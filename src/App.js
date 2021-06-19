@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import React, { useState } from 'react'
-import PurchasePC from './scenes/ClientView/PurchasePC/purchasePC'
+import Market from './scenes/ClientView/Market/Market'
 import Product from './scenes/ProducerView/Producer/Products'
 import LoginV2 from "./scenes/login/loginV2"
 import RegisterV2 from "./scenes/register/registerV2"
@@ -41,7 +41,7 @@ function App() {
             <Route path="/fridge" component={Fridge} />
             <Route path="/profile" component={Profile} />
             <Route path="/department" component={Spokes} />
-            <Route path="/market" component={PurchasePC} />
+            <Route path="/market" component={Market} />
             <Route path="/transition" component={Transition} />
             <Route path="/shoppingCart" component={ShoppingCart} />
             <Route path="/products" component={Product} />

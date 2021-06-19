@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import NavBar from '../../NavBar/NavBar'
-import "./purchasePC.css"
+import "./Market.css"
 import { DataContext } from '../../../stores/Context'
 import { getProducts, getRecommandationsForOneClient } from '../../../services/Api/Product/get'
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,7 +9,7 @@ import *  as FaIcons from 'react-icons/fa'
 import { Modal, Button } from 'react-bootstrap'
 import { getPromotion } from "../../../services/Api/DetailsDepartments/get"
 
-function PurchasePC() {
+function Market() {
 
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -182,4 +182,4 @@ function PurchasePC() {
     )
 }
 
-export default PurchasePC
+export default Market
