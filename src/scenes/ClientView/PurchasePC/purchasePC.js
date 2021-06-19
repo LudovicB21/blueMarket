@@ -33,15 +33,16 @@ function PurchasePC() {
                         if (localStorage.getItem('disableRecommandation') === "false" || localStorage.getItem('disableRecommandation') === "null" || localStorage.getItem('disableRecommandation') === null) {
                             handleShow()
                         }
-                        getPromotion().then(({ data, success, errors }) => {
-                            if (success === true) {
-                                setPromotion(data)
-                            } else {
-                                setErrorsPromotion(errors)
-                            }
-                        })
                     } else {
                         setErrorRecommendation(errors)
+                    }
+                })
+                getPromotion().then(({ data, success, errors }) => {
+                    if (success === true) {
+                        console.log(data)
+                        setPromotion(data)
+                    } else {
+                        setErrorsPromotion(errors)
                     }
                 })
             } else {
@@ -109,13 +110,13 @@ function PurchasePC() {
                                                 return <div>
                                                     {item.promotion !== 1 ?
                                                         <p key={item.value} style={{ color: "red" }}> Promotion : -
-                                                        {(promotions || []).map(promo => {
-                                                            if (promo.value === item.promotion) {
-                                                                return promo.label
-                                                            } else {
-                                                                return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
-                                                            }
-                                                        })} %
+                                                            {(promotions || []).map(promo => {
+                                                                if (promo.value === item.promotion) {
+                                                                    return promo.label
+                                                                } else {
+                                                                    return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
+                                                                }
+                                                            })} %
                                                         </p> : null}
                                                 </div>
                                             }
@@ -149,12 +150,12 @@ function PurchasePC() {
                                                             {recommandation.promotion === 1 ? null :
                                                                 <p key={recommandation.value} style={{ color: "red" }}> Promotion : -
                                                                     {(promotions || []).map(promo => {
-                                                                    if (promo.value === recommandation.promotion) {
-                                                                        return promo.label
-                                                                    } else {
-                                                                        return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
-                                                                    }
-                                                                })} %
+                                                                        if (promo.value === recommandation.promotion) {
+                                                                            return promo.label
+                                                                        } else {
+                                                                            return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
+                                                                        }
+                                                                    })} %
                                                                 </p>
                                                             }
                                                         </div>

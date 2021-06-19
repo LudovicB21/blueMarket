@@ -80,8 +80,8 @@ export const SidebarData = [
         role: 0
     },
     {
-        title: 'PurchasePC',
-        path: '/purchasePC',
+        title: 'Market',
+        path: '/market',
         icon: <RiIcons.RiComputerLine />,
         cName: 'nav-text',
         role: 1

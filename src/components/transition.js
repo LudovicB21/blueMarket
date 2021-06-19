@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 function Transition() {
     const sizeScreen = () => {
         if (window.innerWidth > 768) {
-            return <Redirect to="/purchasePC" />
+            return <Redirect to="/market" />
         } else if (window.innerWidth < 768) {
             return <Redirect to="/recommendations" />
         }
