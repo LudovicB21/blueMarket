@@ -123,13 +123,13 @@ export class Scanner extends Component {
                         </div>
                         {product.promotion === 1 ? null : <div className="col-sm form-group">
                             <label htmlFor="email">Promotion :</label>
-                            <p className="form-control"> {(this.state.promotions || []).map(promo => {
+                            <p className="form-control text-danger"> - {(this.state.promotions || []).map(promo => {
                                 if (promo.value === product.promotion) {
                                     return promo.label
                                 } else {
                                     return null
                                 }
-                            })}</p>
+                            })} % </p>
                         </div>}
                     </div>
                     <div className="row">
@@ -159,7 +159,7 @@ export class Scanner extends Component {
                     <Modal.Footer>
                         <Button variant="success" onClick={() => addCart(product)}>
                             Add
-                    </Button>
+                        </Button>
                         <Button variant="primary" onClick={this.handleClose}>
                             Continue
                         </Button>
