@@ -233,13 +233,13 @@ function DetailsSpokes(props) {
                                             {expiration(moment(produits.expiration_Date).format('DD-MM-YYYY'))}
                                         </td>
                                         <td>
-                                            {(promotions || []).map(promo => {
+                                            - {(promotions || []).map(promo => {
                                                 if (promo.value === produits.promotion) {
                                                     return promo.label
                                                 } else {
                                                     return errorPromotion !== null ? <p style={{ color: "red" }}>{errorPromotion}</p> : ""
                                                 }
-                                            })}
+                                            })} %
                                         </td>
                                         <td>
                                             {deleteButton(moment(produits.expiration_Date).format('DD-MM-YYYY')) === true ? <button className="btn btn-danger" data-toggle="tooltip" onClick={e => deleteProductAndReset(produits.id)} title="Delete" > <BsTrash /></button> : null}&nbsp;&nbsp;&nbsp;
@@ -281,7 +281,7 @@ function DetailsSpokes(props) {
                                                 <Modal.Footer>
                                                     <Button variant="secondary" onClick={handleCloseDetails}>
                                                         Close
-                                            </Button>
+                                                    </Button>
                                                 </Modal.Footer>
                                             </Modal>
                                             <Modal size="lg" show={showReplenishment} onHide={handleCloseReplenishment}>
@@ -301,10 +301,10 @@ function DetailsSpokes(props) {
                                                 <Modal.Footer>
                                                     <Button variant="primary" onClick={changeReplenishmentQuantities}>
                                                         Send
-                                            </Button>
+                                                    </Button>
                                                     <Button variant="secondary" onClick={handleCloseReplenishment}>
                                                         Close
-                                            </Button>
+                                                    </Button>
                                                 </Modal.Footer>
                                             </Modal>
                                             <Modal size="lg" show={showReplenishmentInventory} onHide={handleCloseReplenishmentInventory}>
@@ -324,10 +324,10 @@ function DetailsSpokes(props) {
                                                 <Modal.Footer>
                                                     <Button variant="primary" onClick={changeReplenishmentQuantitiesInventory}>
                                                         Send
-                                            </Button>
+                                                    </Button>
                                                     <Button variant="secondary" onClick={handleCloseReplenishmentInventory}>
                                                         Close
-                                            </Button>
+                                                    </Button>
                                                 </Modal.Footer>
                                             </Modal>
                                             <Modal size="lg" show={showPromotion} onHide={handleClosePromotion}>
@@ -358,10 +358,10 @@ function DetailsSpokes(props) {
                                                 <Modal.Footer>
                                                     <Button variant="primary" onClick={e => addNewPromotion()}>
                                                         Save
-                                                        </Button>
+                                                    </Button>
                                                     <Button variant="secondary" onClick={handleClosePromotion}>
                                                         Close
-                                                        </Button>
+                                                    </Button>
                                                 </Modal.Footer>
                                             </Modal>
                                         </td>

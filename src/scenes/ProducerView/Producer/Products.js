@@ -39,7 +39,7 @@ function Products() {
                 setLoading(true)
             } else {
                 setData(false)
-                setLoading(false)
+                setLoading(true)
             }
         })
     }, [sucess])
@@ -142,7 +142,46 @@ function Products() {
                 <div className="mx-5 my-5">
                     <h1> Inventory </h1>
                     <button className="btn btn-primary" onClick={e => handleShowNewProduct()}> New product </button> <br></br> <br></br>
-                    {loading == false ? <CircularProgress />
+                    <Modal size="lg" show={showNewProduct} onHide={handleCloseNewProduct}>
+                        <Modal.Header closeButton>
+                            <Modal.Title> Add new product </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="row">
+                                <div className="col-sm form-group">
+                                    <label htmlFor="Name"> Name :</label>
+                                    <input type="text" className="form-control"></input>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm form-group">
+                                    <label htmlFor="Expiration_Date"> Expiration Date :</label>
+                                    <input type="text" className="form-control"></input>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm form-group">
+                                    <label htmlFor="stock"> Stock :</label>
+                                    <input type="text" className="form-control"></input>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm form-group">
+                                    <label htmlFor="Next_Delivery"> Next delivery :</label>
+                                    <input type="text" className="form-control"></input>
+                                </div>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="primary">
+                                Send
+                            </Button>
+                            <Button variant="secondary" onClick={handleCloseNewProduct}>
+                                Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                    {loading === false ? <CircularProgress />
                         : null}
                     <table className="table">
                         <thead>
@@ -167,8 +206,8 @@ function Products() {
                                         <button className="btn btn-primary" onClick={() => handleShow(produits)}>
                                             <AiIcons.AiOutlineZoomIn />
                                         </button> &nbsp;&nbsp;&nbsp;
-                                    <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentProducer(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp;
-                                    <Modal size="lg" show={show} onHide={handleClose}>
+                                        <button className="btn btn-secondary" data-toggle="tooltip" onClick={e => handleShowReplenishmentProducer(produits)} title="Replenishment Inventory"> <FaIcons.FaWarehouse /> </button> &nbsp;&nbsp;&nbsp;
+                                        <Modal size="lg" show={show} onHide={handleClose}>
                                             <Modal.Header closeButton>
                                                 <Modal.Title> {details.name} </Modal.Title>
                                             </Modal.Header>
@@ -197,7 +236,7 @@ function Products() {
                                                 </Button>
                                                 <Button variant="secondary" onClick={handleClose}>
                                                     Close
-                                            </Button>
+                                                </Button>
                                             </Modal.Footer>
                                         </Modal>
                                         <Modal size="lg" show={showReplenishmentProducer} onHide={handleCloseReplenishmentProducer}>
@@ -217,49 +256,10 @@ function Products() {
                                             <Modal.Footer>
                                                 <Button variant="primary" onClick={changeReplenishmentQuantitiesProducer}>
                                                     Send
-                                            </Button>
+                                                </Button>
                                                 <Button variant="secondary" onClick={handleCloseReplenishmentProducer}>
                                                     Close
-                                            </Button>
-                                            </Modal.Footer>
-                                        </Modal>
-                                        <Modal size="lg" show={showNewProduct} onHide={handleCloseNewProduct}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title> Add new product </Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <div className="row">
-                                                    <div className="col-sm form-group">
-                                                        <label htmlFor="Name"> Name :</label>
-                                                        <input type="text" className="form-control"></input>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-sm form-group">
-                                                        <label htmlFor="Expiration_Date"> Expiration Date :</label>
-                                                        <input type="text" className="form-control"></input>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-sm form-group">
-                                                        <label htmlFor="stock"> Stock :</label>
-                                                        <input type="text" className="form-control"></input>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-sm form-group">
-                                                        <label htmlFor="Next_Delivery"> Next delivery :</label>
-                                                        <input type="text" className="form-control"></input>
-                                                    </div>
-                                                </div>
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="primary">
-                                                    Send
-                                            </Button>
-                                                <Button variant="secondary" onClick={handleCloseNewProduct}>
-                                                    Close
-                                            </Button>
+                                                </Button>
                                             </Modal.Footer>
                                         </Modal>
                                         <button className="btn btn-danger" onClick={e => removeProduct(produits.id)}>
